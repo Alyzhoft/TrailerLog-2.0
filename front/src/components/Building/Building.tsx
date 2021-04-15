@@ -1,4 +1,3 @@
-import { type } from 'node:os';
 import React from 'react';
 import DockDoorNumber from './DockDoorNumber';
 import DockDoorSpots from './DockDoorSpots';
