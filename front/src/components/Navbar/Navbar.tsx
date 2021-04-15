@@ -9,7 +9,7 @@ export default function Navbar() {
 				</a>
 			</div>
 			<div className="flex">
-				<button className="mx-5 text-xl hover:text-white">Home</button>
+				<button className="mx-5 text-xl hover:text-white ">Home</button>
 				<button className="mx-5 text-xl hover:text-white">Home</button>
 				<button className="mx-5 text-xl hover:text-white">Home</button>
 				<button className="mx-5 text-xl hover:text-white">Home</button>
