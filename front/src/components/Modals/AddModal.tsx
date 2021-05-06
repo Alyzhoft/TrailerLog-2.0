@@ -1,16 +1,16 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import ComboBox from './ComboBox';
-import Input from './Input';
-import TextArea from './TextArea';
-import Button from './Button';
+import ComboBox from '../ui/ComboBox';
+import Input from '../ui/Input';
+import TextArea from '../ui/TextArea';
+import Button from '../ui/Button';
 
 type Props = {
 	open: boolean;
 	close: () => void;
 };
 
-export default function Modal({ open, close }: Props) {
+export default function AddModal({ open, close }: Props) {
 	return (
 		<>
 			<Transition show={open} as={Fragment}>

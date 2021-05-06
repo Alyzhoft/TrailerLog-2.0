@@ -10,7 +10,7 @@ const doors = Array.from({ length: 50 }, (_, index) => index + 1);
 const trailers = Array.from({ length: 50 }, (_, index) => index + 1);
 const spots = Array.from({ length: 80 }, (_, index) => index + 1);
 
-function Home() {
+export default function RVAC() {
 	return (
 		<div style={screenHeight} className="flex flex-col justify-between h-screen">
 			<Lot spots={spots} />
@@ -18,5 +18,3 @@ function Home() {
 		</div>
 	);
 }
-
-export default Home;
