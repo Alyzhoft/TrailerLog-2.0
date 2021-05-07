@@ -7,10 +7,10 @@ type LotProps = {
 
 export default function Lot({ spots }: LotProps) {
 	return (
-		<div className=" bg-red-300 h-full">
-			<div className="flex flex-wrap">
+		<div className="">
+			<div className="flex flex-wrap mx-4">
 				{spots.map((spot: number) => {
-					return <LotSpot spot={spot} />;
+					return <LotSpot key={spot} spot={spot} />;
 				})}
 			</div>
 		</div>

@@ -14,7 +14,7 @@ export default function AddModal({ open, close }: Props) {
 	return (
 		<>
 			<Transition show={open} as={Fragment}>
-				<Dialog as="div" className="fixed inset-x-0 -top-64 z-10 overflow-y-auto" static open={open} onClose={close}>
+				<Dialog as="div" className="fixed inset-x-0 -top-56 z-10 overflow-y-auto" static open={open} onClose={close}>
 					<div className="min-h-screen px-4 text-center">
 						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
 							<Dialog.Overlay className="fixed inset-0" />
@@ -39,10 +39,10 @@ export default function AddModal({ open, close }: Props) {
 								>
 									<div className="mt-3 flex justify-between">
 										<div>
-											<ComboBox labelName={'Category'} options={['TEST', 'TEST']} />
+											<ComboBox labelName={'Category'} options={['TEST', 'TEST2']} />
 										</div>
 										<div>
-											<ComboBox labelName={'Carrier'} options={['TEST', 'TEST']} />
+											<ComboBox labelName={'Carrier'} options={['TEST', 'TEST2']} />
 										</div>
 									</div>
 
