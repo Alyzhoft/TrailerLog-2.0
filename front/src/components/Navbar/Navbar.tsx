@@ -10,13 +10,13 @@ export default function Navbar() {
 			</div>
 			<div className="flex">
 				<button className="mx-5 text-xl hover:text-white">
-					<Link to="/">RMAN</Link>
+					<Link to="/requests">Requests</Link>
+				</button>
+				<button className="mx-5 text-xl hover:text-white">
+					<Link to="/">RVAC</Link>
 				</button>
 				<button className="mx-5 text-xl hover:text-white">
 					<Link to="/rman">RMAN</Link>
-				</button>
-				<button className="mx-5 text-xl hover:text-white">
-					<Link to="/requests">Requests</Link>
 				</button>
 			</div>
 		</div>

@@ -8,6 +8,7 @@ module.exports = {
 		backgroundColor: ['responsive', 'hover', 'focus', 'odd', 'even'],
 		borderWidth: ['responsive', 'last', 'hover', 'focus'],
 		margin: ['responsive', 'last'],
+		cursor: ['hover', 'focus'],
 	},
 	plugins: [],
 };
