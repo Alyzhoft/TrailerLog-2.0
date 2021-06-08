@@ -32,5 +32,3 @@ export default function Table({ header, children }: { header: React.ReactNode; c
 		</table>
 	);
 }
-
-//(item: T, i: number) =>

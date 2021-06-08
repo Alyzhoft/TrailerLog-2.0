@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Trailer {
+  id              Int        @id @default(autoincrement())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  trailerNumber   String     @db.VarChar(255)
+  carrier         String
+  category        String
+  trailerLocation String
+  comments        String?
+  Requests        Requests[]
+}
+
+model Requests {
+  id                Int       @id @default(autoincrement())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  out               String?
+  inCarrier         String?
+  inTrailerNumber   String?
+  completed         Boolean   @default(false)
+  completedTime     DateTime?
+  urgent            Boolean   @default(false)
+  dock              String?
+  outTrailerNumber  String?
+  outCarrier        String?
+  special           String?
+  outCategory       String?
+  inTrailerLocation String?
+  trailer           Trailer   @relation(fields: [trailerId], references: [id])
+  trailerId         Int       @unique
+}
