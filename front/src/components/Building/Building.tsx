@@ -9,13 +9,13 @@ type BuildingProps = {
 
 export default function Building({ doors, trailers }: BuildingProps) {
 	return (
-		<div>
-			<div className="flex mx-4 h-24">
-				{trailers.map((trailer: number) => {
-					return <DockDoorSpots key={trailer} trailerNumber={trailer} />;
+		<div className="mb-5">
+			<div className="flex justify-between mx-4 h-28">
+				{doors.map((doors: number) => {
+					return <DockDoorSpots key={doors} trailerLocation={doors} />;
 				})}
 			</div>
-			<div className="flex mb-4 mx-4 h-10 border-black border-2 shadow-md">
+			<div className="flex justify-between mb-4 mx-4 h-10 border-black border-2 shadow-md">
 				{doors.map((door: number) => {
 					return <DockDoorNumber key={door} door={door} />;
 				})}

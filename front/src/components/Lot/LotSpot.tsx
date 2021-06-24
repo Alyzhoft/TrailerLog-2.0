@@ -14,7 +14,7 @@ export default function LotSpot({ spot }: lotSpotProp) {
 
 	return (
 		<div>
-			<AddModal open={open} close={() => setOpen(false)} />
+			{open ? <AddModal open={open} close={() => setOpen(false)} trailerLocation={spot} /> : <></>}
 			<div className="ml-4 font-bold">{spot}</div>
 			<button style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }} className="w-8 h-28 mx-2 mt-2 rounded-md bg-blue-500 shadow-md" onClick={handleClick}>
 				{spot}

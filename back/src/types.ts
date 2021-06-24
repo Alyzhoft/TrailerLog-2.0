@@ -1,19 +1,10 @@
-// User Types
-type loginData = {
-	email: string;
-	password: string;
-};
-
-type signupData = {
-	email: string;
-	password: string;
-	name?: string;
-};
-
-// Meds Types
-type getData = {
-	id: number;
-};
+interface trailer {
+	trailerNumber: string;
+	carrier: string;
+	category: string;
+	trailerLocation: string;
+	comments: string;
+}
 
 type postData = {
 	trailerNumber: string;

@@ -12,7 +12,7 @@ const spots = Array.from({ length: 20 }, (_, index) => index + 1);
 
 export default function RVAC() {
 	return (
-		<div style={screenHeight} className="flex flex-col justify-between h-screen">
+		<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
 			<Lot spots={spots} />
 			<Building doors={doors} trailers={trailers} />
 		</div>

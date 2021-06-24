@@ -10,19 +10,19 @@ export async function getTrailers() {
 	}
 }
 
-export async function addTrailer(trailerNumber: string, carrier: string, category: string, trailerLocation: string, comments: string) {
+export async function addTrailer(trailer: trailer) {
 	try {
-		const trailer = await prisma.trailer.create({
+		const res = await prisma.trailer.create({
 			data: {
-				trailerNumber,
-				carrier,
-				category,
-				trailerLocation,
-				comments,
+				trailerNumber: trailer.trailerNumber.toString(),
+				carrier: trailer.carrier,
+				category: trailer.category,
+				trailerLocation: trailer.trailerLocation.toString(),
+				comments: trailer.comments,
 			},
 		});
 
-		return trailer;
+		return res;
 	} catch (error) {
 		return error;
 	}
@@ -38,6 +38,7 @@ export async function updateTrailer(trailerId: number, trailerNumber: string, ca
 			data: {
 				trailerNumber,
 				carrier,
+
 				category,
 				comments,
 			},

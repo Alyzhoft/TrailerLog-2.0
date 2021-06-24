@@ -38,12 +38,12 @@ export default function Modal({ open, close }: Props) {
 									}}
 								>
 									<div className="mt-3 flex justify-between">
-										<div>
+										{/* <div>
 											<ComboBox labelName={'Category'} options={['TEST', 'TEST']} />
 										</div>
 										<div>
 											<ComboBox labelName={'Carrier'} options={['TEST', 'TEST']} />
-										</div>
+										</div> */}
 									</div>
 
 									<div className="flex justify-between mt-3">
