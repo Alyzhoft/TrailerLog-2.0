@@ -10,7 +10,7 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.post('/', async (req: Request, res: Response) => {
 	const data: postData = req.body;
-	const trailer = await addTrailer(data.trailerNumber, data.carrier, data.category, data.trailerLocation, data.comments);
+	const trailer = await addTrailer(data);
 	res.json(trailer);
 });
 
