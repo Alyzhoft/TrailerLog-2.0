@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import http from 'http';
-import { addTrailer } from './controller/trailer';
+import { addTrailer, getTrailers } from './controller/trailer';
 
 const app = express();
 const server = http.createServer(app);
@@ -28,7 +28,9 @@ const io = new Server(server, {
 });
 
 io.on('connection', (Socket) => {
-	Socket.on('addTrailer', (trailer: trailer) => {
-		const res = addTrailer(trailer);
+	Socket.on('addTrailer', async (trailer: trailer) => {
+		const res = await addTrailer(trailer);
+		const trailers = await getTrailers();
+		Socket.emit('returnTrailerAdded', { newTrailer: res, trailers });
 	});
 });

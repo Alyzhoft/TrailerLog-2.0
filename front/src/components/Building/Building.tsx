@@ -7,9 +7,9 @@ type BuildingProps = {
 	trailers: number[];
 };
 
-export default function Building({ doors, trailers }: BuildingProps) {
+export default function Building({ doors, trailers, ...props }: BuildingProps) {
 	return (
-		<div className="mb-5">
+		<div className="mb-5" {...props}>
 			<div className="flex justify-between mx-4 h-28">
 				{doors.map((doors: number) => {
 					return <DockDoorSpots key={doors} trailerLocation={doors} />;

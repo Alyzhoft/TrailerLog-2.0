@@ -8,7 +8,7 @@ const screenHeight = {
 
 export default function Requests() {
 	return (
-		<div style={screenHeight} className="m-12 rounded-md overflow-y-auto">
+		<div style={screenHeight} className="min-w-full my-12 rounded-md overflow-y-auto">
 			<Table
 				header={
 					<>

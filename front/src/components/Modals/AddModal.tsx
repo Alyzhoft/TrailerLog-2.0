@@ -1,9 +1,10 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { Fragment, useContext, useState } from 'react';
 import ComboBox from '../ui/ComboBox';
 import Input from '../ui/Input';
 import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
+import Container from '../ui/Container';
 import { SocketContext } from '../../socket';
 
 type Props = {
@@ -25,10 +26,10 @@ export default function AddModal({ open, close, trailerLocation }: Props) {
 	return (
 		<>
 			<Transition show={open} as={Fragment}>
-				<Dialog as="div" className="fixed inset-x-0 -top-56 z-10 overflow-y-auto bg-opacity-75 bg-gray-300 h-screen" static open={open} onClose={close}>
+				<Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" static open={open} onClose={close}>
 					<div className="min-h-screen px-4 text-center">
 						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
-							<Dialog.Overlay className="fixed inset-0" />
+							<Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 						</Transition.Child>
 
 						{/* This element is to trick the browser into centering the modal contents. */}
@@ -48,8 +49,8 @@ export default function AddModal({ open, close, trailerLocation }: Props) {
 										close();
 									}}
 								>
-									<div className="mt-3 flex justify-between">
-										<div>
+									<div className=" md:flex justify-between">
+										<div className="w-full mx-1 mt-3">
 											<ComboBox
 												labelName={'Category'}
 												options={options}
@@ -59,14 +60,18 @@ export default function AddModal({ open, close, trailerLocation }: Props) {
 												}}
 											/>
 										</div>
-										<div>
+										<div className="w-full mx-1 mt-3">
 											<ComboBox labelName={'Carrier'} options={options} value={carrier} valueChange={(value) => setCarrier(value)} />
 										</div>
 									</div>
 
-									<div className="flex justify-between mt-3">
-										<Input labelText="Trailer Number" placeholder="Enter Trailer Number" value={trailerNumber} onChange={(e) => setTrailerNumber(e.currentTarget.value)} />
-										<Input labelText="Trailer Location" value={trailerLocation} disabled />
+									<div className="md:flex justify-between ">
+										<div className="w-full mx-1 mt-3">
+											<Input labelText="Trailer Number" placeholder="Enter Trailer Number" value={trailerNumber} onChange={(e) => setTrailerNumber(e.currentTarget.value)} />
+										</div>
+										<div className="w-full mx-1 mt-3">
+											<Input labelText="Trailer Location" value={trailerLocation} disabled />
+										</div>
 									</div>
 
 									<div className="mt-3">
