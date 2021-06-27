@@ -1,8 +1,11 @@
+import { TrailerLocation } from '@prisma/client';
+
 interface trailer {
 	trailerNumber: string;
 	carrier: string;
 	category: string;
-	trailerLocation: string;
+	trailerLocation: TrailerLocation;
+	spotNumber: string;
 	comments: string;
 }
 
@@ -10,7 +13,8 @@ type postData = {
 	trailerNumber: string;
 	carrier: string;
 	category: string;
-	trailerLocation: string;
+	trailerLocation: TrailerLocation;
+	spotNumber: string;
 	comments: string;
 };
 

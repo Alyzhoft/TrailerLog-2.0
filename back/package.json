@@ -5,6 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"watch": "tsc -w",
+		"deleteDB": "prisma migrate reset",
 		"dev": "nodemon dist/src/index.js",
 		"start": "ts-node src/index.ts"
 	},

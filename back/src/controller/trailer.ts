@@ -1,3 +1,4 @@
+import { Trailer } from '@prisma/client';
 import { prisma } from '../utils/prisma';
 
 export async function getTrailers() {
@@ -10,14 +11,15 @@ export async function getTrailers() {
 	}
 }
 
-export async function addTrailer(trailer: trailer) {
+export async function addTrailer(trailer: Trailer) {
 	try {
 		const res = await prisma.trailer.create({
 			data: {
 				trailerNumber: trailer.trailerNumber.toString(),
 				carrier: trailer.carrier,
 				category: trailer.category,
-				trailerLocation: trailer.trailerLocation.toString(),
+				trailerLocation: trailer.trailerLocation,
+				spotNumber: trailer.spotNumber.toString(),
 				comments: trailer.comments,
 			},
 		});

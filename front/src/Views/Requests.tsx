@@ -1,3 +1,4 @@
+import { RouteComponentProps } from '@reach/router';
 import Table, { TableRow, TableHeader, TableDataCell } from '../components/ui/Table';
 
 const requests = Array.from({ length: 30 }, (_, index) => index + 1);
@@ -6,7 +7,9 @@ const screenHeight = {
 	height: 'calc(100vh - 10.25rem)',
 };
 
-export default function Requests() {
+type Props = RouteComponentProps;
+
+export default function Requests({ path }: Props) {
 	return (
 		<div style={screenHeight} className="min-w-full my-12 rounded-md overflow-y-auto">
 			<Table

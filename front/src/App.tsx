@@ -1,23 +1,30 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Navbar from './components/Navbar/Navbar';
-import { RouteComponentProps, Router } from '@reach/router';
+import { Router } from '@reach/router';
 import { SocketContext } from './socket';
+import { getTrailers } from './utils/api';
 import RVAC from './Views/RVAC';
 import RMAN from './Views/RMAN';
 import Requests from './Views/Requests';
 import Container from './components/ui/Container';
 
-// import socket from './socket';
-
-let RVACRoute = (props: RouteComponentProps) => <RVAC />;
-let RMANRoute = (props: RouteComponentProps) => <RMAN />;
-let RequestsRoute = (props: RouteComponentProps) => <Requests />;
-
 function App() {
+	const [trailers, setTrailers] = useState([]);
+	//REST
+	useEffect(() => {
+		const fetchData = async () => {
+			const trailers = await getTrailers();
+			console.log(trailers);
+			setTrailers(trailers);
+		};
+		fetchData();
+	}, []);
+
+	//Socket
 	const socket = useContext(SocketContext);
 
 	socket.on('returnTrailerAdded', (trailer) => {
-		console.log(trailer);
+		setTrailers(trailer.trailers);
 	});
 
 	return (
@@ -25,9 +32,9 @@ function App() {
 			<Navbar />
 			<Container>
 				<Router>
-					<RVACRoute path="/" />
-					<RMANRoute path="/rman" />
-					<RequestsRoute path="/requests" />
+					<RVAC trailers={trailers} path="/" />
+					<RMAN trailers={trailers} path="/rman" />
+					<Requests path="/requests" />
 				</Router>
 			</Container>
 		</div>

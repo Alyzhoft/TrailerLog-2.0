@@ -10,14 +10,22 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum TrailerLocation {
+  PRIMARY
+  SECONDARY
+  RVAC
+  RMAN
+}
+
 model Trailer {
-  id              Int        @id @default(autoincrement())
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-  trailerNumber   String     @db.VarChar(255)
+  id              Int             @id @default(autoincrement())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  trailerNumber   String          @db.VarChar(255)
   carrier         String
   category        String
-  trailerLocation String
+  trailerLocation TrailerLocation
+  spotNumber      String
   comments        String?
   Requests        Requests[]
 }

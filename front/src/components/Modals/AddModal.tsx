@@ -4,18 +4,25 @@ import ComboBox from '../ui/ComboBox';
 import Input from '../ui/Input';
 import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
-import Container from '../ui/Container';
 import { SocketContext } from '../../socket';
+
+enum TrailerLocation {
+	PRIMARY = 'PRIMARY',
+	SECONDARY = 'SECONDARY',
+	RVAC = 'RVAC',
+	RMAN = 'RMAN',
+}
 
 type Props = {
 	open: boolean;
-	trailerLocation: number;
+	spotNumber: number;
+	trailerLocation?: TrailerLocation;
 	close: () => void;
 };
 
 const options = ['TEST', 'TEST2'];
 
-export default function AddModal({ open, close, trailerLocation }: Props) {
+export default function AddModal({ open, close, spotNumber, trailerLocation = TrailerLocation.RVAC }: Props) {
 	const [trailerNumber, setTrailerNumber] = useState('');
 	const [category, setCategory] = useState(options[0]);
 	const [carrier, setCarrier] = useState(options[0]);
@@ -45,7 +52,7 @@ export default function AddModal({ open, close, trailerLocation }: Props) {
 								<form
 									onSubmit={(e) => {
 										e.preventDefault();
-										socket.emit('addTrailer', { carrier, category, trailerNumber, comments, trailerLocation });
+										socket.emit('addTrailer', { carrier, category, trailerNumber, comments, spotNumber, trailerLocation });
 										close();
 									}}
 								>
@@ -70,7 +77,7 @@ export default function AddModal({ open, close, trailerLocation }: Props) {
 											<Input labelText="Trailer Number" placeholder="Enter Trailer Number" value={trailerNumber} onChange={(e) => setTrailerNumber(e.currentTarget.value)} />
 										</div>
 										<div className="w-full mx-1 mt-3">
-											<Input labelText="Trailer Location" value={trailerLocation} disabled />
+											<Input labelText="Trailer Location" value={spotNumber} disabled />
 										</div>
 									</div>
 
