@@ -5,6 +5,7 @@ import Input from '../ui/Input';
 import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
 import { SocketContext } from '../../utils/socket';
+import { trailer } from '../../types';
 
 enum TrailerLocation {
 	PRIMARY = 'PRIMARY',
@@ -17,18 +18,22 @@ type Props = {
 	open: boolean;
 	spotNumber: number;
 	trailerLocation?: TrailerLocation;
+	trailer: trailer;
 	close: () => void;
 };
 
 const options = ['TEST', 'TEST2'];
 
-export default function AddModal({ open, close, spotNumber, trailerLocation = TrailerLocation.RVAC }: Props) {
-	const [trailerNumber, setTrailerNumber] = useState('');
-	const [category, setCategory] = useState(options[0]);
-	const [carrier, setCarrier] = useState(options[0]);
-	const [comments, setComments] = useState('');
+export default function AddModal({ open, close, spotNumber, trailerLocation = TrailerLocation.RVAC, trailer }: Props) {
+	const [id, setId] = useState(trailer.id);
+	const [trailerNumber, setTrailerNumber] = useState(trailer.trailerNumber);
+	const [category, setCategory] = useState(trailer.category);
+	const [carrier, setCarrier] = useState(trailer.category);
+	const [comments, setComments] = useState(trailer.comments);
 
 	const socket = useContext(SocketContext);
+
+	console.log(trailer);
 
 	return (
 		<>
@@ -46,15 +51,13 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
 							<div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
 								<Dialog.Title as="h3" className=" text-2xl font-large leading-6 text-gray-900">
-									Add Trailer
+									Edit Trailer
 								</Dialog.Title>
 
 								<form
 									onSubmit={(e) => {
 										e.preventDefault();
-										console.log(comments);
-
-										socket.emit('addTrailer', { carrier, category, trailerNumber, comments, spotNumber, trailerLocation });
+										socket.emit('updateTrailer', { id, carrier, category, trailerNumber, comments, spotNumber, trailerLocation });
 										close();
 									}}
 								>
@@ -84,20 +87,27 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 									</div>
 
 									<div className="mt-3">
-										<TextArea
-											labelText="Comments"
-											value={comments}
-											onChange={(e) => {
-												setComments(e.target.value);
-											}}
-										/>
+										<TextArea labelText="Comments" value={comments} onChange={(e) => setComments(e.target.value)} />
 									</div>
 
 									<div className="mt-4 flex">
-										<Button type="submit">Add</Button>
+										<Button type="submit">Save</Button>
 										<div className="ml-2">
-											<Button variant="danger" close={close}>
+											<Button variant="primary" close={close}>
 												Close
+											</Button>
+										</div>
+										<div className="ml-2">
+											<Button
+												variant="danger"
+												close={close}
+												onClick={() => {
+													socket.emit('deleteTrailer', { id });
+
+													close();
+												}}
+											>
+												Delete
 											</Button>
 										</div>
 									</div>

@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import http from 'http';
-import { addTrailer, getTrailers } from './controller/trailer';
-import { Trailer } from '@prisma/client';
+import { addTrailer, getTrailers, deleteTrailer, updateTrailer } from './controller/trailer';
+import { Trailer, TrailerLocation } from '@prisma/client';
 
 const app = express();
 const server = http.createServer(app);
@@ -32,6 +32,21 @@ io.on('connection', (Socket) => {
 	Socket.on('addTrailer', async (trailer: Trailer) => {
 		const res = await addTrailer(trailer);
 		const trailers = await getTrailers();
-		Socket.emit('returnTrailerAdded', { newTrailer: res, trailers });
+		//If error send do socket.emit
+		io.emit('returnTrailerAdded', { newTrailer: res, trailers });
+	});
+
+	Socket.on('updateTrailer', async (trailer: Trailer) => {
+		const res = await updateTrailer(trailer);
+		const trailers = await getTrailers();
+		//If error send do socket.emit
+		io.emit('returnTrailerUpdated', { newTrailer: res, trailers });
+	});
+
+	Socket.on('deleteTrailer', async (trailer: Trailer) => {
+		const res = await deleteTrailer(trailer.id);
+		const trailers = await getTrailers();
+		//If error send do socket.emit
+		io.emit('returnTrailerDeleted', { newTrailer: res, trailers });
 	});
 });

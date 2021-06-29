@@ -2,7 +2,7 @@ import React from 'react';
 import { RouteComponentProps } from '@reach/router';
 import Lot from '../components/Lot/Lot';
 import Building from '../components/Building/Building';
-import { trailer } from '../types';
+import { trailer, TrailerLocation } from '../types';
 
 const screenHeight = {
 	height: 'calc(100vh - 5.75rem)',
@@ -21,7 +21,7 @@ export default function RVAC({ trailers }: Props) {
 		<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
 			<Lot spots={spots} />
 			<div className="hidden building:block">
-				<Building doors={doors} trailers={trailers} />
+				<Building dock={TrailerLocation.RMAN} doors={doors} trailers={trailers} />
 			</div>
 			<div className="building:hidden w-full h-full mt-5 ">
 				<h1 className="text-4xl font-bold">RMAN</h1>

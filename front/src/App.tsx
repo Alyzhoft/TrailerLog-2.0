@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import { Router } from '@reach/router';
-import { SocketContext } from './socket';
+import { SocketContext } from './utils/socket';
 import { getTrailers } from './utils/api';
 import RVAC from './Views/RVAC';
 import RMAN from './Views/RMAN';
@@ -21,9 +21,19 @@ function App() {
 	}, []);
 
 	//Socket
-	const socket = useContext(SocketContext);
+	const io = useContext(SocketContext);
 
-	socket.on('returnTrailerAdded', (trailer) => {
+	io.connect();
+
+	io.on('returnTrailerAdded', (trailer) => {
+		setTrailers(trailer.trailers);
+	});
+
+	io.on('returnTrailerDeleted', (trailer) => {
+		setTrailers(trailer.trailers);
+	});
+
+	io.on('returnTrailerUpdated', (trailer) => {
 		setTrailers(trailer.trailers);
 	});
 

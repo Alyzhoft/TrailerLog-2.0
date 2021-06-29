@@ -1,4 +1,6 @@
+import { Trailer } from '@prisma/client';
 import express, { Request, Response } from 'express';
+import { deleteData, postData, putData } from 'src/types';
 import { addTrailer, getTrailers, deleteTrailer, updateTrailer } from '../controller/trailer';
 
 const router = express.Router();
@@ -9,7 +11,7 @@ router.get('/', async (req: Request, res: Response) => {
 });
 
 router.post('/', async (req: Request, res: Response) => {
-	const data: postData = req.body;
+	const data: Trailer = req.body;
 	const trailer = await addTrailer(data);
 	res.json(trailer);
 });

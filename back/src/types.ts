@@ -1,6 +1,6 @@
 import { TrailerLocation } from '@prisma/client';
 
-interface trailer {
+export interface trailer {
 	trailerNumber: string;
 	carrier: string;
 	category: string;
@@ -9,7 +9,7 @@ interface trailer {
 	comments: string;
 }
 
-type postData = {
+export type postData = {
 	trailerNumber: string;
 	carrier: string;
 	category: string;
@@ -18,11 +18,11 @@ type postData = {
 	comments: string;
 };
 
-type deleteData = {
+export type deleteData = {
 	trailerId: number;
 };
 
-type putData = {
+export type putData = {
 	trailerId: number;
 	trailerNumber: string;
 	carrier: string;

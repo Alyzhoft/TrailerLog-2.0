@@ -6,6 +6,7 @@ export enum TrailerLocation {
 }
 
 export interface trailer {
+	id: number;
 	trailerNumber: string;
 	carrier: string;
 	category: string;

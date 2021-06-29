@@ -30,23 +30,22 @@ export async function addTrailer(trailer: Trailer) {
 	}
 }
 
-export async function updateTrailer(trailerId: number, trailerNumber: string, carrier: string, category: string, comments: string) {
+export async function updateTrailer(trailer: Trailer) {
 	try {
-		const trailer = await prisma.trailer.update({
+		const res = await prisma.trailer.update({
 			where: {
-				id: trailerId,
+				id: trailer.id,
 			},
 
 			data: {
-				trailerNumber,
-				carrier,
-
-				category,
-				comments,
+				trailerNumber: trailer.trailerNumber.toString(),
+				carrier: trailer.carrier,
+				category: trailer.category,
+				comments: trailer.comments,
 			},
 		});
 
-		return trailer;
+		return res;
 	} catch (error) {
 		return error;
 	}
