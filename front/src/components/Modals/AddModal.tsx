@@ -1,10 +1,11 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useContext, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import ComboBox from '../ui/ComboBox';
 import Input from '../ui/Input';
 import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
 import { SocketContext } from '../../utils/socket';
+import { CarrierContext, CategoryContext } from '../../utils/context';
 
 enum TrailerLocation {
 	PRIMARY = 'PRIMARY',
@@ -27,8 +28,28 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 	const [category, setCategory] = useState(options[0]);
 	const [carrier, setCarrier] = useState(options[0]);
 	const [comments, setComments] = useState('');
+	const [carrierOptions, setCarrierOptions] = useState<string[]>([]);
+	const [categoriesOptions, setCategoriesOptions] = useState<string[]>([]);
 
 	const socket = useContext(SocketContext);
+	const carriers = useContext(CarrierContext);
+	const categories = useContext(CategoryContext);
+
+	useEffect(() => {
+		const temp = carriers.map((carrier: any) => {
+			return carrier.carrierName;
+		});
+
+		setCarrierOptions(temp.sort());
+	}, [carriers]);
+
+	useEffect(() => {
+		const temp = categories.map((carrier: any) => {
+			return carrier.categoryName;
+		});
+
+		setCategoriesOptions(temp.sort());
+	}, [categories]);
 
 	return (
 		<>
@@ -62,7 +83,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 										<div className="w-full mx-1 mt-3">
 											<ComboBox
 												labelName={'Category'}
-												options={options}
+												options={categoriesOptions}
 												value={category}
 												valueChange={(value) => {
 													setCategory(value);
@@ -70,7 +91,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 											/>
 										</div>
 										<div className="w-full mx-1 mt-3">
-											<ComboBox labelName={'Carrier'} options={options} value={carrier} valueChange={(value) => setCarrier(value)} />
+											<ComboBox labelName={'Carrier'} options={carrierOptions} value={carrier} valueChange={(value) => setCarrier(value)} />
 										</div>
 									</div>
 

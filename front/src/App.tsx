@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import { Router } from '@reach/router';
 import { SocketContext } from './utils/socket';
-import { getTrailers } from './utils/api';
+import { CarrierContext, CategoryContext } from './utils/context';
+import { getCarriers, getCategories, getTrailers } from './utils/api';
 import RVAC from './Views/RVAC';
 import RMAN from './Views/RMAN';
 import Requests from './Views/Requests';
@@ -10,12 +11,18 @@ import Container from './components/ui/Container';
 
 function App() {
 	const [trailers, setTrailers] = useState([]);
+	const [carriers, setCarriers] = useState([]);
+	const [categories, setCategories] = useState([]);
 	//REST
 	useEffect(() => {
 		const fetchData = async () => {
 			const trailers = await getTrailers();
-			console.log(trailers);
+			const carriers = await getCarriers();
+			const categories = await getCategories();
+			console.log({ trailers, carriers, categories });
 			setTrailers(trailers);
+			setCarriers(carriers);
+			setCategories(categories);
 		};
 		fetchData();
 	}, []);
@@ -40,13 +47,17 @@ function App() {
 	return (
 		<div className="App flex flex-col h-screen justify-between">
 			<Navbar />
-			<Container>
-				<Router>
-					<RVAC trailers={trailers} path="/" />
-					<RMAN trailers={trailers} path="/rman" />
-					<Requests path="/requests" />
-				</Router>
-			</Container>
+			<CategoryContext.Provider value={categories}>
+				<CarrierContext.Provider value={carriers}>
+					<Container>
+						<Router>
+							<RVAC trailers={trailers} path="/" />
+							<RMAN trailers={trailers} path="/rman" />
+							<Requests path="/requests" />
+						</Router>
+					</Container>
+				</CarrierContext.Provider>
+			</CategoryContext.Provider>
 		</div>
 	);
 }

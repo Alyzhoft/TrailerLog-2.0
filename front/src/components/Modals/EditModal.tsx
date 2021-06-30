@@ -1,11 +1,12 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment, useContext, useState } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import ComboBox from '../ui/ComboBox';
 import Input from '../ui/Input';
 import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
 import { SocketContext } from '../../utils/socket';
 import { trailer } from '../../types';
+import { CarrierContext, CategoryContext } from '../../utils/context';
 
 enum TrailerLocation {
 	PRIMARY = 'PRIMARY',
@@ -25,15 +26,35 @@ type Props = {
 const options = ['TEST', 'TEST2'];
 
 export default function AddModal({ open, close, spotNumber, trailerLocation = TrailerLocation.RVAC, trailer }: Props) {
+	console.log(trailer);
+
 	const [id, setId] = useState(trailer.id);
 	const [trailerNumber, setTrailerNumber] = useState(trailer.trailerNumber);
 	const [category, setCategory] = useState(trailer.category);
 	const [carrier, setCarrier] = useState(trailer.category);
 	const [comments, setComments] = useState(trailer.comments);
+	const [carrierOptions, setCarrierOptions] = useState<string[]>([]);
+	const [categoriesOptions, setCategoriesOptions] = useState<string[]>([]);
 
 	const socket = useContext(SocketContext);
+	const carriers = useContext(CarrierContext);
+	const categories = useContext(CategoryContext);
 
-	console.log(trailer);
+	useEffect(() => {
+		const temp = carriers.map((carrier: any) => {
+			return carrier.carrierName;
+		});
+
+		setCarrierOptions(temp.sort());
+	}, [carriers]);
+
+	useEffect(() => {
+		const temp = categories.map((carrier: any) => {
+			return carrier.categoryName;
+		});
+
+		setCategoriesOptions(temp.sort());
+	}, [categories]);
 
 	return (
 		<>
@@ -65,7 +86,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 										<div className="w-full mx-1 mt-3">
 											<ComboBox
 												labelName={'Category'}
-												options={options}
+												options={categoriesOptions}
 												value={category}
 												valueChange={(value) => {
 													setCategory(value);
@@ -73,7 +94,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 											/>
 										</div>
 										<div className="w-full mx-1 mt-3">
-											<ComboBox labelName={'Carrier'} options={options} value={carrier} valueChange={(value) => setCarrier(value)} />
+											<ComboBox labelName={'Carrier'} options={carrierOptions} value={carrier} valueChange={(value) => setCarrier(value)} />
 										</div>
 									</div>
 

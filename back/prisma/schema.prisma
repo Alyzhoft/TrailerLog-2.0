@@ -49,3 +49,18 @@ model Requests {
   trailer           Trailer   @relation(fields: [trailerId], references: [id])
   trailerId         Int       @unique
 }
+
+model Carrier {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  carrierName String
+}
+
+model Category {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  categoryName String
+  color        String
+}

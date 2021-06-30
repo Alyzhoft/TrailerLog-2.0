@@ -3,19 +3,22 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 import http from 'http';
 import { addTrailer, getTrailers, deleteTrailer, updateTrailer } from './controller/trailer';
-import { Trailer, TrailerLocation } from '@prisma/client';
+import { Trailer } from '@prisma/client';
 
 const app = express();
 const server = http.createServer(app);
 
 // const userRoutes = require('./routes/user');
 const trailerRoutes = require('./routes/trailer');
+const carrierRoutes = require('./routes/carrier');
+const categoryRoutes = require('./routes/category');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
-// app.use('/api/user', userRoutes);
 app.use('/api/trailer', trailerRoutes);
+app.use('/api/carrier', carrierRoutes);
+app.use('/api/category', categoryRoutes);
 
 server.listen(4000, () => {
 	console.log('Working');

@@ -1,11 +1,11 @@
 import { Trailer } from '@prisma/client';
 import express, { Request, Response } from 'express';
-import { deleteData, postData, putData } from 'src/types';
+import { deleteData } from 'src/types';
 import { addTrailer, getTrailers, deleteTrailer, updateTrailer } from '../controller/trailer';
 
 const router = express.Router();
 
-router.get('/', async (req: Request, res: Response) => {
+router.get('/', async (_req: Request, res: Response) => {
 	const trailers = await getTrailers();
 	res.json(trailers);
 });
@@ -23,9 +23,9 @@ router.delete('/', async (req: Request, res: Response) => {
 });
 
 router.put('/', async (req: Request, res: Response) => {
-	const data: putData = req.body;
+	const data: Trailer = req.body;
 
-	const med = await updateTrailer(data.trailerId, data.trailerNumber, data.carrier, data.category, data.comments);
+	const med = await updateTrailer(data);
 	res.json(med);
 });
 

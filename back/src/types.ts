@@ -30,6 +30,7 @@ export type putData = {
 	comments: string;
 };
 
-interface IUserRequest extends Request {
-	user: any;
-}
+// Addes data to request
+// interface IUserRequest extends Request {
+// 	user: any;
+// }

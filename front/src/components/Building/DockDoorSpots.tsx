@@ -28,13 +28,13 @@ export default function DockDoorSpot({ door, trailers, dock }: Trailer) {
 			{addOpen ? <AddModal open={addOpen} close={() => setAddOpen(false)} spotNumber={door} trailerLocation={dock} /> : <></>}
 			{editOpen ? <EditModal open={editOpen} close={() => setEditOpen(false)} trailer={trailer} spotNumber={door} trailerLocation={dock} /> : <></>}
 			<div className="flex mx-1 w-8 h-28 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
-				{trailers.map((trailer) => {
+				{trailers.map((trailer, i) => {
 					return parseInt(trailer.spotNumber) === door && trailer.trailerLocation === dock ? (
-						<button style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }} className="text-black focus:outline-none" onClick={() => handleEditClick(trailer)}>
+						<button key={i} style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }} className="text-black focus:outline-none" onClick={() => handleEditClick(trailer)}>
 							{trailer.trailerNumber}
 						</button>
 					) : (
-						<button style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }} className="text-black h-full w-full focus:outline-none" onClick={handleAddClick}></button>
+						<button key={i} style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }} className="text-black h-full w-full focus:outline-none" onClick={handleAddClick}></button>
 					);
 				})}
 			</div>

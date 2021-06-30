@@ -8,3 +8,21 @@ export async function getTrailers() {
 		alert(e);
 	}
 }
+
+export async function getCarriers() {
+	try {
+		const res = await axios.get('http://localhost:4000/api/carrier');
+		return res.data;
+	} catch (e) {
+		alert(e);
+	}
+}
+
+export async function getCategories() {
+	try {
+		const res = await axios.get('http://localhost:4000/api/category');
+		return res.data;
+	} catch (e) {
+		alert(e);
+	}
+}

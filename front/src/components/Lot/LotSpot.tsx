@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import AddModal from '../Modals/AddModal';
 
-type lotSpotProp = {
+type Props = {
 	spot: number;
 };
 
-export default function LotSpot({ spot }: lotSpotProp) {
+export default function LotSpot({ spot }: Props) {
 	const [open, setOpen] = useState(false);
 
 	function handleClick() {
