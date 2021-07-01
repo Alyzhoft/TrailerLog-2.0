@@ -17,6 +17,11 @@ enum TrailerLocation {
   RMAN
 }
 
+enum RequestType {
+  IN
+  OUT
+}
+
 model Trailer {
   id              Int             @id @default(autoincrement())
   createdAt       DateTime        @default(now())
@@ -31,23 +36,25 @@ model Trailer {
 }
 
 model Requests {
-  id                Int       @id @default(autoincrement())
-  createdAt         DateTime  @default(now())
-  updatedAt         DateTime  @updatedAt
-  out               String?
-  inCarrier         String?
-  inTrailerNumber   String?
-  completed         Boolean   @default(false)
-  completedTime     DateTime?
-  urgent            Boolean   @default(false)
-  dock              String?
-  outTrailerNumber  String?
-  outCarrier        String?
-  special           String?
-  outCategory       String?
-  inTrailerLocation String?
-  trailer           Trailer   @relation(fields: [trailerId], references: [id])
-  trailerId         Int       @unique
+  id                 Int              @id @default(autoincrement())
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  inCarrier          String?
+  inTrailerNumber    String?
+  completed          Boolean          @default(false)
+  completedTime      DateTime?
+  urgent             Boolean          @default(false)
+  outTrailerLocation TrailerLocation?
+  outSpotNumber      String?
+  inTrailerLocation  TrailerLocation?
+  inSpotNumber       String?
+  outTrailerNumber   String?
+  outCarrier         String?
+  special            String?
+  outCategory        String?
+  requestType        RequestType
+  trailer            Trailer          @relation(fields: [trailerId], references: [id])
+  trailerId          Int
 }
 
 model Carrier {

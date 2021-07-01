@@ -15,7 +15,7 @@ type Props = RouteComponentProps & {
 
 const doors = Array.from({ length: 50 }, (_, index) => index + 1);
 // const trailers = Array.from({ length: 50 }, (_, index) => index + 1);
-const spots = Array.from({ length: 20 }, (_, index) => index + 1);
+const spots = Array.from({ length: 50 }, (_, index) => index + 1);
 
 export default function RVAC({ trailers }: Props) {
 	const [addOpen, setAddOpen] = useState(false);

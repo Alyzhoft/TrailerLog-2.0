@@ -2,8 +2,8 @@ import React, { useContext, useEffect, useState } from 'react';
 import Navbar from './components/Navbar/Navbar';
 import { Router } from '@reach/router';
 import { SocketContext } from './utils/socket';
-import { CarrierContext, CategoryContext } from './utils/context';
-import { getCarriers, getCategories, getTrailers } from './utils/api';
+import { CarrierContext, CategoryContext, RequestContext } from './utils/context';
+import { getCarriers, getCategories, getRequests, getTrailers } from './utils/api';
 import RVAC from './Views/RVAC';
 import RMAN from './Views/RMAN';
 import Requests from './Views/Requests';
@@ -14,7 +14,7 @@ function App() {
 	// const [carriers, setCarriers] = useState([]);
 	// const [categories, setCategories] = useState([]);
 
-	const [data, setData] = useState({ trailers: [], carriers: [], categories: [] });
+	const [data, setData] = useState({ trailers: [], requests: [], carriers: [], categories: [] });
 
 	//REST
 	useEffect(() => {
@@ -22,15 +22,19 @@ function App() {
 			const trailers = await getTrailers();
 			const carriers = await getCarriers();
 			const categories = await getCategories();
+			const requests = await getRequests();
 
 			setData({
 				trailers,
+				requests,
 				carriers,
 				categories,
 			});
 		};
 		fetchData();
 	}, []);
+
+	console.log(data);
 
 	const io = useContext(SocketContext);
 
@@ -57,17 +61,19 @@ function App() {
 	return (
 		<div className="App flex flex-col h-screen justify-between">
 			<Navbar />
-			<CategoryContext.Provider value={data.categories}>
-				<CarrierContext.Provider value={data.carriers}>
-					<Container>
-						<Router>
-							<RVAC trailers={data.trailers} path="/" />
-							<RMAN trailers={data.trailers} path="/rman" />
-							<Requests path="/requests" />
-						</Router>
-					</Container>
-				</CarrierContext.Provider>
-			</CategoryContext.Provider>
+			<RequestContext.Provider value={data.requests}>
+				<CategoryContext.Provider value={data.categories}>
+					<CarrierContext.Provider value={data.carriers}>
+						<Container>
+							<Router>
+								<RVAC trailers={data.trailers} path="/" />
+								<RMAN trailers={data.trailers} path="/rman" />
+								<Requests path="/requests" />
+							</Router>
+						</Container>
+					</CarrierContext.Provider>
+				</CategoryContext.Provider>
+			</RequestContext.Provider>
 		</div>
 	);
 }

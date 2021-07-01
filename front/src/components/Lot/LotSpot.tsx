@@ -13,7 +13,6 @@ type Props = {
 
 export default function LotSpot({ spot, trailers, lot, spotClicked, addOpen }: Props) {
 	const [editOpen, setEditOpen] = useState(false);
-	const [trailer, setTrailer] = useState(trailers[1]);
 	const [categoriesOptions, setCategoriesOptions] = useState<{ categoryName: string; color: string }[]>([]);
 
 	const categories = useContext(CategoryContext);
@@ -37,7 +36,6 @@ export default function LotSpot({ spot, trailers, lot, spotClicked, addOpen }: P
 	}
 
 	function handleEditClick(trailer: trailer) {
-		setTrailer(trailer);
 		setEditOpen(true);
 	}
 

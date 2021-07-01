@@ -1,7 +1,9 @@
+import { useContext, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
+import { RequestContext } from '../utils/context';
 import Table, { TableRow, TableHeader, TableDataCell } from '../components/ui/Table';
-
-const requests = Array.from({ length: 30 }, (_, index) => index + 1);
+import Button from '../components/ui/Button';
+import { Request, RequestType } from '../types';
 
 const screenHeight = {
 	height: 'calc(100vh - 10.25rem)',
@@ -10,6 +12,8 @@ const screenHeight = {
 type Props = RouteComponentProps;
 
 export default function Requests({ path }: Props) {
+	const requests = useContext(RequestContext);
+
 	return (
 		<div style={screenHeight} className="min-w-full my-12 rounded-md overflow-y-auto">
 			<Table
@@ -25,16 +29,16 @@ export default function Requests({ path }: Props) {
 					</>
 				}
 			>
-				{requests.map((r) => {
+				{requests.map((r: Request) => {
 					return (
 						<TableRow>
-							<TableDataCell>Test</TableDataCell>
-							<TableDataCell>Test</TableDataCell>
-							<TableDataCell>Test</TableDataCell>
-							<TableDataCell>Test</TableDataCell>
-							<TableDataCell>Test</TableDataCell>
+							<TableDataCell>{r.createdAt}</TableDataCell>
+							<TableDataCell>{r.requestType === RequestType.OUT ? r.outTrailerNumber : ''}</TableDataCell>
+							<TableDataCell>{r.requestType === RequestType.IN ? r.inTrailerNumber : ''}</TableDataCell>
+							<TableDataCell>{r.requestType === RequestType.OUT ? `${r.outSpotNumber}-${r.outTrailerLocation}` : `${r.inSpotNumber}-${r.inTrailerLocation}`}</TableDataCell>
+							<TableDataCell>{r.urgent}</TableDataCell>
 							<TableDataCell>
-								<button className="bg-green-500 rounded-md border-black border-2 w-16 h-8">Test</button>
+								<Button className="text-white bg-green-500 font-bold text-lg rounded-md w-16 h-8">Done</Button>
 							</TableDataCell>
 							<TableDataCell>
 								<button>

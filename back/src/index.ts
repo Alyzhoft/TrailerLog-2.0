@@ -12,6 +12,7 @@ const server = http.createServer(app);
 const trailerRoutes = require('./routes/trailer');
 const carrierRoutes = require('./routes/carrier');
 const categoryRoutes = require('./routes/category');
+const requestRoutes = require('./routes/request');
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use(cors());
 app.use('/api/trailer', trailerRoutes);
 app.use('/api/carrier', carrierRoutes);
 app.use('/api/category', categoryRoutes);
+app.use('/api/request', requestRoutes);
 
 server.listen(4000, () => {
 	console.log('Working');

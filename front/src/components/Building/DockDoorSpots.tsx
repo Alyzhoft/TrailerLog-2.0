@@ -51,7 +51,7 @@ export default function DockDoorSpot({ door, trailers, dock }: Trailer) {
 				<>
 					{editOpen ? <EditModal open={editOpen} close={() => setEditOpen(false)} trailer={trailer} spotNumber={door} trailerLocation={dock} /> : <></>}
 					<div className="flex mx-1 w-8 h-28 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
-						<button style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }} className={classNames('text-black focus:outline-none w-full', `bg-${getColor(trailer)} rounded-md w-full h-full`)} onClick={() => handleEditClick(trailer)}>
+						<button style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }} className={classNames('text-black focus:outline-none w-full', `bg-${getColor(trailer)} rounded w-full h-full`)} onClick={() => handleEditClick(trailer)}>
 							{trailer?.trailerNumber}
 						</button>
 					</div>

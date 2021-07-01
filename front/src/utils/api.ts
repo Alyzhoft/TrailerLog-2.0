@@ -26,3 +26,12 @@ export async function getCategories() {
 		alert(e);
 	}
 }
+
+export async function getRequests() {
+	try {
+		const res = await axios.get('http://localhost:4000/api/request');
+		return res.data;
+	} catch (e) {
+		alert(e);
+	}
+}
