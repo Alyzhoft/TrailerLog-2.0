@@ -23,8 +23,6 @@ type Props = {
 	close: () => void;
 };
 
-const options = ['TEST', 'TEST2'];
-
 export default function AddModal({ open, close, spotNumber, trailerLocation = TrailerLocation.RVAC, trailer }: Props) {
 	console.log(trailer);
 
@@ -39,6 +37,14 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 	const socket = useContext(SocketContext);
 	const carriers = useContext(CarrierContext);
 	const categories = useContext(CategoryContext);
+
+	useEffect(() => {
+		setCarrier(trailer.carrier);
+		setCategory(trailer.category);
+		setTrailerNumber(trailer.trailerNumber);
+		setComments(trailer.comments);
+		setId(trailer.id);
+	}, [trailer]);
 
 	useEffect(() => {
 		const temp = carriers.map((carrier: any) => {

@@ -21,15 +21,13 @@ type Props = {
 	close: () => void;
 };
 
-const options = ['TEST', 'TEST2'];
-
 export default function AddModal({ open, close, spotNumber, trailerLocation = TrailerLocation.RVAC }: Props) {
 	const [trailerNumber, setTrailerNumber] = useState('');
-	const [category, setCategory] = useState(options[0]);
-	const [carrier, setCarrier] = useState(options[0]);
 	const [comments, setComments] = useState('');
 	const [carrierOptions, setCarrierOptions] = useState<string[]>([]);
 	const [categoriesOptions, setCategoriesOptions] = useState<string[]>([]);
+	const [category, setCategory] = useState(carrierOptions[0]);
+	const [carrier, setCarrier] = useState(categoriesOptions[0]);
 
 	const socket = useContext(SocketContext);
 	const carriers = useContext(CarrierContext);
@@ -39,16 +37,17 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 		const temp = carriers.map((carrier: any) => {
 			return carrier.carrierName;
 		});
-
 		setCarrierOptions(temp.sort());
+		setCarrier(temp.sort()[0]);
 	}, [carriers]);
 
 	useEffect(() => {
-		const temp = categories.map((carrier: any) => {
-			return carrier.categoryName;
+		const temp = categories.map((category: any) => {
+			return category.categoryName;
 		});
 
 		setCategoriesOptions(temp.sort());
+		setCategory(temp.sort()[0]);
 	}, [categories]);
 
 	return (
@@ -73,7 +72,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation = Tr
 								<form
 									onSubmit={(e) => {
 										e.preventDefault();
-										console.log(comments);
+										console.log({ carrier, category, trailerNumber, comments, spotNumber, trailerLocation });
 
 										socket.emit('addTrailer', { carrier, category, trailerNumber, comments, spotNumber, trailerLocation });
 										close();

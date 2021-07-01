@@ -10,49 +10,59 @@ import Requests from './Views/Requests';
 import Container from './components/ui/Container';
 
 function App() {
-	const [trailers, setTrailers] = useState([]);
-	const [carriers, setCarriers] = useState([]);
-	const [categories, setCategories] = useState([]);
+	// const [trailers, setTrailers] = useState([]);
+	// const [carriers, setCarriers] = useState([]);
+	// const [categories, setCategories] = useState([]);
+
+	const [data, setData] = useState({ trailers: [], carriers: [], categories: [] });
+
 	//REST
 	useEffect(() => {
 		const fetchData = async () => {
 			const trailers = await getTrailers();
 			const carriers = await getCarriers();
 			const categories = await getCategories();
-			console.log({ trailers, carriers, categories });
-			setTrailers(trailers);
-			setCarriers(carriers);
-			setCategories(categories);
+
+			setData({
+				trailers,
+				carriers,
+				categories,
+			});
 		};
 		fetchData();
 	}, []);
 
-	//Socket
 	const io = useContext(SocketContext);
 
-	io.connect();
+	useEffect(() => {
+		io.on('returnTrailerAdded', (trailer) => {
+			setData((oldState) => ({ ...oldState, trailers: trailer.trailers }));
+		});
+	}, [io]);
 
-	io.on('returnTrailerAdded', (trailer) => {
-		setTrailers(trailer.trailers);
-	});
+	useEffect(() => {
+		io.on('returnTrailerDeleted', (trailer) => {
+			setData((oldState) => ({ ...oldState, trailers: trailer.trailers }));
+		});
+	}, [io]);
 
-	io.on('returnTrailerDeleted', (trailer) => {
-		setTrailers(trailer.trailers);
-	});
+	useEffect(() => {
+		io.on('returnTrailerUpdated', (trailer) => {
+			setData((oldState) => ({ ...oldState, trailers: trailer.trailers }));
+		});
+	}, [io]);
 
-	io.on('returnTrailerUpdated', (trailer) => {
-		setTrailers(trailer.trailers);
-	});
+	console.log(data);
 
 	return (
 		<div className="App flex flex-col h-screen justify-between">
 			<Navbar />
-			<CategoryContext.Provider value={categories}>
-				<CarrierContext.Provider value={carriers}>
+			<CategoryContext.Provider value={data.categories}>
+				<CarrierContext.Provider value={data.carriers}>
 					<Container>
 						<Router>
-							<RVAC trailers={trailers} path="/" />
-							<RMAN trailers={trailers} path="/rman" />
+							<RVAC trailers={data.trailers} path="/" />
+							<RMAN trailers={data.trailers} path="/rman" />
 							<Requests path="/requests" />
 						</Router>
 					</Container>

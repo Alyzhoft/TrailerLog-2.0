@@ -43,6 +43,9 @@ io.on('connection', (Socket) => {
 		const res = await updateTrailer(trailer);
 		const trailers = await getTrailers();
 		//If error send do socket.emit
+
+		console.log('Updated');
+
 		io.emit('returnTrailerUpdated', { newTrailer: res, trailers });
 	});
 
