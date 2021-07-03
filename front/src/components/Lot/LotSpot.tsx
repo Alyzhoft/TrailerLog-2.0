@@ -1,14 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { trailer, TrailerLocation } from "../../types";
 import { CategoryContext } from "../../utils/context";
-import EditModal from "../Modals/EditModal";
 
 type Props = {
   spot: number;
   lot: TrailerLocation;
   trailers: trailer[];
   spotClicked: (spot: any) => void;
+  trailerClicked: (trailer: trailer) => void;
   addOpen: () => void;
+  tempModal: () => void;
 };
 
 export default function LotSpot({
@@ -17,8 +18,9 @@ export default function LotSpot({
   lot,
   spotClicked,
   addOpen,
+  tempModal,
+  trailerClicked,
 }: Props) {
-  const [editOpen, setEditOpen] = useState(false);
   const [categoriesOptions, setCategoriesOptions] = useState<
     { categoryName: string; color: string }[]
   >([]);
@@ -41,12 +43,13 @@ export default function LotSpot({
   }
 
   function handleAddClick() {
-    addOpen();
     spotClicked(spot);
+    addOpen();
   }
 
   function handleEditClick(trailer: trailer) {
-    setEditOpen(true);
+    tempModal();
+    trailerClicked(trailer);
   }
 
   function classNames(...classes: any) {
@@ -66,17 +69,6 @@ export default function LotSpot({
     if (trailer !== undefined) {
       return (
         <div>
-          {editOpen ? (
-            <EditModal
-              open={editOpen}
-              close={() => setEditOpen(false)}
-              trailer={trailer}
-              spotNumber={spot}
-              trailerLocation={lot}
-            />
-          ) : (
-            <></>
-          )}
           <div className="ml-3 font-bold">{spot}</div>
           <div className="flex mx-1 w-8 h-28 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
             <button
