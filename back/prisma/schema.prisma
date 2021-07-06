@@ -10,12 +10,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
-enum TrailerLocation {
-  PRIMARY
-  SECONDARY
-  RVAC
-  RMAN
-}
+// enum TrailerLocation {
+//   PRIMARY
+//   SECONDARY
+//   RVAC
+//   RMAN
+// }
 
 enum RequestType {
   IN
@@ -23,37 +23,37 @@ enum RequestType {
 }
 
 model Trailer {
-  id              Int             @id @default(autoincrement())
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  trailerNumber   String          @db.VarChar(255)
+  id              Int        @id @default(autoincrement())
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  trailerNumber   String     @db.VarChar(255)
   carrier         String
   category        String
-  trailerLocation TrailerLocation
+  trailerLocation String
   spotNumber      String
   comments        String?
   Requests        Requests[]
 }
 
 model Requests {
-  id                 Int              @id @default(autoincrement())
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
+  id                 Int         @id @default(autoincrement())
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
   inCarrier          String?
   inTrailerNumber    String?
-  completed          Boolean          @default(false)
+  completed          Boolean     @default(false)
   completedTime      DateTime?
-  urgent             Boolean          @default(false)
-  outTrailerLocation TrailerLocation?
+  urgent             Boolean     @default(false)
+  outTrailerLocation String?
   outSpotNumber      String?
-  inTrailerLocation  TrailerLocation?
+  inTrailerLocation  String?
   inSpotNumber       String?
   outTrailerNumber   String?
   outCarrier         String?
   special            String?
   outCategory        String?
   requestType        RequestType
-  trailer            Trailer          @relation(fields: [trailerId], references: [id])
+  trailer            Trailer     @relation(fields: [trailerId], references: [id])
   trailerId          Int
 }
 
@@ -70,4 +70,23 @@ model Category {
   updatedAt    DateTime @updatedAt
   categoryName String
   color        String
+}
+
+model TrailerLocation {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  lot       Boolean? @default(false)
+  dock      Boolean? @default(false)
+  Spots     Spots[]
+}
+
+model Spots {
+  id                Int             @id @default(autoincrement())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  spot              String
+  trailerLocation   TrailerLocation @relation(fields: [trailerLocationId], references: [id])
+  trailerLocationId Int
 }
