@@ -53,7 +53,7 @@ model Requests {
   special            String?
   outCategory        String?
   requestType        RequestType
-  trailer            Trailer     @relation(fields: [trailerId], references: [id])
+  trailer            Trailer?    @relation(fields: [trailerId], references: [id])
   trailerId          Int
 }
 
