@@ -6,6 +6,7 @@ import { trailer, TrailerLocation } from '../types';
 import AddModal from '../components/Modals/AddModal';
 import EditModal from '../components/Modals/EditModal';
 import TempModal from '../components/Modals/TempModal';
+import LotMoveModal from '../components/Modals/LotMoveModal';
 import { TrailerLocationContext } from '../utils/context';
 
 const screenHeight = {
@@ -23,6 +24,7 @@ export default function RVAC({ trailers }: Props) {
 	const [addOpen, setAddOpen] = useState(false);
 	const [editOpen, setEditOpen] = useState(false);
 	const [tempModal, setTempModal] = useState(false);
+	const [lotModal, setLotModal] = useState(false);
 	const [spotClicked, setSpotClicked] = useState<number>(0);
 	const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
 	const [doors, setDoors] = useState([]);
@@ -41,6 +43,7 @@ export default function RVAC({ trailers }: Props) {
 		<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
 			{addOpen ? <AddModal open={addOpen} close={() => setAddOpen(false)} spotNumber={spotClicked} trailerLocation={TrailerLocation.RVAC} /> : <></>}
 			{editOpen ? <EditModal open={editOpen} close={() => setEditOpen(false)} trailer={selctedTrailer} trailerLocation={TrailerLocation.RVAC} /> : <></>}
+			{lotModal ? <LotMoveModal open={lotModal} close={() => setLotModal(false)} trailer={selctedTrailer} /> : <></>}
 			{tempModal ? (
 				<TempModal
 					open={tempModal}
@@ -50,6 +53,12 @@ export default function RVAC({ trailers }: Props) {
 						setTempModal(false);
 						setTimeout(() => {
 							setEditOpen(true);
+						}, 10);
+					}}
+					lotMove={() => {
+						setTempModal(false);
+						setTimeout(() => {
+							setLotModal(true);
 						}, 10);
 					}}
 				/>

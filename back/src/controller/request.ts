@@ -3,7 +3,11 @@ import { prisma } from '../utils/prisma';
 
 export async function getRequests() {
 	try {
-		const requests = await prisma.requests.findMany();
+		const requests = await prisma.requests.findMany({
+			where: {
+				completed: false,
+			},
+		});
 
 		return requests;
 	} catch (error) {
@@ -83,5 +87,33 @@ export async function deleteRequest(id: number) {
 		return trailer;
 	} catch (error) {
 		return error;
+	}
+}
+
+export async function completed(request: Requests) {
+	try {
+		const res = await prisma.requests.update({
+			where: {
+				id: request.id,
+			},
+			data: {
+				completed: true,
+			},
+		});
+
+		let trailer;
+		if (request.inTrailerLocation !== null && request.inSpotNumber !== null) {
+			trailer = await prisma.trailer.update({
+				where: { id: request.trailerId },
+				data: {
+					trailerLocation: request?.inTrailerLocation,
+					spotNumber: request?.inSpotNumber,
+				},
+			});
+		}
+
+		return { res, trailer };
+	} catch (e) {
+		return e;
 	}
 }

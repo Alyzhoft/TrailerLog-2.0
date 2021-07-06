@@ -3,7 +3,8 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 import http from 'http';
 import { addTrailer, getTrailers, deleteTrailer, updateTrailer } from './controller/trailer';
-import { Trailer } from '@prisma/client';
+import { Requests, Trailer } from '@prisma/client';
+import { addRequest, completed, getRequests } from './controller/request';
 
 const app = express();
 const server = http.createServer(app);
@@ -60,5 +61,20 @@ io.on('connection', (Socket) => {
 		const trailers = await getTrailers();
 		//If error send do socket.emit
 		io.emit('returnTrailerDeleted', { newTrailer: res, trailers });
+	});
+
+	Socket.on('addRequest', async (request: Requests) => {
+		const res = await addRequest(request);
+		const requests = await getRequests();
+
+		io.emit('returnRequestAdded', { newRequest: res, requests });
+	});
+
+	Socket.on('complete', async (request: Requests) => {
+		const res = await completed(request);
+		const requests = await getRequests();
+		const trailers = await getTrailers();
+
+		io.emit('returnCompleted', { request: res, requests, trailers });
 	});
 });

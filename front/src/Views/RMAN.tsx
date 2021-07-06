@@ -7,6 +7,7 @@ import AddModal from '../components/Modals/AddModal';
 import TempModal from '../components/Modals/TempModal';
 import EditModal from '../components/Modals/EditModal';
 import { TrailerLocationContext } from '../utils/context';
+import LotMoveModal from '../components/Modals/LotMoveModal';
 
 const screenHeight = {
 	height: 'calc(100vh - 5.75rem)',
@@ -24,6 +25,7 @@ export default function RMAN({ trailers }: Props) {
 	const [addOpen, setAddOpen] = useState(false);
 	const [editOpen, setEditOpen] = useState(false);
 	const [tempModal, setTempModal] = useState(false);
+	const [lotModal, setLotModal] = useState(false);
 	const [spotClicked, setSpotClicked] = useState<number>(0);
 	const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
 	const [trailerLocation, setTrailerLocation] = useState<TrailerLocation | null>(null);
@@ -41,7 +43,9 @@ export default function RMAN({ trailers }: Props) {
 
 	return (
 		<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
+			{addOpen ? <AddModal open={addOpen} close={() => setAddOpen(false)} spotNumber={spotClicked} trailerLocation={trailerLocation} /> : <></>}
 			{editOpen ? <EditModal open={editOpen} close={() => setEditOpen(false)} trailer={selctedTrailer} trailerLocation={trailerLocation} /> : <></>}
+			{lotModal ? <LotMoveModal open={lotModal} close={() => setLotModal(false)} trailer={selctedTrailer} /> : <></>}
 			{tempModal ? (
 				<TempModal
 					open={tempModal}
@@ -53,12 +57,17 @@ export default function RMAN({ trailers }: Props) {
 							setEditOpen(true);
 						}, 10);
 					}}
+					lotMove={() => {
+						setTempModal(false);
+						setTimeout(() => {
+							setLotModal(true);
+						}, 10);
+					}}
 				/>
 			) : (
 				<></>
 			)}
 
-			{addOpen ? <AddModal open={addOpen} close={() => setAddOpen(false)} spotNumber={spotClicked} trailerLocation={trailerLocation} /> : <></>}
 			<Lot
 				spots={doors}
 				lot={TrailerLocation.SECONDARY}

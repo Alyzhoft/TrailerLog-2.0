@@ -58,6 +58,18 @@ function App() {
 		});
 	}, [io]);
 
+	useEffect(() => {
+		io.on('returnRequestAdded', (request) => {
+			setData((oldState) => ({ ...oldState, requests: request.requests }));
+		});
+	}, [io]);
+
+	useEffect(() => {
+		io.on('returnCompleted', (request) => {
+			setData((oldState) => ({ ...oldState, requests: request.requests, trailers: request.trailers }));
+		});
+	}, [io]);
+
 	console.log(data);
 
 	return (
