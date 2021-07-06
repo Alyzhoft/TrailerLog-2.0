@@ -35,3 +35,12 @@ export async function getRequests() {
 		alert(e);
 	}
 }
+
+export async function getTrailerLocations() {
+	try {
+		const res = await axios.get('http://localhost:4000/api/trailerLocation');
+		return res.data;
+	} catch (e) {
+		alert(e);
+	}
+}

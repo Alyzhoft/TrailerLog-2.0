@@ -7,6 +7,7 @@
 		"ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
 		"watch": "tsc -w",
 		"deleteDB": "prisma migrate reset",
+		"migrate": "prisma migrate dev",
 		"dev": "nodemon dist/src/index.js",
 		"start": "ts-node src/index.ts"
 	},

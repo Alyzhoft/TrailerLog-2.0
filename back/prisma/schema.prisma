@@ -78,6 +78,7 @@ model TrailerLocation {
   updatedAt DateTime @updatedAt
   name      String
   lot       Boolean? @default(false)
+  lotName   String?
   dock      Boolean? @default(false)
   Spots     Spots[]
 }
@@ -86,7 +87,7 @@ model Spots {
   id                Int             @id @default(autoincrement())
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
-  spot              String
+  name              String
   trailerLocation   TrailerLocation @relation(fields: [trailerLocationId], references: [id])
   trailerLocationId Int
 }
