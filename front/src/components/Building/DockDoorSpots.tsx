@@ -31,7 +31,7 @@ export default function DockDoorSpot({ door, trailers, dock, spotClicked, traile
 	}
 
 	function handleAddClick() {
-		spotClicked(door.name);
+		spotClicked(door);
 		addOpen();
 	}
 
