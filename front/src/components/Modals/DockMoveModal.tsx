@@ -2,7 +2,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import ComboBox from "../ui/ComboBox";
 import Input from "../ui/Input";
-import TextArea from "../ui/TextArea";
 import Button from "../ui/Button";
 import { SocketContext } from "../../utils/socket";
 import {
@@ -27,7 +26,7 @@ type Props = {
   close: () => void;
 };
 
-export default function LotMoveModal({
+export default function DockMoveModal({
   open,
   close,
   trailer,
@@ -108,7 +107,7 @@ Props) {
                     as="h3"
                     className=" text-2xl font-large leading-6 text-gray-900"
                   >
-                    Move Trailer
+                    Dock Move Trailer
                   </Dialog.Title>
 
                   <form
