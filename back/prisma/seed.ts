@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
+//Creates Seed Data
 async function main() {
 	const createCarriers = await prisma.carrier.createMany({
 		data: [{ carrierName: 'XPO' }, { carrierName: 'CTS' }, { carrierName: 'Dart' }, { carrierName: 'Transport Design' }, { carrierName: 'DRT' }, { carrierName: 'Waletich' }, { carrierName: 'Taylor' }, { carrierName: 'Terminal' }, { carrierName: 'Trucking Proz' }, { carrierName: 'UTS' }, { carrierName: 'J&R' }, { carrierName: 'Kuehl' }, { carrierName: 'American Fast Freight' }, { carrierName: 'Ryder' }, { carrierName: 'Keene’s' }, { carrierName: 'XPO Logistics' }],
