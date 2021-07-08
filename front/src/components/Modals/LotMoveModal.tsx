@@ -2,27 +2,17 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useContext, useEffect, useState } from "react";
 import ComboBox from "../ui/ComboBox";
 import Input from "../ui/Input";
-import TextArea from "../ui/TextArea";
 import Button from "../ui/Button";
 import { SocketContext } from "../../utils/socket";
 import {
-  CarrierContext,
-  CategoryContext,
   TrailerLocationContext,
 } from "../../utils/context";
 import { trailer } from "../../types";
 
-enum TrailerLocation {
-  PRIMARY = "PRIMARY",
-  SECONDARY = "SECONDARY",
-  RVAC = "RVAC",
-  RMAN = "RMAN",
-}
-
 type Props = {
   open: boolean;
   trailer: trailer | null;
-  // spotNumber: number;
+  spotNumber: number;
   // trailerLocation?: TrailerLocation | null;
   close: () => void;
 };
@@ -31,7 +21,8 @@ export default function LotMoveModal({
   open,
   close,
   trailer,
-}: // spotNumber,
+  spotNumber
+}:
 // trailerLocation,
 Props) {
   const [newTrailerLocation, setNewTrailerLocation] = useState<any>("RVAC");
@@ -42,7 +33,7 @@ Props) {
   const [newLocationOptions, setNewLocationOptions] = useState<any>({
     RMAN: ["1"],
   });
-
+  
   const socket = useContext(SocketContext);
   const trailerLocations = useContext(TrailerLocationContext);
 
@@ -135,7 +126,7 @@ Props) {
                       <div className="w-full mx-1 mt-3">
                         <Input
                           labelText="Current Trailer Location"
-                          value={trailer?.spotNumber}
+                          value={spotNumber}
                           disabled
                         />
                       </div>

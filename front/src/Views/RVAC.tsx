@@ -6,6 +6,7 @@ import { trailer, TrailerLocation } from "../types";
 import AddModal from "../components/Modals/AddModal";
 import EditModal from "../components/Modals/EditModal";
 import TempModal from "../components/Modals/TempModal";
+import LotMoveModal from "../components/Modals/LotMoveModal";
 import AddInModal from "../components/Modals/AddInModal";
 import { TrailerLocationContext } from "../utils/context";
 
@@ -23,9 +24,9 @@ type Props = RouteComponentProps & {
 export default function RVAC({ trailers }: Props) {
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
-  const [tempModal, setTempModal] = useState(false);
+  const [lotModal, setLotModal] = useState(false);
   const [addIn, setAddIn] = useState(false);
-  const [spotClicked, setSpotClicked] = useState<number>(0);
+  const [spotClicked, setSpotClicked] = useState<any>(0);
   const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
   const [doors, setDoors] = useState([]);
 
@@ -52,7 +53,7 @@ export default function RVAC({ trailers }: Props) {
           trailerLocation={TrailerLocation.RVAC}
         />
       ) : (
-        <></>
+        null
       )}
       {editOpen ? (
         <EditModal
@@ -64,26 +65,26 @@ export default function RVAC({ trailers }: Props) {
       ) : (
         <></>
       )}
+      {lotModal ? (<LotMoveModal open={lotModal} close={() => setLotModal(false)} spotNumber={spotClicked.name} trailer={selctedTrailer}/>) : null}
       {addIn ? (
         <AddInModal
           open={addIn}
           close={() => setAddIn(false)}
-          // trailer={selctedTrailer}
-          // editOpen={() => {
-          //   setTempModal(false);
-          //   setTimeout(() => {
-          //     setEditOpen(true);
-          //   }, 10);
-          // }}
-          // lotMove={() => {
-          //   setTempModal(false);
-          //   setTimeout(() => {
-          //     setLotModal(true);
-          //   }, 10);
-          // }}
+          addOpen={() => {
+            setAddIn(false);
+            setTimeout(() => {
+              setAddOpen(true);
+            }, 10);
+          }}
+          inRequest={() => {
+            setAddIn(false);
+            setTimeout(() => {
+              setLotModal(true);
+            }, 10);
+          }}
         />
       ) : (
-        <></>
+        null
       )}
       {/* Do not remove the below div */}
       <div></div>

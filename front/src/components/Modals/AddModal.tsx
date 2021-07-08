@@ -54,7 +54,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 
 	return (
 		<>
-			<Transition show={open} as={Fragment}>
+		{carrierOptions.length && categoriesOptions.length ? (			<Transition show={open} as={Fragment}>
 				<Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" static open={open} onClose={close}>
 					<div className="min-h-screen px-4 text-center">
 						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
@@ -142,7 +142,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 						</Transition.Child>
 					</div>
 				</Dialog>
-			</Transition>
+			</Transition>) : null}
 		</>
 	);
 }

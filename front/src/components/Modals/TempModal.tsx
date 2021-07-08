@@ -21,7 +21,6 @@ type Props = {
 };
 
 export default function TempModal({ open, editOpen, lotMove, close, spotNumber = 1, trailer, trailerLocation = TrailerLocation.RVAC }: Props) {
-	console.log(trailer);
 	return (
 		<>
 			<Transition show={open} as={Fragment}>

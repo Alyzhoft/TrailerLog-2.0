@@ -63,7 +63,7 @@ export default function EditModal({ open, close, trailerLocation = TrailerLocati
 
 	return (
 		<>
-			<Transition show={open} as={Fragment}>
+		{categoriesOptions.length && carrierOptions.length ? 			<Transition show={open} as={Fragment}>
 				<Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" static open={open} onClose={close}>
 					<div className="min-h-screen px-4 text-center">
 						<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
@@ -150,7 +150,7 @@ export default function EditModal({ open, close, trailerLocation = TrailerLocati
 						</Transition.Child>
 					</div>
 				</Dialog>
-			</Transition>
+			</Transition> : null}
 		</>
 	);
 }

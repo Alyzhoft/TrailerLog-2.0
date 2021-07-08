@@ -1,21 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useContext, useEffect, useState } from "react";
-import ComboBox from "../ui/ComboBox";
-import Input from "../ui/Input";
-import TextArea from "../ui/TextArea";
+import { Fragment } from "react";
 import Button from "../ui/Button";
-import { SocketContext } from "../../utils/socket";
-import { CarrierContext, CategoryContext } from "../../utils/context";
-
-enum TrailerLocation {
-  PRIMARY = "PRIMARY",
-  SECONDARY = "SECONDARY",
-  RVAC = "RVAC",
-  RMAN = "RMAN",
-}
 
 type Props = {
   open: boolean;
+  addOpen: () => void;
+	inRequest: () => void;
   //   spotNumber: any;
   //   trailerLocation?: TrailerLocation | null;
   close: () => void;
@@ -24,6 +14,8 @@ type Props = {
 export default function AddInModal({
   open,
   close,
+  addOpen,
+  inRequest
 }: //   spotNumber,
 //   trailerLocation,
 Props) {
@@ -77,6 +69,7 @@ Props) {
                     <Button
                       classes="w-full justify-center text-xl"
                       type="submit"
+                      onClick={addOpen}
                     >
                       Add
                     </Button>
@@ -85,6 +78,7 @@ Props) {
                         classes="w-full justify-center text-xl"
                         variant="primary"
                         close={close}
+                        onClick={inRequest}
                       >
                         In
                       </Button>
