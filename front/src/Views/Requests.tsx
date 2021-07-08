@@ -44,7 +44,7 @@ export default function Requests({ path }: Props) {
 							<TableDataCell>{r.requestType === RequestType.OUT ? r.outTrailerNumber : ''}</TableDataCell>
 							<TableDataCell>{r.requestType === RequestType.IN ? r.inTrailerNumber : ''}</TableDataCell>
 							<TableDataCell>{r.requestType === RequestType.OUT ? `${r.outSpotNumber}-${r.outTrailerLocation}` : `${r.inSpotNumber}-${r.inTrailerLocation}`}</TableDataCell>
-							<TableDataCell>{r.urgent}</TableDataCell>
+							<TableDataCell>{r.urgent ? '✔' : null}</TableDataCell>
 							<TableDataCell>
 								<Button onClick={() => handleDone(r)} className="text-white bg-green-500 font-bold text-lg rounded-md w-16 h-8">
 									Done

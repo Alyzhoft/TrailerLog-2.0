@@ -15,6 +15,27 @@ export async function getRequests() {
 	}
 }
 
+export async function inRequest(request: Requests) {
+	try {
+		const inRequest = await prisma.requests.create({
+			data: {
+				trailerId: request.trailerId,
+				inCarrier: request.inCarrier,
+				inTrailerNumber: request.inTrailerNumber,
+				inSpotNumber: request.inSpotNumber,
+				inTrailerLocation: request.inTrailerLocation,
+				special: request.special,
+				requestType: RequestType.IN,
+				urgent: request.urgent,
+			},
+		});
+
+		return inRequest;
+	} catch (e) {
+		return { error: e };
+	}
+}
+
 export async function addRequest(requests: Requests) {
 	try {
 		let outRequest;

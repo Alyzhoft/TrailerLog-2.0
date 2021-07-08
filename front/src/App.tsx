@@ -65,6 +65,12 @@ function App() {
 	}, [io]);
 
 	useEffect(() => {
+		io.on('returnInRequest', (request) => {
+			setData((oldState) => ({ ...oldState, requests: request.requests }));
+		});
+	}, [io]);
+
+	useEffect(() => {
 		io.on('returnCompleted', (request) => {
 			setData((oldState) => ({ ...oldState, requests: request.requests, trailers: request.trailers }));
 		});

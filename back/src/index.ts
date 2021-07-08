@@ -4,7 +4,7 @@ import { Server } from 'socket.io';
 import http from 'http';
 import { addTrailer, getTrailers, deleteTrailer, updateTrailer } from './controller/trailer';
 import { Requests, Trailer } from '@prisma/client';
-import { addRequest, completed, getRequests } from './controller/request';
+import { addRequest, completed, getRequests, inRequest } from './controller/request';
 
 const app = express();
 const server = http.createServer(app);
@@ -68,6 +68,13 @@ io.on('connection', (Socket) => {
 		const requests = await getRequests();
 
 		io.emit('returnRequestAdded', { newRequest: res, requests });
+	});
+
+	Socket.on('inRequest', async (request: Requests) => {
+		const res = await inRequest(request);
+		const requests = await getRequests();
+
+		io.emit('returnInRequest', { newRequest: res, requests });
 	});
 
 	Socket.on('complete', async (request: Requests) => {
