@@ -1,0 +1,21 @@
+{
+	"arrowParens": "always",
+	"bracketSpacing": true,
+	"endOfLine": "crlf",
+	"htmlWhitespaceSensitivity": "css",
+	"insertPragma": false,
+	"jsxBracketSameLine": false,
+	"jsxSingleQuote": false,
+	"printWidth": 100,
+	"proseWrap": "preserve",
+	"quoteProps": "as-needed",
+	"requirePragma": false,
+	"semi": true,
+	"singleQuote": true,
+	"tabWidth": 2,
+	"trailingComma": "all",
+	"useTabs": true,
+	"vueIndentScriptAndStyle": true,
+	"filepath": "c:\\Users\\Alyzh\\Desktop\\TrailerLog-2.0\\front\\src\\components\\Modals\\OutModal.tsx",
+	"parser": "typescript"
+}

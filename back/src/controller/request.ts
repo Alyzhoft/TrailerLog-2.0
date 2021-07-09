@@ -36,7 +36,12 @@ export async function inRequest(request: Requests) {
 	}
 }
 
-export async function addRequest(requests: Requests) {
+type OutIn = Requests & {
+	inTrailerId: number;
+	outTrailerId: number;
+};
+
+export async function addRequest(requests: OutIn) {
 	try {
 		let outRequest;
 		let inRequest;
@@ -44,7 +49,7 @@ export async function addRequest(requests: Requests) {
 		if ('outTrailerNumber' in requests) {
 			outRequest = await prisma.requests.create({
 				data: {
-					trailerId: requests.trailerId,
+					trailerId: requests.outTrailerId,
 					outSpotNumber: requests.outSpotNumber,
 					outTrailerLocation: requests.outTrailerLocation,
 					outTrailerNumber: requests.outTrailerNumber,
@@ -59,7 +64,7 @@ export async function addRequest(requests: Requests) {
 		if ('inTrailerNumber' in requests) {
 			inRequest = await prisma.requests.create({
 				data: {
-					trailerId: requests.trailerId,
+					trailerId: requests.inTrailerId,
 					inCarrier: requests.inCarrier,
 					inTrailerNumber: requests.inTrailerNumber,
 					inSpotNumber: requests.inSpotNumber,

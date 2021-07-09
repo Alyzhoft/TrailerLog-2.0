@@ -14,13 +14,14 @@ type Props = {
 	open: boolean;
 	editOpen: () => void;
 	lotMove: () => void;
+	outModal: () => void;
 	spotNumber?: number;
 	trailerLocation?: TrailerLocation;
 	trailer: trailer | null;
 	close: () => void;
 };
 
-export default function TempModal({ open, editOpen, lotMove, close, spotNumber = 1, trailer, trailerLocation = TrailerLocation.RVAC }: Props) {
+export default function TempModal({ open, editOpen, lotMove, close, outModal, spotNumber = 1, trailer, trailerLocation = TrailerLocation.RVAC }: Props) {
 	return (
 		<>
 			<Transition show={open} as={Fragment}>
@@ -60,6 +61,9 @@ export default function TempModal({ open, editOpen, lotMove, close, spotNumber =
 										<Button onClick={editOpen} type="submit">
 											Edit
 										</Button>
+										<div className="ml-2">
+											<Button onClick={outModal}>Out</Button>
+										</div>
 										<div className="ml-2">
 											<Button onClick={lotMove}>Move</Button>
 										</div>
