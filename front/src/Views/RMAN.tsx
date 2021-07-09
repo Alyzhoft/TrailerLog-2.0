@@ -9,6 +9,7 @@ import EditModal from "../components/Modals/EditModal";
 import { TrailerLocationContext } from "../utils/context";
 import LotMoveModal from "../components/Modals/LotMoveModal";
 import AddInModal from "../components/Modals/AddInModal";
+import InModal from "../components/Modals/InModal";
 
 const screenHeight = {
   height: "calc(100vh - 5.75rem)",
@@ -28,6 +29,7 @@ export default function RMAN({ trailers }: Props) {
   const [addIn, setAddIn] = useState(false);
   const [tempModal, setTempModal] = useState(false);
   const [lotModal, setLotModal] = useState(false);
+  const [inModal, setInModal] = useState(false);
   const [spotClicked, setSpotClicked] = useState<any>(0);
   const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
   const [trailerLocation, setTrailerLocation] =
@@ -56,9 +58,7 @@ export default function RMAN({ trailers }: Props) {
           spotNumber={spotClicked}
           trailerLocation={trailerLocation}
         />
-      ) : (
-        null
-      )}
+      ) : null}
       {editOpen ? (
         <EditModal
           open={editOpen}
@@ -110,12 +110,21 @@ export default function RMAN({ trailers }: Props) {
           inRequest={() => {
             setAddIn(false);
             setTimeout(() => {
-              setLotModal(true);
+              setInModal(true);
             }, 10);
           }}
         />
       ) : null}
-
+      {inModal ? (
+        <InModal
+          open={inModal}
+          close={() => setInModal(false)}
+          trailer={selctedTrailer}
+          spotNumber={spotClicked.name}
+          trailers={trailers}
+          trailerLocation={TrailerLocation.RMAN}
+        />
+      ) : null}
       <Lot
         spots={doors}
         lot={TrailerLocation.SECONDARY}
