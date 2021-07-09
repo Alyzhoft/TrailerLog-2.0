@@ -50,7 +50,7 @@ export default function TempModal({ open, close, spotNumber = 1, trailer, traile
 	}, [carriers]);
 
 	useEffect(() => {
-		let arr = trailers.map((trailer) => (trailer.carrier === carrier && (trailer.trailerLocation !== 'RVAC' && trailer.trailerLocation !== 'RMAN') ? trailer?.trailerNumber : undefined));
+		let arr = trailers.map((trailer) => (trailer.carrier === carrier ? trailer?.trailerNumber : undefined));
 		setTrailerOptions(arr);
 		setTrailerNumber(trailerNumberToggle ? arr.find((a) => a !== undefined) : undefined);
 	}, [trailerNumberToggle, trailers, carrier]);
@@ -93,7 +93,7 @@ export default function TempModal({ open, close, spotNumber = 1, trailer, traile
 
 											console.log({ trailerId, trailerNumber, carrier, urgent, special, trailerLocation, spotNumber });
 
-											socket.emit('inRequest', { trailerId, inTrailerNumber: trailerNumber, inCarrier: carrier, urgent, special, inTrailerLocation: trailerLocation, inSpotNumber: spotNumber });
+											// socket.emit('inRequest', { trailerId, inTrailerNumber: trailerNumber, inCarrier: carrier, urgent, special, inTrailerLocation: trailerLocation, inSpotNumber: spotNumber });
 
 											close();
 										}}

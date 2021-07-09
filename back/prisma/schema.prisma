@@ -32,6 +32,7 @@ model Trailer {
   trailerLocation String
   spotNumber      String
   comments        String?
+  departed        Boolean    @default(false)
   Requests        Requests[]
 }
 

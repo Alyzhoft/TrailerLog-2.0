@@ -44,8 +44,6 @@ export default function RMAN({ trailers }: Props) {
     }
   }, [trailerLocations]);
 
-  console.log(spotClicked);
-
   return (
     <div
       style={screenHeight}
