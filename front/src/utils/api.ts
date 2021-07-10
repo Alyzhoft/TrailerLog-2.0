@@ -44,3 +44,12 @@ export async function getTrailerLocations() {
 		alert(e);
 	}
 }
+
+export async function getAvalibleTrailerLocations() {
+	try {
+		const res = await axios.get('http://localhost:4000/api/trailerLocation/avalibleLocations');
+		return res.data;
+	} catch (e) {
+		alert(e);
+	}
+}

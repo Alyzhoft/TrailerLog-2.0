@@ -34,6 +34,7 @@ model Trailer {
   comments        String?
   departed        Boolean    @default(false)
   Requests        Requests[]
+  Spots           Spots?
 }
 
 model Requests {
@@ -89,6 +90,8 @@ model Spots {
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   name              String
+  trailer           Trailer?        @relation(fields: [trailerId], references: [id])
   trailerLocation   TrailerLocation @relation(fields: [trailerLocationId], references: [id])
   trailerLocationId Int
+  trailerId         Int?
 }

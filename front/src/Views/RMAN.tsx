@@ -42,16 +42,41 @@ export default function RMAN({ trailers }: Props) {
 	useEffect(() => {
 		for (let i = 0; i < trailerLocations.length; i++) {
 			if (trailerLocations[i].name === 'RMAN') {
-				setDoors(trailerLocations[i].Spots);
+				console.log(trailerLocations[i].Spots.sort());
+
+				setDoors(trailerLocations[i].Spots.sort());
 			}
 		}
 	}, [trailerLocations]);
 
 	return (
 		<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
-			{addOpen ? <AddModal open={addOpen} close={() => setAddOpen(false)} spotNumber={spotClicked} trailerLocation={trailerLocation} /> : null}
-			{editOpen ? <EditModal open={editOpen} close={() => setEditOpen(false)} trailer={selctedTrailer} trailerLocation={trailerLocation} /> : <></>}
-			{lotModal ? <LotMoveModal open={lotModal} close={() => setLotModal(false)} spotNumber={spotClicked.name} trailer={selctedTrailer} /> : null}
+			{addOpen ? (
+				<AddModal
+					open={addOpen}
+					close={() => setAddOpen(false)}
+					spotNumber={spotClicked}
+					trailerLocation={trailerLocation}
+				/>
+			) : null}
+			{editOpen ? (
+				<EditModal
+					open={editOpen}
+					close={() => setEditOpen(false)}
+					trailer={selctedTrailer}
+					trailerLocation={trailerLocation}
+				/>
+			) : (
+				<></>
+			)}
+			{lotModal ? (
+				<LotMoveModal
+					open={lotModal}
+					close={() => setLotModal(false)}
+					spotNumber={spotClicked.name}
+					trailer={selctedTrailer}
+				/>
+			) : null}
 			{tempModal ? (
 				<TempModal
 					open={tempModal}
@@ -96,8 +121,26 @@ export default function RMAN({ trailers }: Props) {
 					}}
 				/>
 			) : null}
-			{inModal ? <InModal open={inModal} close={() => setInModal(false)} trailer={selctedTrailer} spotNumber={spotClicked.name} trailers={trailers} trailerLocation={TrailerLocation.RMAN} /> : null}
-			{outModal ? <OutModal open={outModal} close={() => setOutModal(false)} trailer={selctedTrailer} spotNumber={spotClicked.name} trailers={trailers} trailerLocation={TrailerLocation.RMAN} /> : null}
+			{inModal ? (
+				<InModal
+					open={inModal}
+					close={() => setInModal(false)}
+					trailer={selctedTrailer}
+					spotNumber={spotClicked.name}
+					trailers={trailers}
+					trailerLocation={TrailerLocation.RMAN}
+				/>
+			) : null}
+			{outModal ? (
+				<OutModal
+					open={outModal}
+					close={() => setOutModal(false)}
+					trailer={selctedTrailer}
+					spotNumber={spotClicked.name}
+					trailers={trailers}
+					trailerLocation={TrailerLocation.RMAN}
+				/>
+			) : null}
 			<Lot
 				spots={doors}
 				lot={TrailerLocation.SECONDARY}
