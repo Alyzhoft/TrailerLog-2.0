@@ -28,6 +28,8 @@ export default function Requests({ path }: Props) {
 		}
 	}
 
+	console.log(requests);
+
 	return (
 		<>
 			{outModal ? (
@@ -59,7 +61,9 @@ export default function Requests({ path }: Props) {
 									{r.requestType === RequestType.OUT ? `${r.outCarrier}-${r.outTrailerNumber}` : ''}
 								</TableDataCell>
 								<TableDataCell>
-									{r.requestType === RequestType.IN ? `${r.inCarrier}-${r.inTrailerNumber}` : ''}
+									{r.requestType === RequestType.IN
+										? `${r.inCarrier}-${r.inTrailerNumber}-${r.trailer.trailerLocation}-${r.trailer.spotNumber}`
+										: ''}
 								</TableDataCell>
 								<TableDataCell>
 									{r.requestType === RequestType.OUT

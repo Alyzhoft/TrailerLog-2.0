@@ -146,6 +146,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 													placeholder="Enter Trailer Number"
 													value={trailerNumber}
 													onChange={(e) => setTrailerNumber(e.currentTarget.value)}
+													maxLength={5}
 												/>
 											</div>
 											<div className="w-full mx-1 mt-3">

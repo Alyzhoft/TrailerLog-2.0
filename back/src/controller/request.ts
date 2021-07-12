@@ -7,6 +7,9 @@ export async function getRequests() {
       where: {
         completed: false,
       },
+      include: {
+        trailer: true,
+      },
     });
 
     return requests;

@@ -39,4 +39,5 @@ export type Request = {
 	outCategory: string | null;
 	requestType: RequestType;
 	trailerId: number;
+	trailer: trailer;
 };
