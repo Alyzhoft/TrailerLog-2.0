@@ -15,7 +15,7 @@ export async function getTrailerLocations() {
 
     return res;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
 
@@ -33,7 +33,7 @@ export async function getAvalibleTrailerLocations() {
 
     return res;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
 
@@ -50,7 +50,7 @@ export async function addTrailerLocation(trailerLocation: TrailerLocation) {
 
     return res;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
 
@@ -71,7 +71,7 @@ export async function updateTrailerLocation(trailerLocation: TrailerLocation) {
 
     return res;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
 
@@ -85,6 +85,6 @@ export async function deleteTrailerLocation(id: number) {
 
     return res;
   } catch (error) {
-    return error;
+    return { error };
   }
 }

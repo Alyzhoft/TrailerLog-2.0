@@ -14,7 +14,7 @@ export async function getRequests() {
 
     return requests;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
 
@@ -34,8 +34,8 @@ export async function inRequest(request: Requests) {
     });
 
     return inRequest;
-  } catch (e) {
-    return { error: e };
+  } catch (error) {
+    return { error };
   }
 }
 
@@ -79,8 +79,8 @@ export async function addRequest(requests: OutIn) {
     }
 
     return { outRequest, inRequest };
-  } catch (e) {
-    return e;
+  } catch (error) {
+    return { error };
   }
 }
 
@@ -101,7 +101,7 @@ export async function addRequest(requests: OutIn) {
 
 // 		return res;
 // 	} catch (error) {
-// 		return error;
+// 		return {error};
 // 	}
 // }
 
@@ -115,7 +115,7 @@ export async function deleteRequest(id: number) {
 
     return trailer;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
 
@@ -142,7 +142,7 @@ export async function completed(request: Requests) {
     }
 
     return { res, trailer };
-  } catch (e) {
-    return e;
+  } catch (error) {
+    return { error };
   }
 }

@@ -7,7 +7,7 @@ export async function getTrailers() {
 
     return trailers;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
 
@@ -37,9 +37,7 @@ export async function addTrailer(trailer: AddTrailer) {
         },
       });
 
-      console.log(trailer.id);
-
-      const test = await prisma.spots.update({
+      const updateSpotTrailerId = await prisma.spots.update({
         where: {
           id: trailer.spotId,
         },
@@ -47,8 +45,6 @@ export async function addTrailer(trailer: AddTrailer) {
           trailerId: res.id,
         },
       });
-
-      console.log(test);
 
       return res;
     } else {
@@ -78,7 +74,7 @@ export async function updateTrailer(trailer: Trailer) {
 
     return res;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
 
@@ -92,6 +88,6 @@ export async function deleteTrailer(trailerId: number) {
 
     return trailer;
   } catch (error) {
-    return error;
+    return { error };
   }
 }
