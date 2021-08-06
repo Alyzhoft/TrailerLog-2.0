@@ -12,6 +12,7 @@ export enum RequestType {
 
 export interface trailer {
 	id: number;
+	createdAt: string;
 	trailerNumber: string;
 	carrier: string;
 	category: string;
@@ -41,3 +42,5 @@ export type Request = {
 	trailerId: number;
 	trailer: trailer;
 };
+
+export type HeroIcon = (props: React.ComponentProps<'svg'>) => JSX.Element;

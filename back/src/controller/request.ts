@@ -1,4 +1,4 @@
-import { Prisma, Requests, RequestType } from "@prisma/client";
+import { Requests, RequestType } from "@prisma/client";
 import { prisma } from "../utils/prisma";
 
 export async function getRequests() {

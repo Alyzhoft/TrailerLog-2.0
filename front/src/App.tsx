@@ -18,6 +18,7 @@ import {
 import RVAC from './Views/RVAC';
 import RMAN from './Views/RMAN';
 import Requests from './Views/Requests';
+import Search from './Views/Search';
 import Container from './components/ui/Container';
 import Error from './components/Modals/Error';
 
@@ -120,6 +121,7 @@ function App() {
 									<RVAC trailers={data.trailers} path="/" />
 									<RMAN trailers={data.trailers} path="/rman" />
 									<Requests path="/requests" />
+									<Search path="/search" />
 								</Router>
 							</Container>
 						</TrailerLocationContext.Provider>

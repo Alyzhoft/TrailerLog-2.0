@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { Server } from "socket.io";
 import http from "http";
+import boolParser from "express-query-boolean";
 import {
   addTrailer,
   getTrailers,
@@ -27,16 +28,19 @@ const categoryRoutes = require("./routes/category");
 const requestRoutes = require("./routes/request");
 const trailerLocationRoutes = require("./routes/trailerLocation");
 const spotRputes = require("./routes/spots");
+const search = require("./routes/search");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(cors());
+app.use(boolParser());
 app.use("/api/trailer", trailerRoutes);
 app.use("/api/carrier", carrierRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/request", requestRoutes);
 app.use("/api/trailerLocation", trailerLocationRoutes);
 app.use("/api/spot", spotRputes);
+app.use("/api/search", search);
 
 server.listen(4000, () => {
   console.log("Working");
