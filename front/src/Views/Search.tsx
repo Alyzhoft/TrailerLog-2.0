@@ -203,7 +203,7 @@ export default function Search({ path }: Props) {
 						}}
 					/>
 				</div>
-				<span className="mt-1 text-lg">Sort By:</span>
+				{/* <span className="mt-1 text-lg">Sort By:</span>
 				<div className="w-1/8 ml-2">
 					<ComboBox
 						options={sortBy}
@@ -212,7 +212,7 @@ export default function Search({ path }: Props) {
 							setSort(value);
 						}}
 					/>
-				</div>
+				</div> */}
 			</div>
 			<div className="overflow-y-auto h-4/5 mt-5 rounded-md">
 				<Table

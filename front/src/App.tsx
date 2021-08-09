@@ -19,6 +19,7 @@ import RVAC from './Views/RVAC';
 import RMAN from './Views/RMAN';
 import Requests from './Views/Requests';
 import Search from './Views/Search';
+import PrimaryLot from './Views/PrimaryLot';
 import Container from './components/ui/Container';
 import Error from './components/Modals/Error';
 
@@ -122,6 +123,7 @@ function App() {
 									<RMAN trailers={data.trailers} path="/rman" />
 									<Requests path="/requests" />
 									<Search path="/search" />
+									<PrimaryLot path="/primaryLot" />
 								</Router>
 							</Container>
 						</TrailerLocationContext.Provider>

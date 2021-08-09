@@ -6,6 +6,7 @@ import { Link } from '@reach/router';
 
 const navigation = [
 	{ name: 'Requests', href: '/requests', current: true },
+	{ name: 'Primary Lot', href: '/primaryLot', current: false },
 	{ name: 'RVAC', href: '/', current: false },
 	{ name: 'RMAN', href: '/rman', current: false },
 	{ name: 'Search', href: '/search', current: false },
