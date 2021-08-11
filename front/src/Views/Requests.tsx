@@ -8,7 +8,7 @@ import { socket, SocketContext } from '../utils/socket';
 import OutLocationModal from '../components/Modals/OutLocationModal';
 
 const screenHeight = {
-	height: 'calc(100vh - 10.25rem)',
+	height: 'calc(100vh - 14.25rem)',
 };
 
 type Props = RouteComponentProps;

@@ -11,11 +11,12 @@ import Toggle from '../components/ui/Toggle';
 import Button from '../components/ui/Button';
 import { alphabetically } from '../utils/sort';
 import { SearchIcon } from '@heroicons/react/solid';
+import ColorPicker from '../components/ui/ColorPickers';
 
 type Props = RouteComponentProps;
 
 const screenHeight = {
-	height: 'calc(100vh - 5.75rem)',
+	height: 'calc(100vh - 9.75rem)',
 };
 
 async function getAll() {
@@ -244,8 +245,8 @@ export default function Search({ path }: Props) {
 				</Table>
 			</div>
 			<div className="flex justify-center w-full">
-				<div className="w-1/6 flex justify-between">
-					{page > 1 ? (
+				{page > 1 ? (
+					<div className="w-1/6 flex justify-between">
 						<Button
 							onClick={() => {
 								setPage(page - 1);
@@ -253,15 +254,25 @@ export default function Search({ path }: Props) {
 						>
 							Prev Page
 						</Button>
-					) : null}
-					<Button
-						onClick={() => {
-							setPage(page + 1);
-						}}
-					>
-						Next Page
-					</Button>
-				</div>
+						<Button
+							onClick={() => {
+								setPage(page + 1);
+							}}
+						>
+							Next Page
+						</Button>
+					</div>
+				) : (
+					<div className="w-1/6 flex justify-end">
+						<Button
+							onClick={() => {
+								setPage(page + 1);
+							}}
+						>
+							Next Page
+						</Button>
+					</div>
+				)}
 			</div>
 		</div>
 	);

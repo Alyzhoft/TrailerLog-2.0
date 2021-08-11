@@ -12,7 +12,7 @@ import InModal from '../components/Modals/InModal';
 import { TrailerLocationContext } from '../utils/context';
 
 const screenHeight = {
-	height: 'calc(100vh - 5.75rem)',
+	height: 'calc(100vh - 9.75rem)',
 };
 
 type Props = RouteComponentProps & {
