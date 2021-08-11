@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+
+type Props = {
+	setColor?: (currentColor: string) => void;
+};
 
 function classNames(...classes: any) {
 	return classes.filter(Boolean).join(' ');
@@ -8,7 +12,7 @@ function classNames(...classes: any) {
 const colors = ['gray', 'red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink'];
 const variants = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 
-export default function ColorPicker() {
+export default function ColorPicker({ setColor }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentColor, setCurrentColor] = useState('red-800');
 	const [iconColor, setIconColor] = useState('text-white');
@@ -22,7 +26,11 @@ export default function ColorPicker() {
 		}
 	}
 
-	console.log(isOpen);
+	useEffect(() => {
+		if (setColor) {
+			setColor(currentColor);
+		}
+	}, [currentColor]);
 
 	return (
 		<div className="bg-white mx-auto my-auto p-4">
@@ -38,7 +46,7 @@ export default function ColorPicker() {
 						value={currentColor}
 						className="border border-gray-400 p-2 rounded-lg"
 					/>
-					<button
+					<div
 						onClick={() => setIsOpen(!isOpen)}
 						className={classNames(
 							'rounded-full ml-3 my-auto h-10 w-10 flex justify-center items-center',
@@ -58,12 +66,12 @@ export default function ColorPicker() {
 								d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
 							/>
 						</svg>
-					</button>
+					</div>
 
 					{isOpen ? (
 						<div
 							onClick={() => setIsOpen(false)}
-							className="border bg-white border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md shadow-lg"
+							className="border bg-white border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md h-full z-20 shadow-lg"
 						>
 							<div className="flex">
 								{colors.map((color: string) => {

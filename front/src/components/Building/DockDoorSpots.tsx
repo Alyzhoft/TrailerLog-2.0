@@ -68,16 +68,17 @@ export default function DockDoorSpot({
 		if (trailer !== undefined) {
 			return (
 				<>
-					<div className="flex mx-1 w-8 h-28 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
+					<div className="flex ml-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
-							style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }}
 							className={classNames(
-								'text-black focus:outline-none w-full',
-								`bg-${getColor(trailer)} rounded w-full h-full`,
+								'text-black focus:outline-none w-full text-xs',
+								`bg-${getColor(trailer)} rounded h-full`,
 							)}
 							onClick={() => handleTempClick(trailer)}
 						>
-							{trailer?.trailerNumber}
+							<span style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }}>
+								{trailer?.trailerNumber}
+							</span>
 						</button>
 					</div>
 				</>
@@ -87,7 +88,7 @@ export default function DockDoorSpot({
 
 	return (
 		<>
-			<div className="flex mx-1 w-8 h-28 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
+			<div className="flex ml-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 				<button
 					style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }}
 					className="text-black h-full w-full focus:outline-none"

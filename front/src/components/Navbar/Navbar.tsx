@@ -23,7 +23,7 @@ export default function Navbar() {
 				{({ open }) => (
 					<>
 						<div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
-							<div className="flex justify-between h-16">
+							<div className="flex justify-between h-12">
 								<div className="flex justify-between w-full">
 									<div className="flex-shrink-0 flex items-center">
 										<Link className="flex" to="/">
@@ -41,7 +41,7 @@ export default function Navbar() {
 												to={item.href}
 												className={classNames(
 													'border-transparent text-white hover:white hover:text-white',
-													'inline-flex items-center px-1 pt-1 border-b-2 text-xl font-medium',
+													'inline-flex items-center pt-1 border-b-2 text-md font-medium',
 												)}
 												aria-current={item.current ? 'page' : undefined}
 											>

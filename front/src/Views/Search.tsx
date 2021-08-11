@@ -16,7 +16,7 @@ import ColorPicker from '../components/ui/ColorPickers';
 type Props = RouteComponentProps;
 
 const screenHeight = {
-	height: 'calc(100vh - 9.75rem)',
+	height: 'calc(100vh - 8.75rem)',
 };
 
 async function getAll() {
@@ -246,7 +246,7 @@ export default function Search({ path }: Props) {
 			</div>
 			<div className="flex justify-center w-full">
 				{page > 1 ? (
-					<div className="w-1/6 flex justify-between">
+					<div className="w-1/5 flex justify-between">
 						<Button
 							onClick={() => {
 								setPage(page - 1);
@@ -263,7 +263,7 @@ export default function Search({ path }: Props) {
 						</Button>
 					</div>
 				) : (
-					<div className="w-1/6 flex justify-end">
+					<div className="w-1/5 flex justify-end">
 						<Button
 							onClick={() => {
 								setPage(page + 1);

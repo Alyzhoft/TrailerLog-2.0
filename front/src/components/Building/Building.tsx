@@ -13,12 +13,32 @@ type BuildingProps = {
 	tempModal: () => void;
 };
 
-export default function Building({ doors, dock, trailers, spotClicked, trailerClicked, addOpen, tempModal, ...props }: BuildingProps) {
+export default function Building({
+	doors,
+	dock,
+	trailers,
+	spotClicked,
+	trailerClicked,
+	addOpen,
+	tempModal,
+	...props
+}: BuildingProps) {
 	return (
 		<div className="mb-5" {...props}>
-			<div className="flex justify-between mx-4 h-28">
+			<div className="flex justify-between mx-4 h-20">
 				{doors.map((door: any) => {
-					return <DockDoorSpots key={door.id} trailers={trailers} dock={dock} door={door} trailerClicked={(trailer) => trailerClicked(trailer)} spotClicked={(door) => spotClicked(door)} addOpen={addOpen} tempModal={tempModal} />;
+					return (
+						<DockDoorSpots
+							key={door.id}
+							trailers={trailers}
+							dock={dock}
+							door={door}
+							trailerClicked={(trailer) => trailerClicked(trailer)}
+							spotClicked={(door) => spotClicked(door)}
+							addOpen={addOpen}
+							tempModal={tempModal}
+						/>
+					);
 				})}
 			</div>
 			<div className="flex justify-between mb-4 mx-4 h-10 border-black border-2 shadow-md">

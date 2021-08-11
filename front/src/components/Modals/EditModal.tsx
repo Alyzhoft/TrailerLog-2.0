@@ -22,7 +22,12 @@ type Props = {
 	close: () => void;
 };
 
-export default function EditModal({ open, close, trailerLocation = TrailerLocation.RVAC, trailer }: Props) {
+export default function EditModal({
+	open,
+	close,
+	trailerLocation = TrailerLocation.RVAC,
+	trailer,
+}: Props) {
 	console.log(trailer);
 
 	const [id, setId] = useState(trailer?.id);
@@ -65,9 +70,23 @@ export default function EditModal({ open, close, trailerLocation = TrailerLocati
 		<>
 			{categoriesOptions.length && carrierOptions.length ? (
 				<Transition show={open} as={Fragment}>
-					<Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" static open={open} onClose={close}>
+					<Dialog
+						as="div"
+						className="fixed z-10 inset-0 overflow-y-auto"
+						static
+						open={open}
+						onClose={close}
+					>
 						<div className="min-h-screen px-4 text-center">
-							<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
+							<Transition.Child
+								as={Fragment}
+								enter="ease-out duration-300"
+								enterFrom="opacity-0"
+								enterTo="opacity-100"
+								leave="ease-in duration-200"
+								leaveFrom="opacity-100"
+								leaveTo="opacity-0"
+							>
 								<Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 							</Transition.Child>
 
@@ -75,8 +94,16 @@ export default function EditModal({ open, close, trailerLocation = TrailerLocati
 							<span className="inline-block h-screen align-middle" aria-hidden="true">
 								&#8203;
 							</span>
-							<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
-								<div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+							<Transition.Child
+								as={Fragment}
+								enter="ease-out duration-300"
+								enterFrom="opacity-0 scale-95"
+								enterTo="opacity-100 scale-100"
+								leave="ease-in duration-200"
+								leaveFrom="opacity-100 scale-100"
+								leaveTo="opacity-0 scale-95"
+							>
+								<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
 									<Dialog.Title as="h3" className=" text-2xl font-large leading-6 text-gray-900">
 										Edit Trailer
 									</Dialog.Title>
@@ -108,13 +135,23 @@ export default function EditModal({ open, close, trailerLocation = TrailerLocati
 												/>
 											</div>
 											<div className="w-full mx-1 mt-3">
-												<ComboBox labelName={'Carrier'} options={carrierOptions} value={carrier} valueChange={(value) => setCarrier(value)} />
+												<ComboBox
+													labelName={'Carrier'}
+													options={carrierOptions}
+													value={carrier}
+													valueChange={(value) => setCarrier(value)}
+												/>
 											</div>
 										</div>
 
 										<div className="md:flex justify-between ">
 											<div className="w-full mx-1 mt-3">
-												<Input labelText="Trailer Number" placeholder="Enter Trailer Number" value={trailerNumber} onChange={(e) => setTrailerNumber(e.currentTarget.value)} />
+												<Input
+													labelText="Trailer Number"
+													placeholder="Enter Trailer Number"
+													value={trailerNumber}
+													onChange={(e) => setTrailerNumber(e.currentTarget.value)}
+												/>
 											</div>
 											<div className="w-full mx-1 mt-3">
 												<Input labelText="Trailer Location" value={trailer?.spotNumber} disabled />
@@ -122,7 +159,11 @@ export default function EditModal({ open, close, trailerLocation = TrailerLocati
 										</div>
 
 										<div className="mt-3">
-											<TextArea labelText="Comments" value={comments} onChange={(e) => setComments(e.target.value)} />
+											<TextArea
+												labelText="Comments"
+												value={comments}
+												onChange={(e) => setComments(e.target.value)}
+											/>
 										</div>
 
 										<div className="mt-4 flex">

@@ -25,7 +25,14 @@ type Props = {
 
 const options = ['E-Track', 'Reinforced', 'Not Reinforced', 'TPOD'];
 
-export default function TempModal({ open, close, spotNumber = 1, trailer, trailerLocation = TrailerLocation.RVAC, trailers }: Props) {
+export default function TempModal({
+	open,
+	close,
+	spotNumber = 1,
+	trailer,
+	trailerLocation = TrailerLocation.RVAC,
+	trailers,
+}: Props) {
 	const [trailerId, setTrailerId] = useState<number>();
 	const [carrierOptions, setCarrierOptions] = useState<string[]>([]);
 	const [trailerOptions, setTrailerOptions] = useState<(string | undefined)[]>([]);
@@ -50,13 +57,21 @@ export default function TempModal({ open, close, spotNumber = 1, trailer, traile
 	}, [carriers]);
 
 	useEffect(() => {
-		let arr = trailers.map((trailer) => (trailer.carrier === carrier && trailer.trailerLocation !== 'RVAC' && trailer.trailerLocation !== 'RMAN' ? trailer?.trailerNumber : undefined));
+		let arr = trailers.map((trailer) =>
+			trailer.carrier === carrier &&
+			trailer.trailerLocation !== 'RVAC' &&
+			trailer.trailerLocation !== 'RMAN'
+				? trailer?.trailerNumber
+				: undefined,
+		);
 		setTrailerOptions(arr);
 		setTrailerNumber(trailerNumberToggle ? arr.find((a) => a !== undefined) : undefined);
 	}, [trailerNumberToggle, trailers, carrier]);
 
 	useEffect(() => {
-		const trailer = trailers.find((t) => t.trailerNumber === trailerNumber && t.carrier === carrier);
+		const trailer = trailers.find(
+			(t) => t.trailerNumber === trailerNumber && t.carrier === carrier,
+		);
 		if (trailer !== undefined) {
 			setTrailerId(trailer.id);
 		}
@@ -71,9 +86,23 @@ export default function TempModal({ open, close, spotNumber = 1, trailer, traile
 		<>
 			{carrierOptions.length ? (
 				<Transition show={open} as={Fragment}>
-					<Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" static open={open} onClose={close}>
+					<Dialog
+						as="div"
+						className="fixed z-10 inset-0 overflow-y-auto"
+						static
+						open={open}
+						onClose={close}
+					>
 						<div className="min-h-screen px-4 text-center">
-							<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0" enterTo="opacity-100" leave="ease-in duration-200" leaveFrom="opacity-100" leaveTo="opacity-0">
+							<Transition.Child
+								as={Fragment}
+								enter="ease-out duration-300"
+								enterFrom="opacity-0"
+								enterTo="opacity-100"
+								leave="ease-in duration-200"
+								leaveFrom="opacity-100"
+								leaveTo="opacity-0"
+							>
 								<Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
 							</Transition.Child>
 
@@ -81,9 +110,20 @@ export default function TempModal({ open, close, spotNumber = 1, trailer, traile
 							<span className="inline-block h-screen align-middle" aria-hidden="true">
 								&#8203;
 							</span>
-							<Transition.Child as={Fragment} enter="ease-out duration-300" enterFrom="opacity-0 scale-95" enterTo="opacity-100 scale-100" leave="ease-in duration-200" leaveFrom="opacity-100 scale-100" leaveTo="opacity-0 scale-95">
+							<Transition.Child
+								as={Fragment}
+								enter="ease-out duration-300"
+								enterFrom="opacity-0 scale-95"
+								enterTo="opacity-100 scale-100"
+								leave="ease-in duration-200"
+								leaveFrom="opacity-100 scale-100"
+								leaveTo="opacity-0 scale-95"
+							>
 								<div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-									<Dialog.Title as="h3" className=" text-5xl font-bold font-large leading-6 text-gray-900">
+									<Dialog.Title
+										as="h3"
+										className=" text-3xl font-bold font-large leading-6 text-gray-900"
+									>
 										{`Dock: ${spotNumber}`}
 									</Dialog.Title>
 
@@ -91,24 +131,55 @@ export default function TempModal({ open, close, spotNumber = 1, trailer, traile
 										onSubmit={(e) => {
 											e.preventDefault();
 
-											console.log({ trailerId, trailerNumber, carrier, urgent, special, trailerLocation, spotNumber });
+											console.log({
+												trailerId,
+												trailerNumber,
+												carrier,
+												urgent,
+												special,
+												trailerLocation,
+												spotNumber,
+											});
 
-											socket.emit('inRequest', { trailerId, inTrailerNumber: trailerNumber, inCarrier: carrier, urgent, special, inTrailerLocation: trailerLocation, inSpotNumber: spotNumber });
+											socket.emit('inRequest', {
+												trailerId,
+												inTrailerNumber: trailerNumber,
+												inCarrier: carrier,
+												urgent,
+												special,
+												inTrailerLocation: trailerLocation,
+												inSpotNumber: spotNumber,
+											});
 
 											close();
 										}}
 									>
 										<div className="w-full mx-1 mt-3">
-											<ComboBox labelName={'Carrier'} options={carrierOptions} value={carrier} valueChange={(value) => setCarrier(value)} />
+											<ComboBox
+												labelName={'Carrier'}
+												options={carrierOptions}
+												value={carrier}
+												valueChange={(value) => setCarrier(value)}
+											/>
 										</div>
 										{trailerNumberToggle ? (
 											<div className="w-full mx-1 mt-3">
-												<ComboBox labelName={'Trailer Number'} options={trailerOptions} value={trailerNumber} valueChange={(value) => setTrailerNumber(value)} />
+												<ComboBox
+													labelName={'Trailer Number'}
+													options={trailerOptions}
+													value={trailerNumber}
+													valueChange={(value) => setTrailerNumber(value)}
+												/>
 											</div>
 										) : null}
 										{specialToggle ? (
 											<div className="w-full mx-1 mt-3">
-												<ComboBox labelName={'Special'} options={specialOptions} value={special} valueChange={(value) => setSpecial(value)} />
+												<ComboBox
+													labelName={'Special'}
+													options={specialOptions}
+													value={special}
+													valueChange={(value) => setSpecial(value)}
+												/>
 											</div>
 										) : null}
 										<div className="mt-4 flex">
@@ -121,9 +192,23 @@ export default function TempModal({ open, close, spotNumber = 1, trailer, traile
 												</Button>
 											</div>
 											<div className="flex justify-center ml-2">
-												<Toggle enabled={urgent} setEnabled={() => setUrgent(!urgent)} label="Urgent" />
-												<Toggle enabled={specialToggle} setEnabled={() => setSpecialToggle(!specialToggle)} label="Special" classes="ml-2" />
-												<Toggle enabled={trailerNumberToggle} setEnabled={() => setTrailerNumberToggle(!trailerNumberToggle)} label="Trailer Number" classes="ml-2" />
+												<Toggle
+													enabled={urgent}
+													setEnabled={() => setUrgent(!urgent)}
+													label="Urgent"
+												/>
+												<Toggle
+													enabled={specialToggle}
+													setEnabled={() => setSpecialToggle(!specialToggle)}
+													label="Special"
+													classes="ml-2"
+												/>
+												<Toggle
+													enabled={trailerNumberToggle}
+													setEnabled={() => setTrailerNumberToggle(!trailerNumberToggle)}
+													label="Trailer Number"
+													classes="ml-2"
+												/>
 											</div>
 										</div>
 									</form>

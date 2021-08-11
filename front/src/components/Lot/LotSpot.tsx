@@ -67,17 +67,17 @@ export default function LotSpot({
 		if (trailer !== undefined) {
 			return (
 				<div>
-					<div className="ml-3 font-bold">{spot.name}</div>
-					<div className="flex mx-1 w-8 h-28 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
+					<div className="ml-2 font-bold">{spot.name}</div>
+					<div className="flex mx-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
 							// style={{ textOrientation: "upright", writingMode: "vertical-rl" }}
 							className={classNames(
-								'text-black focus:outline-none w-full rounded upRight',
+								'text-black focus:outline-none w-full rounded ',
 								`bg-${getColor(trailer)}`,
 							)}
 							onClick={() => handleEditClick(trailer)}
 						>
-							{trailer?.trailerNumber}
+							<span className="upRight text-xs">{trailer?.trailerNumber}</span>
 						</button>
 					</div>
 				</div>
@@ -87,8 +87,8 @@ export default function LotSpot({
 
 	return (
 		<div>
-			<div className="ml-3 font-bold">{spot.name}</div>
-			<div className="flex mx-1 w-8 h-28 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
+			<div className="ml-2 font-bold">{spot.name}</div>
+			<div className="flex mx-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 				<button
 					style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }}
 					className="text-black h-full w-full focus:outline-none"

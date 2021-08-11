@@ -14,7 +14,7 @@ const horizontalSpots2 = Array.from({ length: 4 }, (_, index) => index + 1);
 
 export default function PrimaryLot({ path }: Props) {
 	return (
-		<div style={screenHeight} className="flex w-full h-full overflow-y-auto">
+		<div style={screenHeight} className="flex w-full overflow-y-auto">
 			<div className=" w-1/12 h-full">
 				{verticalSpots.map(() => {
 					return <VerticalSpot />;
@@ -41,7 +41,7 @@ export default function PrimaryLot({ path }: Props) {
 						})}
 					</div>
 
-					<div className=" w-full h-1/4 flex justify-end pr-10 pt-10">
+					<div className=" w-full h-1/4 flex justify-end pr-10">
 						{horizontalSpots2.map((i) => {
 							return <HorizontalSpot />;
 						})}
