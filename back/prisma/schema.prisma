@@ -94,4 +94,37 @@ model Spots {
   trailerLocation   TrailerLocation @relation(fields: [trailerLocationId], references: [id])
   trailerLocationId Int
   trailerId         Int?
+  Dock              Dock?           @relation(fields: [dockId], references: [id])
+  dockId            Int?
+  Lot               Lot?            @relation(fields: [lotId], references: [id])
+  lotId             Int?
+}
+
+model Dock {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  View      View?    @relation(fields: [viewId], references: [id])
+  viewId    Int?
+  Spots     Spots[]
+}
+
+model Lot {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  View      View?    @relation(fields: [viewId], references: [id])
+  viewId    Int?
+  Spots     Spots[]
+}
+
+model View {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  Dock      Dock[]
+  Lot       Lot[]
 }
