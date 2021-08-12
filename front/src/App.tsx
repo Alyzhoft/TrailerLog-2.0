@@ -18,6 +18,7 @@ import {
 import RVAC from './Views/RVAC';
 import RMAN from './Views/RMAN';
 import Requests from './Views/Requests';
+import Admin from './Views/Admin';
 import Container from './components/ui/Container';
 import Error from './components/Modals/Error';
 
@@ -98,6 +99,43 @@ function App() {
 			setData((oldState) => ({ ...oldState, requests: request.requests }));
 		});
 	}, [io]);
+	useEffect(() => {
+		io.on('returnAddCarrier', (newCarrier) => {
+			console.log(newCarrier);
+
+			setData((oldState) => ({ ...oldState, carriers: newCarrier.carriers }));
+		});
+	}, [io]);
+	useEffect(() => {
+		io.on('returnDeleteCarrier', (newCarrier) => {
+			console.log(newCarrier);
+
+			setData((oldState) => ({ ...oldState, carriers: newCarrier.carriers }));
+		});
+	}, [io]);
+
+	useEffect(() => {
+		io.on('returnAddCategory', (newCategory) => {
+			console.log(newCategory);
+
+			setData((oldState) => ({ ...oldState, categories: newCategory.categories }));
+		});
+	}, [io]);
+	useEffect(() => {
+		io.on('returnDeleteCategory', (newCategory) => {
+			console.log(newCategory);
+
+			setData((oldState) => ({ ...oldState, categories: newCategory.categories }));
+		});
+	}, [io]);
+
+	useEffect(() => {
+		io.on('returnEditCategory', (newCategory) => {
+			console.log(newCategory);
+
+			setData((oldState) => ({ ...oldState, categories: newCategory.categories }));
+		});
+	}, [io]);
 
 	useEffect(() => {
 		io.on('error', (error) => {
@@ -120,6 +158,7 @@ function App() {
 									<RVAC trailers={data.trailers} path="/" />
 									<RMAN trailers={data.trailers} path="/rman" />
 									<Requests path="/requests" />
+									<Admin path="/admin" />
 								</Router>
 							</Container>
 						</TrailerLocationContext.Provider>

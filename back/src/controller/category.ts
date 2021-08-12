@@ -61,3 +61,24 @@ export async function deleteCategory(id: number) {
     return { error };
   }
 }
+
+export async function editCategory(
+  id: number,
+  categoryName: string,
+  color: string) {
+  try {
+    const res = await prisma.category.update({
+      where: {
+        id,
+      },
+      data: {
+        categoryName,
+        color,
+      },
+    });
+
+    return res;
+  } catch (error) {
+    return { error };
+  }
+}

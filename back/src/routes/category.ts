@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { addCategory, deleteCategory, getCategories, updateCategory } from '../controller/category';
+import { addCategory, deleteCategory, getCategories, updateCategory, editCategory } from '../controller/category';
 
 const router = express.Router();
 
@@ -24,6 +24,12 @@ router.put('/', async (req: Request, res: Response) => {
 	const { id, categoryName, color } = req.body;
 
 	const category = await updateCategory(id, categoryName, color);
+	res.json(category);
+});
+
+router.get('/', async (req: Request, res: Response) => {
+	const { id, categoryName, color } = req.body;
+	const category = await editCategory(id,categoryName,color);
 	res.json(category);
 });
 
