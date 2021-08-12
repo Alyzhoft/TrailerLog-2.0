@@ -56,7 +56,7 @@ model Requests {
   outCategory        String?
   requestType        RequestType
   trailer            Trailer?    @relation(fields: [trailerId], references: [id])
-  trailerId          Int
+  trailerId          Int?
 }
 
 model Carrier {

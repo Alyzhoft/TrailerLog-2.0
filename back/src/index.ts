@@ -97,9 +97,12 @@ io.on("connection", (Socket) => {
 
   Socket.on("inRequest", async (request: Requests) => {
     const res = await inRequest(request);
-    const requests = await getRequests();
-
-    io.emit("returnInRequest", { newRequest: res, requests });
+    if ("error" in res) {
+      Socket.emit("error", res);
+    } else {
+      const requests = await getRequests();
+      io.emit("returnInRequest", { newRequest: res, requests });
+    }
   });
 
   Socket.on("deleteRequest", async (id: number) => {

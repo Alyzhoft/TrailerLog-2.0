@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 type Props = {
 	setColor?: (currentColor: string) => void;
+	open: (open: boolean) => void;
 };
 
 function classNames(...classes: any) {
@@ -12,7 +13,7 @@ function classNames(...classes: any) {
 const colors = ['gray', 'red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink'];
 const variants = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 
-export default function ColorPicker({ setColor }: Props) {
+export default function ColorPicker({ setColor, open }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentColor, setCurrentColor] = useState('red-800');
 	const [iconColor, setIconColor] = useState('text-white');
@@ -47,7 +48,10 @@ export default function ColorPicker({ setColor }: Props) {
 						className="border border-gray-400 p-2 rounded-lg"
 					/>
 					<div
-						onClick={() => setIsOpen(!isOpen)}
+						onClick={() => {
+							open(!isOpen);
+							setIsOpen(!isOpen);
+						}}
 						className={classNames(
 							'rounded-full ml-3 my-auto h-10 w-10 flex justify-center items-center',
 							`bg-${currentColor}`,
@@ -70,8 +74,11 @@ export default function ColorPicker({ setColor }: Props) {
 
 					{isOpen ? (
 						<div
-							onClick={() => setIsOpen(false)}
-							className="border bg-white border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md h-full z-20 shadow-lg"
+							onClick={() => {
+								open(false);
+								setIsOpen(false);
+							}}
+							className="border bg-white border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md  z-20 shadow-lg"
 						>
 							<div className="flex">
 								{colors.map((color: string) => {

@@ -84,27 +84,6 @@ export async function addRequest(requests: OutIn) {
   }
 }
 
-// export async function updateTrailer(trailer: Trailer) {
-// 	try {
-// 		const res = await prisma.trailer.update({
-// 			where: {
-// 				id: trailer.id,
-// 			},
-
-// 			data: {
-// 				trailerNumber: trailer.trailerNumber.toString(),
-// 				carrier: trailer.carrier,
-// 				category: trailer.category,
-// 				comments: trailer.comments,
-// 			},
-// 		});
-
-// 		return res;
-// 	} catch (error) {
-// 		return {error};
-// 	}
-// }
-
 export async function deleteRequest(id: number) {
   try {
     const trailer = await prisma.requests.delete({
@@ -131,7 +110,11 @@ export async function completed(request: Requests) {
     });
 
     let trailer;
-    if (request.inTrailerLocation !== null && request.inSpotNumber !== null) {
+    if (
+      request.inTrailerLocation !== null &&
+      request.inSpotNumber !== null &&
+      request.trailerId
+    ) {
       trailer = await prisma.trailer.update({
         where: { id: request.trailerId },
         data: {

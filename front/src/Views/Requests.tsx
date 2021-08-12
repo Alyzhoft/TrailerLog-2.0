@@ -3,28 +3,37 @@ import { RouteComponentProps } from '@reach/router';
 import { RequestContext } from '../utils/context';
 import Table, { TableRow, TableHeader, TableDataCell } from '../components/ui/Table';
 import Button from '../components/ui/Button';
-import { Request, RequestType } from '../types';
-import { socket, SocketContext } from '../utils/socket';
+import { Request, RequestType, trailer } from '../types';
+import { SocketContext } from '../utils/socket';
 import OutLocationModal from '../components/Modals/OutLocationModal';
+import CompleteInModal from '../components/Modals/CompleteInModal';
 
 const screenHeight = {
 	height: 'calc(100vh - 14.25rem)',
 };
 
-type Props = RouteComponentProps;
+type Props = RouteComponentProps & {
+	trailers: trailer[];
+};
 
-export default function Requests({ path }: Props) {
+export default function Requests({ path, trailers }: Props) {
 	const [selectedRequest, setSelectedRequest] = useState<any>();
 	const [outModal, setOutModal] = useState(false);
+	const [completeIn, setCompleteIn] = useState(false);
 	const requests = useContext(RequestContext);
 	const socket = useContext(SocketContext);
 
 	function handleDone(request: Request) {
 		if (request.requestType === 'OUT') {
-			setOutModal(true);
 			setSelectedRequest(request);
+			setOutModal(true);
 		} else {
-			socket.emit('complete', request);
+			if (request.trailerId === null) {
+				setSelectedRequest(request);
+				setCompleteIn(true);
+			} else {
+				socket.emit('complete', request);
+			}
 		}
 	}
 
@@ -37,6 +46,14 @@ export default function Requests({ path }: Props) {
 					open={outModal}
 					close={() => setOutModal(false)}
 					request={selectedRequest}
+				/>
+			) : null}
+			{completeIn ? (
+				<CompleteInModal
+					open={completeIn}
+					close={() => setCompleteIn(false)}
+					request={selectedRequest}
+					trailers={trailers}
 				/>
 			) : null}
 			<div style={screenHeight} className="min-w-full my-12 rounded-md overflow-y-auto">
@@ -61,9 +78,9 @@ export default function Requests({ path }: Props) {
 									{r.requestType === RequestType.OUT ? `${r.outCarrier}-${r.outTrailerNumber}` : ''}
 								</TableDataCell>
 								<TableDataCell>
-									{r.requestType === RequestType.IN
+									{r.requestType === RequestType.IN && r.trailerId !== null
 										? `${r.inCarrier}-${r.inTrailerNumber}-${r.trailer.trailerLocation}-${r.trailer.spotNumber}`
-										: ''}
+										: `${r.inCarrier}`}
 								</TableDataCell>
 								<TableDataCell>
 									{r.requestType === RequestType.OUT

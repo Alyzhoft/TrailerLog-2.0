@@ -102,10 +102,12 @@ function App() {
 	}, [io]);
 
 	useEffect(() => {
-		io.on('error', (error) => {
-			console.error(error.error);
-			setError(true);
-			setErrorMessage(error.error);
+		io.on('error', (res) => {
+			console.log(res);
+
+			// console.error(error.error);
+			// setError(true);
+			// setErrorMessage(error.error.message);
 		});
 	}, [io]);
 
@@ -121,7 +123,7 @@ function App() {
 								<Router>
 									<RVAC trailers={data.trailers} path="/" />
 									<RMAN trailers={data.trailers} path="/rman" />
-									<Requests path="/requests" />
+									<Requests path="/requests" trailers={data.trailers} />
 									<Search path="/search" />
 									<PrimaryLot path="/primaryLot" />
 								</Router>

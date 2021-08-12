@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
+import clsx from 'clsx';
 import Button from '../ui/Button';
 import ColorPicker from '../ui/ColorPickers';
 
@@ -21,6 +22,7 @@ export default function AddInModal({
 //   trailerLocation,
 Props) {
 	const [color, setColor] = useState('');
+	const [colorOpen, setColorOpen] = useState(false);
 
 	console.log(color);
 
@@ -62,6 +64,7 @@ Props) {
 						>
 							<div className="inline-block w-full max-w-sm p-6 my-4 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
 								<form
+									className={clsx(colorOpen ? 'h-96' : null)}
 									onSubmit={(e) => {
 										e.preventDefault();
 										close();
@@ -83,7 +86,10 @@ Props) {
 										</div>
 									</div>
 									<div>
-										<ColorPicker setColor={(color) => setColor(color)} />
+										<ColorPicker
+											open={(open) => setColorOpen(open)}
+											setColor={(color) => setColor(color)}
+										/>
 									</div>
 								</form>
 							</div>
