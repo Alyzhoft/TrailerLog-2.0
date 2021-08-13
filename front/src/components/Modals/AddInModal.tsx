@@ -64,12 +64,18 @@ Props) {
 						>
 							<div className="inline-block w-full max-w-sm p-6 my-4 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
 								<form
-									className={clsx(colorOpen ? 'h-96' : null)}
+									className={clsx(colorOpen ? ' h-96' : null)}
 									onSubmit={(e) => {
 										e.preventDefault();
 										close();
 									}}
 								>
+									<div>
+										<ColorPicker
+											open={(open) => setColorOpen(open)}
+											setColor={(color) => setColor(color)}
+										/>
+									</div>
 									<div className="mt-4 flex w-full">
 										<Button classes="w-full justify-center text-xl" type="submit" onClick={addOpen}>
 											Add
@@ -84,12 +90,6 @@ Props) {
 												In
 											</Button>
 										</div>
-									</div>
-									<div>
-										<ColorPicker
-											open={(open) => setColorOpen(open)}
-											setColor={(color) => setColor(color)}
-										/>
 									</div>
 								</form>
 							</div>

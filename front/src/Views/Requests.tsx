@@ -78,9 +78,11 @@ export default function Requests({ path, trailers }: Props) {
 									{r.requestType === RequestType.OUT ? `${r.outCarrier}-${r.outTrailerNumber}` : ''}
 								</TableDataCell>
 								<TableDataCell>
-									{r.requestType === RequestType.IN && r.trailerId !== null
-										? `${r.inCarrier}-${r.inTrailerNumber}-${r.trailer.trailerLocation}-${r.trailer.spotNumber}`
-										: `${r.inCarrier}`}
+									{r.requestType === RequestType.IN
+										? r.trailerId !== null
+											? `${r.inCarrier}-${r.inTrailerNumber}-${r.trailer.trailerLocation}-${r.trailer.spotNumber}`
+											: `${r.inCarrier}`
+										: ''}
 								</TableDataCell>
 								<TableDataCell>
 									{r.requestType === RequestType.OUT

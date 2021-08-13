@@ -46,8 +46,12 @@ Props) {
 		//REWORK THE BELOW CODE BUT IT WILL WORK FOR NOW
 		const temp: any = [];
 		for (let i = 0; i < trailerLocations.length; i++) {
-			const names = trailerLocations[i].Spots.map((t: any) => t.name);
+			const names = trailerLocations[i].Spots.map((t: any) =>
+				t.name !== 'RVAC' && t.name !== 'RMAN' ? t.name : null,
+			);
 			temp.push([trailerLocations[i].name, names.sort()]);
+
+			console.log(temp);
 
 			if (trailerLocations[i].lot === true) {
 				const names = trailerLocations[i].Spots.map((t: any) => t.name);

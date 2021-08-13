@@ -78,7 +78,7 @@ export default function ColorPicker({ setColor, open }: Props) {
 								open(false);
 								setIsOpen(false);
 							}}
-							className="border bg-white border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md  z-20 shadow-lg"
+							className="border bg-white border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md z-20 shadow-lg"
 						>
 							<div className="flex">
 								{colors.map((color: string) => {

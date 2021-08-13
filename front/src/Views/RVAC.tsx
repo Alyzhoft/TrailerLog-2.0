@@ -10,6 +10,7 @@ import LotMoveModal from '../components/Modals/LotMoveModal';
 import AddInModal from '../components/Modals/AddInModal';
 import InModal from '../components/Modals/InModal';
 import { TrailerLocationContext } from '../utils/context';
+import OutModal from '../components/Modals/OutModal';
 
 const screenHeight = {
 	height: 'calc(100vh - 9.75rem)',
@@ -25,7 +26,9 @@ type Props = RouteComponentProps & {
 export default function RVAC({ trailers }: Props) {
 	const [addOpen, setAddOpen] = useState(false);
 	const [editOpen, setEditOpen] = useState(false);
+	const [tempModal, setTempModal] = useState(false);
 	const [lotModal, setLotModal] = useState(false);
+	const [outModal, setOutModal] = useState(false);
 	const [addIn, setAddIn] = useState(false);
 	const [inModal, setInModal] = useState(false);
 	const [spotClicked, setSpotClicked] = useState<any>(0);
@@ -62,6 +65,32 @@ export default function RVAC({ trailers }: Props) {
 			) : (
 				<></>
 			)}
+			{tempModal ? (
+				<TempModal
+					open={tempModal}
+					close={() => setTempModal(false)}
+					trailer={selctedTrailer}
+					trailerLocation={TrailerLocation.RMAN}
+					editOpen={() => {
+						setTempModal(false);
+						setTimeout(() => {
+							setEditOpen(true);
+						}, 10);
+					}}
+					lotMove={() => {
+						setTempModal(false);
+						setTimeout(() => {
+							setLotModal(true);
+						}, 10);
+					}}
+					outModal={() => {
+						setTempModal(false);
+						setTimeout(() => {
+							setOutModal(true);
+						}, 10);
+					}}
+				/>
+			) : null}
 			{lotModal ? (
 				<LotMoveModal
 					open={lotModal}
@@ -97,6 +126,16 @@ export default function RVAC({ trailers }: Props) {
 					trailers={trailers}
 				/>
 			) : null}
+			{outModal ? (
+				<OutModal
+					open={outModal}
+					close={() => setOutModal(false)}
+					trailer={selctedTrailer}
+					spotNumber={spotClicked.name}
+					trailers={trailers}
+					trailerLocation={TrailerLocation.RMAN}
+				/>
+			) : null}
 			{/* Do not remove the below div */}
 			<div></div>
 			<div className="hidden building:block">
@@ -107,7 +146,7 @@ export default function RVAC({ trailers }: Props) {
 					spotClicked={(door) => setSpotClicked(door)}
 					trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
 					addOpen={() => setAddIn(true)}
-					tempModal={() => setEditOpen(true)}
+					tempModal={() => setTempModal(true)}
 				/>
 			</div>
 			<div className="building:hidden w-full h-full mt-5 ">
