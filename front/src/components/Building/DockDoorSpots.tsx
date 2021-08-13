@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import ReactTooltip from 'react-tooltip';
 import { trailer } from '../../types';
 import { CategoryContext } from '../../utils/context';
 
@@ -70,6 +71,7 @@ export default function DockDoorSpot({
 				<>
 					<div className="flex ml-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
+							data-tip={trailer.comments}
 							className={classNames(
 								'text-black focus:outline-none w-full text-xs',
 								`bg-${getColor(trailer)} rounded h-full`,
@@ -81,6 +83,7 @@ export default function DockDoorSpot({
 							</span>
 						</button>
 					</div>
+					<ReactTooltip place="top" type="dark" effect="solid" />
 				</>
 			);
 		}

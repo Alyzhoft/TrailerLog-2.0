@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import ReactTooltip from 'react-tooltip';
 import { trailer, TrailerLocation } from '../../types';
 import { CategoryContext } from '../../utils/context';
 
@@ -64,12 +65,14 @@ export default function LotSpot({
 			(trailer) =>
 				parseInt(trailer.spotNumber) === parseInt(spot.name) && trailer.trailerLocation === lot,
 		);
+
 		if (trailer !== undefined) {
 			return (
 				<div>
 					<div className="ml-2 font-bold">{spot.name}</div>
 					<div className="flex mx-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
+							data-tip={trailer.comments}
 							// style={{ textOrientation: "upright", writingMode: "vertical-rl" }}
 							className={classNames(
 								'text-black focus:outline-none w-full rounded ',
@@ -80,6 +83,7 @@ export default function LotSpot({
 							<span className="upRight text-xs">{trailer?.trailerNumber}</span>
 						</button>
 					</div>
+					<ReactTooltip place="top" type="dark" effect="solid" />
 				</div>
 			);
 		}
