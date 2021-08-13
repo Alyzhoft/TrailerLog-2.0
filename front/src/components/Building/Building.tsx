@@ -24,7 +24,7 @@ export default function Building({
 	...props
 }: BuildingProps) {
 	return (
-		<div className="mb-5" {...props}>
+		<div {...props}>
 			<div className="flex justify-between mx-4 h-20">
 				{doors.map((door: any) => {
 					return (

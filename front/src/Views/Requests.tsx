@@ -37,8 +37,6 @@ export default function Requests({ path, trailers }: Props) {
 		}
 	}
 
-	console.log(requests);
-
 	return (
 		<>
 			{outModal ? (
@@ -56,7 +54,7 @@ export default function Requests({ path, trailers }: Props) {
 					trailers={trailers}
 				/>
 			) : null}
-			<div style={screenHeight} className="min-w-full my-12 rounded-md overflow-y-auto">
+			<div className="w-full h-full rounded-md overflow-y-auto">
 				<Table
 					header={
 						<>

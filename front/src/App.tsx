@@ -118,7 +118,7 @@ function App() {
 	}, [io]);
 
 	return (
-		<div className="App flex flex-col h-screen justify-between">
+		<div className="App flex flex-col h-screen">
 			<Navbar />
 			{error ? <Error open={error} close={() => setError(false)} error={errorMessage} /> : null}
 			<RequestContext.Provider value={data.requests}>
