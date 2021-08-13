@@ -3,7 +3,11 @@ import { prisma } from "../utils/prisma";
 
 export async function getTrailers() {
   try {
-    const trailers = await prisma.trailer.findMany();
+    const trailers = await prisma.trailer.findMany({
+      where: {
+        departed: false,
+      },
+    });
 
     return trailers;
   } catch (error) {
@@ -89,5 +93,23 @@ export async function deleteTrailer(trailerId: number) {
     return trailer;
   } catch (error) {
     return { error };
+  }
+}
+
+export async function departed(trailerId: number) {
+  try {
+    const res = await prisma.trailer.update({
+      where: {
+        id: trailerId,
+      },
+
+      data: {
+        departed: true,
+      },
+    });
+
+    return res;
+  } catch (error) {
+    return error;
   }
 }

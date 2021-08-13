@@ -8,6 +8,7 @@ import {
   getTrailers,
   deleteTrailer,
   updateTrailer,
+  departed,
 } from "./controller/trailer";
 import { Requests, Trailer } from "@prisma/client";
 import {
@@ -120,5 +121,13 @@ io.on("connection", (Socket) => {
     console.log(res);
 
     io.emit("returnCompleted", { request: res, requests, trailers });
+  });
+
+  Socket.on("departed", async (id: number) => {
+    const res = await departed(id);
+
+    const trailers = await getTrailers();
+
+    io.emit("returnDeparted", { departed: res, trailers });
   });
 });

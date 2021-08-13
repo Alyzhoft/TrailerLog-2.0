@@ -1,5 +1,6 @@
 import { Dialog, Transition } from '@headlessui/react';
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
+import { SocketContext } from '../../utils/socket';
 import { trailer } from '../../types';
 import Button from '../ui/Button';
 
@@ -31,6 +32,8 @@ export default function TempModal({
 	trailer,
 	trailerLocation = TrailerLocation.RVAC,
 }: Props) {
+	const socket = useContext(SocketContext);
+
 	return (
 		<>
 			<Transition show={open} as={Fragment}>
@@ -102,7 +105,14 @@ export default function TempModal({
 											<Button onClick={lotMove}>Move</Button>
 										</div>
 										<div className="ml-2">
-											<Button close={close}>Depart</Button>
+											<Button
+												onClick={() => {
+													socket.emit('departed', trailer?.id);
+													close();
+												}}
+											>
+												Depart
+											</Button>
 										</div>
 										<div className="ml-2">
 											<Button variant="danger" close={close}>
