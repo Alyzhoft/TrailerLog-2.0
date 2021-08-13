@@ -2,7 +2,11 @@ import { prisma } from "../utils/prisma";
 
 export async function getCategories() {
   try {
-    const categories = await prisma.category.findMany();
+    const categories = await prisma.category.findMany({
+      orderBy: {
+        categoryName: "asc",
+      },
+    });
 
     return categories;
   } catch (error) {
@@ -65,7 +69,8 @@ export async function deleteCategory(id: number) {
 export async function editCategory(
   id: number,
   categoryName: string,
-  color: string) {
+  color: string
+) {
   try {
     const res = await prisma.category.update({
       where: {

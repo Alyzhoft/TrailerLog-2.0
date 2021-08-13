@@ -49,6 +49,8 @@ export default function RMAN({ trailers }: Props) {
 		}
 	}, [trailerLocations]);
 
+	console.log(trailers);
+
 	return (
 		<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
 			{addOpen ? (

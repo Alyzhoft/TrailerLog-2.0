@@ -90,10 +90,12 @@ export default function EditModal({ open, close, categoryprop }: Props) {
 											/>
 										</div>
 									</div>
-									<ColorPicker
-										setColor={(color) => setColor(color)}
-										open={(open) => setColorOpen(open)}
-									></ColorPicker>
+									<div className="w-full h-full">
+										<ColorPicker
+											setColor={(color) => setColor(color)}
+											open={(open) => setColorOpen(open)}
+										/>
+									</div>
 									<div className="mt-4 flex">
 										<Button type="submit">Save</Button>
 										<div className="ml-2">

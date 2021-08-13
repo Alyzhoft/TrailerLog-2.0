@@ -3,33 +3,38 @@ import { useState } from 'react';
 
 type Props = {
 	setColor?: (currentColor: string) => void;
-	open: (Open: boolean) => void;
+	open: (open: boolean) => void;
 };
+
 function classNames(...classes: any) {
 	return classes.filter(Boolean).join(' ');
 }
+
 const colors = ['gray', 'red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink'];
 const variants = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+
 export default function ColorPicker({ setColor, open }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentColor, setCurrentColor] = useState('red-800');
 	const [iconColor, setIconColor] = useState('text-white');
+
 	function selectColor(color: string, variant: number) {
-		setCurrentColor(`${color}​​​-${variant}​​​`);
+		setCurrentColor(`${color}-${variant}`);
 		if (variant < 500) {
 			setIconColor('text-black');
 		} else {
 			setIconColor('text-white');
 		}
 	}
+
 	useEffect(() => {
 		if (setColor) {
 			setColor(currentColor);
 		}
 	}, [currentColor]);
-	console.log(isOpen);
+
 	return (
-		<div className="bg-white mx-auto my-auto p-4">
+		<div className="bg-white mx-auto my-auto ">
 			<div>
 				<label htmlFor="color-picker" className="block mb-1 font-semibold">
 					Select a Color
@@ -40,12 +45,11 @@ export default function ColorPicker({ setColor, open }: Props) {
 						name="color-picker"
 						id="color-picker"
 						value={currentColor}
-						className="border border-gray-400 p-2 rounded-lg"
+						className="border border-gray-400 p-2 rounded-lg w-full"
 					/>
 					<div
 						onClick={() => {
 							open(!isOpen);
-
 							setIsOpen(!isOpen);
 						}}
 						className={classNames(
@@ -67,10 +71,14 @@ export default function ColorPicker({ setColor, open }: Props) {
 							/>
 						</svg>
 					</div>
+
 					{isOpen ? (
 						<div
-							onClick={() => setIsOpen(false)}
-							className="border bg-white border-gray-300 origin-top-right absolute right-0 top-full mt-2 rounded-md shadow-lg z-20"
+							onClick={() => {
+								open(false);
+								setIsOpen(false);
+							}}
+							className="border bg-white border-gray-300 origin-top-right absolute left-0 top-full mt-2 rounded-md z-20 shadow-lg"
 						>
 							<div className="flex">
 								{colors.map((color: string) => {

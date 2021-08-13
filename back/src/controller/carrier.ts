@@ -2,7 +2,11 @@ import { prisma } from "../utils/prisma";
 
 export async function getCarriers() {
   try {
-    const carriers = await prisma.carrier.findMany();
+    const carriers = await prisma.carrier.findMany({
+      orderBy: {
+        carrierName: "asc",
+      },
+    });
 
     return carriers;
   } catch (error) {

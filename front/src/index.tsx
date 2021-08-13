@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ReactDOM from 'react-dom';
 import { socket, SocketContext } from './utils/socket';
 import './index.css';

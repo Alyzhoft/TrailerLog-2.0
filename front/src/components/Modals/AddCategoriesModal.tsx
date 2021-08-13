@@ -85,10 +85,12 @@ export default function AddCategoriesModal({ open, close }: Props) {
 											/>
 										</div>
 									</div>
-									<ColorPicker
-										setColor={(color) => setColor(color)}
-										open={(open) => setColorOpen(open)}
-									></ColorPicker>
+									<div className="w-full h-full">
+										<ColorPicker
+											setColor={(color) => setColor(color)}
+											open={(open) => setColorOpen(open)}
+										/>
+									</div>
 
 									<div className="mt-4 flex">
 										<Button type="submit">Add</Button>

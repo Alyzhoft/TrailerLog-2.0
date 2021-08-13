@@ -10,7 +10,7 @@ type Props = SelectHTMLAttributes<HTMLSelectElement> & {
 export default function ComboBox({ labelName, options, valueChange, ...props }: Props) {
 	return (
 		<div className="w-full col-span-6 sm:col-span-3">
-			<label htmlFor={labelName} className="font-medium text-pink-700 dark:text-gray-200 mb-1">
+			<label htmlFor={labelName} className="font-medium text-gray-800 dark:text-gray-200 mb-1">
 				{labelName}
 			</label>
 			<select
