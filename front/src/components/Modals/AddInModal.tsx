@@ -70,12 +70,6 @@ Props) {
 										close();
 									}}
 								>
-									<div>
-										<ColorPicker
-											open={(open) => setColorOpen(open)}
-											setColor={(color) => setColor(color)}
-										/>
-									</div>
 									<div className="mt-4 flex w-full">
 										<Button classes="w-full justify-center text-xl" type="submit" onClick={addOpen}>
 											Add

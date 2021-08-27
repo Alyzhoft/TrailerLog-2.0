@@ -77,7 +77,7 @@ export default function Search({ path }: Props) {
 	const [carrier, setCarrier] = useState<string | undefined>();
 	const [departed, setDeparted] = useState(false);
 	const [sort, setSort] = useState(sortBy[0]);
-	const [limit, setLimit] = useState(limitNumber[0]);
+	const [limit, setLimit] = useState(5);
 
 	const carriers = useContext(CarrierContext);
 	const categories = useContext(CategoryContext);
@@ -122,6 +122,8 @@ export default function Search({ path }: Props) {
 		const results = await getAll();
 		setData(results);
 	};
+
+	console.log(data);
 
 	return (
 		<div style={screenHeight} className="h-screen">
@@ -215,38 +217,44 @@ export default function Search({ path }: Props) {
 					/>
 				</div> */}
 			</div>
-			<div className="overflow-y-auto h-4/5 mt-5 rounded-md">
-				<Table
-					header={
-						<>
-							<TableHeader label="Created At" />
-							<TableHeader label="Trailer Number" />
-							<TableHeader label="Trailer Location" />
-							<TableHeader label="Spot" />
-							<TableHeader label="Carrier" />
-							<TableHeader label="Category" />
-							<TableHeader label="Comments" />
-						</>
-					}
-				>
-					{data.map((trailer) => {
-						return (
-							<TableRow>
-								<TableDataCell>{trailer.createdAt}</TableDataCell>
-								<TableDataCell>{trailer.trailerNumber}</TableDataCell>
-								<TableDataCell>{trailer.trailerLocation}</TableDataCell>
-								<TableDataCell>{trailer.spotNumber}</TableDataCell>
-								<TableDataCell>{trailer.carrier}</TableDataCell>
-								<TableDataCell>{trailer.category}</TableDataCell>
-								<TableDataCell>{trailer.comments}</TableDataCell>
-							</TableRow>
-						);
-					})}
-				</Table>
-			</div>
+
+			{data.length > 0 ? (
+				<div className="overflow-y-auto h-4/5 my-auto rounded-md">
+					<Table
+						header={
+							<>
+								<TableHeader label="Created At" />
+								<TableHeader label="Trailer Number" />
+								<TableHeader label="Trailer Location" />
+								<TableHeader label="Spot" />
+								<TableHeader label="Carrier" />
+								<TableHeader label="Category" />
+								<TableHeader label="Comments" />
+							</>
+						}
+					>
+						{data.map((trailer) => {
+							return (
+								<TableRow>
+									<TableDataCell>{trailer.createdAt}</TableDataCell>
+									<TableDataCell>{trailer.trailerNumber}</TableDataCell>
+									<TableDataCell>{trailer.trailerLocation}</TableDataCell>
+									<TableDataCell>{trailer.spotNumber}</TableDataCell>
+									<TableDataCell>{trailer.carrier}</TableDataCell>
+									<TableDataCell>{trailer.category}</TableDataCell>
+									<TableDataCell>{trailer.comments}</TableDataCell>
+								</TableRow>
+							);
+						})}
+					</Table>
+				</div>
+			) : (
+				<div>No Results Found</div>
+			)}
+
 			<div className="flex justify-center w-full">
 				{page > 1 ? (
-					<div className="w-1/5 flex justify-between">
+					<div className="w-1/5 mt-2 flex justify-between">
 						<Button
 							onClick={() => {
 								setPage(page - 1);
@@ -263,7 +271,7 @@ export default function Search({ path }: Props) {
 						</Button>
 					</div>
 				) : (
-					<div className="w-1/5 flex justify-end">
+					<div className="mt-2 w-1/5 flex justify-end">
 						<Button
 							onClick={() => {
 								setPage(page + 1);

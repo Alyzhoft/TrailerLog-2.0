@@ -131,7 +131,7 @@ function App() {
 									<RMAN trailers={data.trailers} path="/rman" />
 									<Requests path="/requests" trailers={data.trailers} />
 									<Search path="/search" />
-									<PrimaryLot path="/primaryLot" />
+									<PrimaryLot path="/primaryLot" trailers={data.trailers} />
 								</Router>
 							</Container>
 						</TrailerLocationContext.Provider>

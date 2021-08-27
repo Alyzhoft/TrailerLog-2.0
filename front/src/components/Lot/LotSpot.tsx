@@ -83,7 +83,7 @@ export default function LotSpot({
 							<span className="upRight text-xs">{trailer?.trailerNumber}</span>
 						</button>
 					</div>
-					<ReactTooltip place="top" type="dark" effect="solid" />
+					{trailer.comments !== '' ? <ReactTooltip place="top" type="dark" effect="solid" /> : null}
 				</div>
 			);
 		}
