@@ -18,6 +18,13 @@ import {
   getRequests,
   inRequest,
 } from "./controller/request";
+import { addCarrier, getCarriers, deleteCarrier } from "./controller/carrier";
+import {
+  addCategory,
+  getCategories,
+  deleteCategory,
+  updateCategory,
+} from "./controller/category";
 
 const app = express();
 const server = http.createServer(app);
@@ -121,6 +128,42 @@ io.on("connection", (Socket) => {
     console.log(res);
 
     io.emit("returnCompleted", { request: res, requests, trailers });
+  });
+
+  Socket.on("addCarrier", async (carrier: any) => {
+    const res = await addCarrier(carrier.carrierName);
+    const carriers = await getCarriers();
+    io.emit("returnAddCarrier", { newCarrier: res, carriers });
+  });
+
+  Socket.on("deleteCarrier", async (id: any) => {
+    const res = await deleteCarrier(id);
+    const carriers = await getCarriers();
+    io.emit("returnDeleteCarrier", { newCarrier: res, carriers });
+  });
+
+  Socket.on("addCategory", async (category: any) => {
+    const res = await addCategory(category.categoryName, category.color);
+    const categories = await getCategories();
+    io.emit("returnAddCategory", { newCategory: res, categories });
+  });
+
+  Socket.on("deleteCategory", async (id: any) => {
+    const res = await deleteCategory(id);
+    const categories = await getCategories();
+
+    io.emit("returnDeleteCategory", { newCategory: res, categories });
+  });
+
+  Socket.on("editCategory", async (category: any) => {
+    console.log(category);
+    const res = await updateCategory(
+      category.categoryID,
+      category.category,
+      category.color
+    );
+    const categories = await getCategories();
+    io.emit("returnEditCategory", { newCategory: res, categories });
   });
 
   Socket.on("departed", async (id: number) => {

@@ -26,4 +26,8 @@ router.get("/", async (req: Request, res: Response) => {
   res.json(trailers);
 });
 
+router.post("/", (req: Request, res: Response) => {
+  console.log(req);
+});
+
 module.exports = router;
