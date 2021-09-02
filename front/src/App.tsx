@@ -164,16 +164,14 @@ function App() {
 				<CategoryContext.Provider value={data.categories}>
 					<CarrierContext.Provider value={data.carriers}>
 						<TrailerLocationContext.Provider value={data.trailerLocations}>
-							<Container>
-								<Router>
-									<RVAC trailers={data.trailers} path="/" />
-									<RMAN trailers={data.trailers} path="/rman" />
-									<Requests path="/requests" trailers={data.trailers} />
-									<Search path="/search" />
-									<Admin path="/admin" />
-									<PrimaryLot path="/primaryLot" trailers={data.trailers} />
-								</Router>
-							</Container>
+							<Router>
+								<RVAC trailers={data.trailers} path="/" />
+								<RMAN trailers={data.trailers} path="/rman" />
+								<Requests path="/requests" trailers={data.trailers} />
+								<Search path="/search" />
+								<Admin path="/admin" />
+								<PrimaryLot path="/primaryLot" trailers={data.trailers} />
+							</Router>
 						</TrailerLocationContext.Provider>
 					</CarrierContext.Provider>
 				</CategoryContext.Provider>

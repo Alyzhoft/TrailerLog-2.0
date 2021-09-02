@@ -69,7 +69,7 @@ export default function LotSpot({
 		if (trailer !== undefined) {
 			return (
 				<div>
-					<div className="ml-1">{spot}</div>
+					{/* <div className="ml-1">{spot}</div> */}
 
 					<div className="flex mr-1 w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
@@ -91,8 +91,9 @@ export default function LotSpot({
 	}
 
 	return (
-		<div>
-			<div className="flex mb-1 w-14 h-4 bg-white rounded-md justify-center items-center shadow-md border-gray-600 border-2">
+		<div className="flex justify-center items-center">
+			<span>{spot}</span>
+			<div className="flex w-14 h-4 bg-white rounded-md justify-center items-center shadow-md border-gray-600 border-2">
 				<button
 					className="text-black h-full w-full mb-1 text-xs focus:outline-none"
 					onClick={handleAddClick}

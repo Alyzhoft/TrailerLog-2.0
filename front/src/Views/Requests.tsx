@@ -7,6 +7,7 @@ import { Request, RequestType, trailer } from '../types';
 import { SocketContext } from '../utils/socket';
 import OutLocationModal from '../components/Modals/OutLocationModal';
 import CompleteInModal from '../components/Modals/CompleteInModal';
+import Container from '../components/ui/Container';
 
 const screenHeight = {
 	height: 'calc(100vh - 14.25rem)',
@@ -38,7 +39,7 @@ export default function Requests({ path, trailers }: Props) {
 	}
 
 	return (
-		<>
+		<Container>
 			{outModal ? (
 				<OutLocationModal
 					open={outModal}
@@ -123,6 +124,6 @@ export default function Requests({ path, trailers }: Props) {
 					})}
 				</Table>
 			</div>
-		</>
+		</Container>
 	);
 }

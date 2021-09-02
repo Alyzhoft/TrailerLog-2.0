@@ -11,6 +11,7 @@ import AddInModal from '../components/Modals/AddInModal';
 import InModal from '../components/Modals/InModal';
 import { TrailerLocationContext } from '../utils/context';
 import OutModal from '../components/Modals/OutModal';
+import Container from '../components/ui/Container';
 
 const screenHeight = {
 	height: 'calc(100vh - 9.75rem)',
@@ -46,123 +47,125 @@ export default function RVAC({ trailers }: Props) {
 	}, [trailerLocations]);
 
 	return (
-		<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
-			{addOpen ? (
-				<AddModal
-					open={addOpen}
-					close={() => setAddOpen(false)}
-					spotNumber={spotClicked}
-					trailerLocation={TrailerLocation.RVAC}
-				/>
-			) : null}
-			{editOpen ? (
-				<EditModal
-					open={editOpen}
-					close={() => setEditOpen(false)}
-					trailer={selctedTrailer}
-					trailerLocation={TrailerLocation.RVAC}
-				/>
-			) : (
-				<></>
-			)}
-			{tempModal ? (
-				<TempModal
-					open={tempModal}
-					close={() => setTempModal(false)}
-					trailer={selctedTrailer}
-					trailerLocation={TrailerLocation.RMAN}
-					editOpen={() => {
-						setTempModal(false);
-						setTimeout(() => {
-							setEditOpen(true);
-						}, 10);
-					}}
-					lotMove={() => {
-						setTempModal(false);
-						setTimeout(() => {
-							setLotModal(true);
-						}, 10);
-					}}
-					outModal={() => {
-						setTempModal(false);
-						setTimeout(() => {
-							setOutModal(true);
-						}, 10);
-					}}
-				/>
-			) : null}
-			{lotModal ? (
-				<LotMoveModal
-					open={lotModal}
-					close={() => setLotModal(false)}
-					spotNumber={spotClicked.name}
-					trailer={selctedTrailer}
-				/>
-			) : null}
-			{addIn ? (
-				<AddInModal
-					open={addIn}
-					close={() => setAddIn(false)}
-					addOpen={() => {
-						setAddIn(false);
-						setTimeout(() => {
-							setAddOpen(true);
-						}, 10);
-					}}
-					inRequest={() => {
-						setAddIn(false);
-						setTimeout(() => {
-							setInModal(true);
-						}, 10);
-					}}
-				/>
-			) : null}
-			{inModal ? (
-				<InModal
-					open={inModal}
-					close={() => setInModal(false)}
-					trailer={selctedTrailer}
-					spotNumber={spotClicked.name}
-					trailers={trailers}
-				/>
-			) : null}
-			{outModal ? (
-				<OutModal
-					open={outModal}
-					close={() => setOutModal(false)}
-					trailer={selctedTrailer}
-					spotNumber={spotClicked.name}
-					trailers={trailers}
-					trailerLocation={TrailerLocation.RMAN}
-				/>
-			) : null}
-			{/* Do not remove the below div */}
-			<div></div>
-			<div className="hidden building:block">
-				<Building
-					dock={'RVAC'}
-					doors={doors}
-					trailers={trailers}
-					spotClicked={(door) => setSpotClicked(door)}
-					trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
-					addOpen={() => setAddIn(true)}
-					tempModal={() => setTempModal(true)}
-				/>
-			</div>
-			<div className="building:hidden w-full h-full mt-5 ">
-				<h1 className="text-4xl font-bold">RVAC</h1>
-				<div className="border-black border-t-2">
-					<Lot
-						spots={doors}
-						lot={TrailerLocation.RVAC}
+		<Container>
+			<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
+				{addOpen ? (
+					<AddModal
+						open={addOpen}
+						close={() => setAddOpen(false)}
+						spotNumber={spotClicked}
+						trailerLocation={TrailerLocation.RVAC}
+					/>
+				) : null}
+				{editOpen ? (
+					<EditModal
+						open={editOpen}
+						close={() => setEditOpen(false)}
+						trailer={selctedTrailer}
+						trailerLocation={TrailerLocation.RVAC}
+					/>
+				) : (
+					<></>
+				)}
+				{tempModal ? (
+					<TempModal
+						open={tempModal}
+						close={() => setTempModal(false)}
+						trailer={selctedTrailer}
+						trailerLocation={TrailerLocation.RMAN}
+						editOpen={() => {
+							setTempModal(false);
+							setTimeout(() => {
+								setEditOpen(true);
+							}, 10);
+						}}
+						lotMove={() => {
+							setTempModal(false);
+							setTimeout(() => {
+								setLotModal(true);
+							}, 10);
+						}}
+						outModal={() => {
+							setTempModal(false);
+							setTimeout(() => {
+								setOutModal(true);
+							}, 10);
+						}}
+					/>
+				) : null}
+				{lotModal ? (
+					<LotMoveModal
+						open={lotModal}
+						close={() => setLotModal(false)}
+						spotNumber={spotClicked.name}
+						trailer={selctedTrailer}
+					/>
+				) : null}
+				{addIn ? (
+					<AddInModal
+						open={addIn}
+						close={() => setAddIn(false)}
+						addOpen={() => {
+							setAddIn(false);
+							setTimeout(() => {
+								setAddOpen(true);
+							}, 10);
+						}}
+						inRequest={() => {
+							setAddIn(false);
+							setTimeout(() => {
+								setInModal(true);
+							}, 10);
+						}}
+					/>
+				) : null}
+				{inModal ? (
+					<InModal
+						open={inModal}
+						close={() => setInModal(false)}
+						trailer={selctedTrailer}
+						spotNumber={spotClicked.name}
 						trailers={trailers}
+					/>
+				) : null}
+				{outModal ? (
+					<OutModal
+						open={outModal}
+						close={() => setOutModal(false)}
+						trailer={selctedTrailer}
+						spotNumber={spotClicked.name}
+						trailers={trailers}
+						trailerLocation={TrailerLocation.RMAN}
+					/>
+				) : null}
+				{/* Do not remove the below div */}
+				<div></div>
+				<div className="hidden building:block">
+					<Building
+						dock={'RVAC'}
+						doors={doors}
+						trailers={trailers}
+						spotClicked={(door) => setSpotClicked(door)}
 						trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
-						spotClicked={(spot) => setSpotClicked(spot)}
-						addOpen={() => setAddOpen(true)}
-						tempModal={() => setAddIn(true)}
+						addOpen={() => setAddIn(true)}
+						tempModal={() => setTempModal(true)}
 					/>
 				</div>
+				<div className="building:hidden w-full h-full mt-5 ">
+					<h1 className="text-4xl font-bold">RVAC</h1>
+					<div className="border-black border-t-2">
+						<Lot
+							spots={doors}
+							lot={TrailerLocation.RVAC}
+							trailers={trailers}
+							trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
+							spotClicked={(spot) => setSpotClicked(spot)}
+							addOpen={() => setAddOpen(true)}
+							tempModal={() => setAddIn(true)}
+						/>
+					</div>
+				</div>
 			</div>
-		</div>
+		</Container>
 	);
 }

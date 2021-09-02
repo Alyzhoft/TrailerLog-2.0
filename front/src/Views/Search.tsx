@@ -4,14 +4,12 @@ import axios from 'axios';
 import { CarrierContext, CategoryContext } from '../utils/context';
 import { trailer } from '../types';
 import Table, { TableRow, TableHeader, TableDataCell } from '../components/ui/Table';
-import Input from '../components/ui/Input';
 import InputWithButton from '../components/ui/InputWithButton';
 import ComboBox from '../components/ui/ComboBox';
 import Toggle from '../components/ui/Toggle';
 import Button from '../components/ui/Button';
 import { alphabetically } from '../utils/sort';
-import { SearchIcon } from '@heroicons/react/solid';
-import ColorPicker from '../components/ui/ColorPickers';
+import Container from '../components/ui/Container';
 
 type Props = RouteComponentProps;
 
@@ -126,87 +124,92 @@ export default function Search({ path }: Props) {
 	console.log(data);
 
 	return (
-		<div style={screenHeight} className="h-screen">
-			<form
-				onSubmit={(e) => {
-					e.preventDefault();
-					handleSubmit();
-					console.log({ carrier, category, trailerNumber, departed });
-				}}
-			>
-				<div className="flex">
-					<div className="mt-1 w-1/5">
-						<InputWithButton
-							labelText="Search"
-							value={trailerNumber}
-							onChange={(e) => setTrailerNumber(e.target.value)}
-						/>
+		<Container>
+			<div style={screenHeight} className="h-screen">
+				<form
+					onSubmit={(e) => {
+						e.preventDefault();
+						handleSubmit();
+						console.log({ carrier, category, trailerNumber, departed });
+					}}
+				>
+					<div className="flex">
+						<div className="mt-1 w-1/5">
+							<InputWithButton
+								labelText="Search"
+								value={trailerNumber}
+								onChange={(e) => setTrailerNumber(e.target.value)}
+							/>
+						</div>
+						<div className="mx-1 mt-2">
+							<ComboBox
+								labelName={'Category'}
+								options={categoriesOptions}
+								defaultValue={'Category'}
+								value={category}
+								valueChange={(value) => {
+									setCategory(value);
+								}}
+							/>
+						</div>
+						<div className="mx-1 mt-2">
+							<ComboBox
+								labelName={'Carrier'}
+								options={carrierOptions}
+								defaultValue={'Carrier'}
+								value={carrier}
+								valueChange={(value) => {
+									setCarrier(value);
+								}}
+							/>
+						</div>
+						<div className="ml-2 mt-10">
+							<Toggle
+								enabled={departed}
+								setEnabled={() => setDeparted(!departed)}
+								label="Departed"
+							/>
+						</div>
+						<div className="ml-2 mt-7">
+							<Button
+								variant="danger"
+								onClick={() => {
+									const carrierDropDown = document.getElementById('Carrier') as HTMLSelectElement;
+									const categoryDropDown = document.getElementById('Category') as HTMLSelectElement;
+
+									if (carrierDropDown) {
+										carrierDropDown.selectedIndex = 0;
+									}
+
+									if (categoryDropDown) {
+										categoryDropDown.selectedIndex = 0;
+									}
+
+									setCarrier(undefined);
+									setCategory(undefined);
+									setTrailerNumber('');
+									setDeparted(false);
+
+									handleClear();
+								}}
+							>
+								Clear
+							</Button>
+						</div>
 					</div>
-					<div className="mx-1 mt-2">
+				</form>
+				<div className="flex justify-end">
+					<span className="mt-1 text-lg">Limit:</span>
+					<div className="w-1/8 mx-2">
 						<ComboBox
-							labelName={'Category'}
-							options={categoriesOptions}
-							defaultValue={'Category'}
-							value={category}
+							options={limitNumber}
+							value={limit}
 							valueChange={(value) => {
-								setCategory(value);
+								setLimit(value);
 							}}
 						/>
 					</div>
-					<div className="mx-1 mt-2">
-						<ComboBox
-							labelName={'Carrier'}
-							options={carrierOptions}
-							defaultValue={'Carrier'}
-							value={carrier}
-							valueChange={(value) => {
-								setCarrier(value);
-							}}
-						/>
-					</div>
-					<div className="ml-2 mt-10">
-						<Toggle enabled={departed} setEnabled={() => setDeparted(!departed)} label="Departed" />
-					</div>
-					<div className="ml-2 mt-7">
-						<Button
-							variant="danger"
-							onClick={() => {
-								const carrierDropDown = document.getElementById('Carrier') as HTMLSelectElement;
-								const categoryDropDown = document.getElementById('Category') as HTMLSelectElement;
-
-								if (carrierDropDown) {
-									carrierDropDown.selectedIndex = 0;
-								}
-
-								if (categoryDropDown) {
-									categoryDropDown.selectedIndex = 0;
-								}
-
-								setCarrier(undefined);
-								setCategory(undefined);
-								setTrailerNumber('');
-								setDeparted(false);
-
-								handleClear();
-							}}
-						>
-							Clear
-						</Button>
-					</div>
-				</div>
-			</form>
-			<div className="flex justify-end">
-				<span className="mt-1 text-lg">Limit:</span>
-				<div className="w-1/8 mx-2">
-					<ComboBox
-						options={limitNumber}
-						value={limit}
-						valueChange={(value) => {
-							setLimit(value);
-						}}
-					/>
-				</div>
-				{/* <span className="mt-1 text-lg">Sort By:</span>
+					{/* <span className="mt-1 text-lg">Sort By:</span>
 				<div className="w-1/8 ml-2">
 					<ComboBox
 						options={sortBy}
@@ -216,72 +219,73 @@ export default function Search({ path }: Props) {
 						}}
 					/>
 				</div> */}
-			</div>
-
-			{data.length > 0 ? (
-				<div className="overflow-y-auto h-4/5 my-auto rounded-md">
-					<Table
-						header={
-							<>
-								<TableHeader label="Created At" />
-								<TableHeader label="Trailer Number" />
-								<TableHeader label="Trailer Location" />
-								<TableHeader label="Spot" />
-								<TableHeader label="Carrier" />
-								<TableHeader label="Category" />
-								<TableHeader label="Comments" />
-							</>
-						}
-					>
-						{data.map((trailer) => {
-							return (
-								<TableRow>
-									<TableDataCell>{trailer.createdAt}</TableDataCell>
-									<TableDataCell>{trailer.trailerNumber}</TableDataCell>
-									<TableDataCell>{trailer.trailerLocation}</TableDataCell>
-									<TableDataCell>{trailer.spotNumber}</TableDataCell>
-									<TableDataCell>{trailer.carrier}</TableDataCell>
-									<TableDataCell>{trailer.category}</TableDataCell>
-									<TableDataCell>{trailer.comments}</TableDataCell>
-								</TableRow>
-							);
-						})}
-					</Table>
 				</div>
-			) : (
-				<div>No Results Found</div>
-			)}
 
-			<div className="flex justify-center w-full">
-				{page > 1 ? (
-					<div className="w-1/5 mt-2 flex justify-between">
-						<Button
-							onClick={() => {
-								setPage(page - 1);
-							}}
+				{data.length > 0 ? (
+					<div className="overflow-y-auto h-4/5 my-auto rounded-md">
+						<Table
+							header={
+								<>
+									<TableHeader label="Created At" />
+									<TableHeader label="Trailer Number" />
+									<TableHeader label="Trailer Location" />
+									<TableHeader label="Spot" />
+									<TableHeader label="Carrier" />
+									<TableHeader label="Category" />
+									<TableHeader label="Comments" />
+								</>
+							}
 						>
-							Prev Page
-						</Button>
-						<Button
-							onClick={() => {
-								setPage(page + 1);
-							}}
-						>
-							Next Page
-						</Button>
+							{data.map((trailer) => {
+								return (
+									<TableRow>
+										<TableDataCell>{trailer.createdAt}</TableDataCell>
+										<TableDataCell>{trailer.trailerNumber}</TableDataCell>
+										<TableDataCell>{trailer.trailerLocation}</TableDataCell>
+										<TableDataCell>{trailer.spotNumber}</TableDataCell>
+										<TableDataCell>{trailer.carrier}</TableDataCell>
+										<TableDataCell>{trailer.category}</TableDataCell>
+										<TableDataCell>{trailer.comments}</TableDataCell>
+									</TableRow>
+								);
+							})}
+						</Table>
 					</div>
 				) : (
-					<div className="mt-2 w-1/5 flex justify-end">
-						<Button
-							onClick={() => {
-								setPage(page + 1);
-							}}
-						>
-							Next Page
-						</Button>
-					</div>
+					<div>No Results Found</div>
 				)}
+
+				<div className="flex justify-center w-full">
+					{page > 1 ? (
+						<div className="w-1/5 mt-2 flex justify-between">
+							<Button
+								onClick={() => {
+									setPage(page - 1);
+								}}
+							>
+								Prev Page
+							</Button>
+							<Button
+								onClick={() => {
+									setPage(page + 1);
+								}}
+							>
+								Next Page
+							</Button>
+						</div>
+					) : (
+						<div className="mt-2 w-1/5 flex justify-end">
+							<Button
+								onClick={() => {
+									setPage(page + 1);
+								}}
+							>
+								Next Page
+							</Button>
+						</div>
+					)}
+				</div>
 			</div>
-		</div>
+		</Container>
 	);
 }

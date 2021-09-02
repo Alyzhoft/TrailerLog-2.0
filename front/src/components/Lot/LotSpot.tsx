@@ -90,8 +90,8 @@ export default function LotSpot({
 	}
 
 	return (
-		<div>
-			<div className="ml-2 font-bold">{spot.name}</div>
+		<div className="flex flex-col justify-center items-center">
+			<div className="font-bold">{spot.name}</div>
 			<div className="flex mx-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 				<button
 					style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }}

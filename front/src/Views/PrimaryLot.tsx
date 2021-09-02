@@ -85,7 +85,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 					trailer={selctedTrailer}
 				/>
 			) : null}
-			<div className=" w-1/12 h-full">
+			<div className=" w-1/12 h-full mt-10">
 				{verticalSpots.map((i) => {
 					return (
 						<VerticalSpot
@@ -101,9 +101,9 @@ export default function PrimaryLot({ path, trailers }: Props) {
 				})}
 			</div>
 
-			<div className="w-full h-screen">
+			<div className="w-full h-screen mt-5">
 				<div className=" flex flex-col justify-between w-full h-1/2 ">
-					<div className=" w-full h-1/4 flex">
+					<div className=" w-full h-1/4 flex space-x-1">
 						{horizontalSpots.map((i) => {
 							return (
 								<HorizontalSpot
@@ -118,7 +118,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 							);
 						})}
 					</div>
-					<div className=" w-full h-1/4 flex">
+					<div className=" w-full h-1/4 flex space-x-1">
 						{horizontalSpots.map((i) => {
 							return (
 								<HorizontalSpot
@@ -134,8 +134,8 @@ export default function PrimaryLot({ path, trailers }: Props) {
 						})}
 					</div>
 				</div>
-				<div className=" flex flex-col justify-between w-full h-1/2 ">
-					<div className=" w-full h-1/4 flex">
+				<div className=" flex flex-col justify-between w-full h-4/5 mt-10">
+					<div className=" w-full h-1/4 flex space-x-1">
 						{horizontalSpots.map((i) => {
 							return (
 								<HorizontalSpot
@@ -151,7 +151,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 						})}
 					</div>
 
-					<div className=" w-full h-1/4 flex justify-end pr-10">
+					<div className=" w-full h-1/4 flex justify-end pr-10 space-x-1">
 						{horizontalSpots2.map((i) => {
 							return (
 								<HorizontalSpot
@@ -169,7 +169,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 				</div>
 			</div>
 
-			<div className="w-1/12 h-full ">
+			<div className="w-1/12 h-full ml-5 mt-10">
 				{verticalSpots.map((i) => {
 					return (
 						<VerticalSpot

@@ -69,9 +69,9 @@ export default function LotSpot({
 		if (trailer !== undefined) {
 			return (
 				<div>
-					<div className="ml-1">{spot}</div>
+					{/* <div className="ml-1">{spot}</div> */}
 
-					<div className="flex mr-1 w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
+					<div className="flex space-x-1 w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
 							data-tip={trailer.comments}
 							// style={{ textOrientation: "upright", writingMode: "vertical-rl" }}
@@ -91,9 +91,9 @@ export default function LotSpot({
 	}
 
 	return (
-		<div>
-			<div className="ml-1">{spot}</div>
-			<div className="flex mr-1 w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
+		<div className="flex flex-col justify-center items-center">
+			<div>{spot}</div>
+			<div className="flex w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 				<button
 					className="text-black h-full w-full flex justify-center items-center focus:outline-none text-xs"
 					onClick={handleAddClick}
@@ -104,12 +104,3 @@ export default function LotSpot({
 		</div>
 	);
 }
-
-<div>
-	<div className="ml-1"></div>
-	<div className="flex mr-1 w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
-		<button className="text-black h-full w-full flex justify-center items-center focus:outline-none text-xs">
-			<span style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }}>12345</span>
-		</button>
-	</div>
-</div>;
