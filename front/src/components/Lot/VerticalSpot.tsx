@@ -91,7 +91,7 @@ export default function LotSpot({
 	}
 
 	return (
-		<div className="flex justify-center items-center">
+		<div className="flex justify-center space-x-1 items-center">
 			<span>{spot}</span>
 			<div className="flex w-14 h-4 bg-white rounded-md justify-center items-center shadow-md border-gray-600 border-2">
 				<button

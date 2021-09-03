@@ -5,6 +5,7 @@ import { CategoryContext } from '../../utils/context';
 
 type Props = {
 	spot: any;
+	spotOrientation?: 'Top' | 'Bottom';
 	lot: TrailerLocation;
 	trailers: trailer[];
 	spotClicked: (spot: any) => void;
@@ -15,6 +16,7 @@ type Props = {
 
 export default function LotSpot({
 	spot,
+	spotOrientation = 'Top',
 	trailers,
 	lot,
 	spotClicked,
@@ -92,7 +94,7 @@ export default function LotSpot({
 
 	return (
 		<div className="flex flex-col justify-center items-center">
-			<div>{spot}</div>
+			{spotOrientation === 'Top' ? <div>{spot}</div> : null}
 			<div className="flex w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 				<button
 					className="text-black h-full w-full flex justify-center items-center focus:outline-none text-xs"
@@ -101,6 +103,7 @@ export default function LotSpot({
 					<span style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }}>12345</span>
 				</button>
 			</div>
+			{spotOrientation === 'Bottom' ? <div>{spot}</div> : null}
 		</div>
 	);
 }

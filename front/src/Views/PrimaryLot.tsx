@@ -102,8 +102,8 @@ export default function PrimaryLot({ path, trailers }: Props) {
 			</div>
 
 			<div className="w-full h-screen mt-5">
-				<div className=" flex flex-col justify-between w-full h-1/2 ">
-					<div className=" w-full h-1/4 flex space-x-1">
+				<div className=" flex flex-col justify-between w-full h-1/2">
+					<div className=" w-full h-1/4 flex justify-center space-x-1">
 						{horizontalSpots.map((i) => {
 							return (
 								<HorizontalSpot
@@ -118,7 +118,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 							);
 						})}
 					</div>
-					<div className=" w-full h-1/4 flex space-x-1">
+					<div className=" w-full h-1/4 justify-center flex space-x-1">
 						{horizontalSpots.map((i) => {
 							return (
 								<HorizontalSpot
@@ -134,12 +134,13 @@ export default function PrimaryLot({ path, trailers }: Props) {
 						})}
 					</div>
 				</div>
-				<div className=" flex flex-col justify-between w-full h-4/5 mt-10">
-					<div className=" w-full h-1/4 flex space-x-1">
+				<div className=" flex flex-col justify-between w-full h-4/5">
+					<div className=" w-full h-1/4 flex justify-center space-x-1">
 						{horizontalSpots.map((i) => {
 							return (
 								<HorizontalSpot
 									spot={i}
+									spotOrientation="Bottom"
 									trailers={trailers}
 									lot={TrailerLocation.PRIMARY}
 									spotClicked={(spot) => setSpotClicked(spot)}
