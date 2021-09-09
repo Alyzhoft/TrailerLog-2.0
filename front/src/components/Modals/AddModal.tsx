@@ -9,7 +9,7 @@ import { CarrierContext, CategoryContext } from '../../utils/context';
 
 enum TrailerLocation {
 	PRIMARY = 'PRIMARY',
-	SECONDARY = 'SECONDARY',
+	SECONDARY = 'Secondary',
 	RVAC = 'RVAC',
 	RMAN = 'RMAN',
 }
@@ -32,8 +32,6 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 	const socket = useContext(SocketContext);
 	const carriers = useContext(CarrierContext);
 	const categories = useContext(CategoryContext);
-
-	console.log(spotNumber);
 
 	useEffect(() => {
 		const temp = carriers.map((carrier: any) => {
@@ -97,14 +95,6 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
-											console.log({
-												carrier,
-												category,
-												trailerNumber,
-												comments,
-												spotName: spotNumber.name,
-												trailerLocation,
-											});
 
 											socket.emit('addTrailer', {
 												carrier,

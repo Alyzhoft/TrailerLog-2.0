@@ -34,14 +34,29 @@ export default function RVAC({ trailers }: Props) {
 	const [inModal, setInModal] = useState(false);
 	const [spotClicked, setSpotClicked] = useState<any>(0);
 	const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
-	const [doors, setDoors] = useState([]);
+	const [doors, setDoors] = useState<any>();
 
 	const trailerLocations = useContext(TrailerLocationContext);
+
+	console.log(trailerLocations);
 
 	useEffect(() => {
 		for (let i = 0; i < trailerLocations.length; i++) {
 			if (trailerLocations[i].name === 'RVAC') {
-				setDoors(trailerLocations[i].Spots);
+				if (trailerLocations[i].Lot !== null && trailerLocations[i].Dock !== null) {
+					setDoors({
+						DockDoors: trailerLocations[i].Dock.Spots,
+						LotSpots: trailerLocations[i].Lot.Spots,
+					});
+				} else if (trailerLocations[i].Lot === null && trailerLocations[i].Dock !== null) {
+					setDoors({
+						DockDoors: trailerLocations[i].Dock.Spots,
+					});
+				} else {
+					setDoors({
+						LotSpots: trailerLocations[i].Lot.Spots,
+					});
+				}
 			}
 		}
 	}, [trailerLocations]);
@@ -140,31 +155,35 @@ export default function RVAC({ trailers }: Props) {
 				) : null}
 				{/* Do not remove the below div */}
 				<div></div>
-				<div className="hidden building:block">
-					<Building
-						dock={'RVAC'}
-						doors={doors}
-						trailers={trailers}
-						spotClicked={(door) => setSpotClicked(door)}
-						trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
-						addOpen={() => setAddIn(true)}
-						tempModal={() => setTempModal(true)}
-					/>
-				</div>
-				<div className="building:hidden w-full h-full mt-5 ">
-					<h1 className="text-4xl font-bold">RVAC</h1>
-					<div className="border-black border-t-2">
-						<Lot
-							spots={doors}
-							lot={TrailerLocation.RVAC}
-							trailers={trailers}
-							trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
-							spotClicked={(spot) => setSpotClicked(spot)}
-							addOpen={() => setAddOpen(true)}
-							tempModal={() => setAddIn(true)}
-						/>
+				{doors ? (
+					<div>
+						<div className="hidden building:block">
+							<Building
+								dock={'RVAC'}
+								doors={doors.DockDoors}
+								trailers={trailers}
+								spotClicked={(door) => setSpotClicked(door)}
+								trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
+								addOpen={() => setAddIn(true)}
+								tempModal={() => setTempModal(true)}
+							/>
+						</div>
+						<div className="building:hidden w-full h-full mt-5 ">
+							<h1 className="text-4xl font-bold">RVAC</h1>
+							<div className="border-black border-t-2">
+								<Lot
+									spots={doors.DockDoors}
+									lot={TrailerLocation.RVAC}
+									trailers={trailers}
+									trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
+									spotClicked={(spot) => setSpotClicked(spot)}
+									addOpen={() => setAddOpen(true)}
+									tempModal={() => setAddIn(true)}
+								/>
+							</div>
+						</div>
 					</div>
-				</div>
+				) : null}
 			</div>
 		</Container>
 	);

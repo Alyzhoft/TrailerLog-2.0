@@ -1,6 +1,34 @@
 import { TrailerLocation } from "@prisma/client";
 import { prisma } from "../utils/prisma";
 
+export async function getViews() {
+  try {
+    const res = await prisma.view.findMany({
+      include: {
+        Dock: {
+          include: {
+            Spots: {
+              orderBy: {
+                id: "desc",
+              },
+            },
+          },
+        },
+        Lot: {
+          include: {
+            Spots: {
+              orderBy: {
+                id: "desc",
+              },
+            },
+          },
+        },
+      },
+    });
+    return res;
+  } catch (error) {}
+}
+
 export async function getTrailerLocations() {
   try {
     const res = await prisma.trailerLocation.findMany({
@@ -21,15 +49,31 @@ export async function getTrailerLocations() {
 
 export async function getAvalibleTrailerLocations() {
   try {
-    const res = await prisma.trailerLocation.findMany({
-      include: {
+    const res = await prisma.lot.findMany({
+      select: {
+        name: true,
         Spots: {
           where: {
             trailerId: null,
+            lotId: {
+              not: null,
+            },
+          },
+          orderBy: {
+            id: "desc",
           },
         },
       },
     });
+
+    // Spots: {
+    //   where: {
+    //     trailerId: null,
+    //     lotId: {
+    //       not: null,
+    //     },
+    //   },
+    // },
 
     return res;
   } catch (error) {

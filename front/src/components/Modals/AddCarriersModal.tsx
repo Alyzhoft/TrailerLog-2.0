@@ -61,9 +61,6 @@ export default function AddCarriersModal({ open, close }: Props) {
 								<form
 									onSubmit={(e) => {
 										e.preventDefault();
-										console.log({
-											carrierName,
-										});
 
 										socket.emit('addCarrier', {
 											carrierName,

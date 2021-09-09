@@ -1,6 +1,6 @@
 export enum TrailerLocation {
 	PRIMARY = 'PRIMARY',
-	SECONDARY = 'SECONDARY',
+	SECONDARY = 'Secondary',
 	RVAC = 'RVAC',
 	RMAN = 'RMAN',
 }

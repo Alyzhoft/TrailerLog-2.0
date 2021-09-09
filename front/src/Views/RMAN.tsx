@@ -36,16 +36,29 @@ export default function RMAN({ trailers }: Props) {
 	const [spotClicked, setSpotClicked] = useState<any>(0);
 	const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
 	const [trailerLocation, setTrailerLocation] = useState<TrailerLocation | null>(null);
-	const [doors, setDoors] = useState([]);
+	const [doors, setDoors] = useState<any>();
 
 	const trailerLocations = useContext(TrailerLocationContext);
+
+	console.log(doors);
 
 	useEffect(() => {
 		for (let i = 0; i < trailerLocations.length; i++) {
 			if (trailerLocations[i].name === 'RMAN') {
-				console.log(trailerLocations[i].Spots.sort());
-
-				setDoors(trailerLocations[i].Spots.sort());
+				if (trailerLocations[i].Lot !== null && trailerLocations[i].Dock !== null) {
+					setDoors({
+						DockDoors: trailerLocations[i].Dock.Spots,
+						LotSpots: trailerLocations[i].Lot.Spots,
+					});
+				} else if (trailerLocations[i].Lot === null && trailerLocations[i].Dock !== null) {
+					setDoors({
+						DockDoors: trailerLocations[i].Dock.Spots,
+					});
+				} else {
+					setDoors({
+						LotSpots: trailerLocations[i].Lot.Spots,
+					});
+				}
 			}
 		}
 	}, [trailerLocations]);
@@ -143,55 +156,60 @@ export default function RMAN({ trailers }: Props) {
 						trailerLocation={TrailerLocation.RMAN}
 					/>
 				) : null}
-				<Lot
-					spots={doors}
-					lot={TrailerLocation.SECONDARY}
-					trailers={trailers}
-					spotClicked={(spot) => setSpotClicked(spot)}
-					trailerClicked={(trailer: trailer) => {
-						setSelectedTrailer(trailer);
-					}}
-					addOpen={() => {
-						setTrailerLocation(TrailerLocation.SECONDARY);
-						setAddOpen(true);
-					}}
-					tempModal={() => setTempModal(true)}
-				/>
-				<div className="hidden building:block">
-					<Building
-						dock={TrailerLocation.RMAN}
-						doors={doors}
-						trailers={trailers}
-						spotClicked={(door) => setSpotClicked(door)}
-						trailerClicked={(trailer: trailer) => {
-							setSelectedTrailer(trailer);
-						}}
-						addOpen={() => {
-							setTrailerLocation(TrailerLocation.RMAN);
-							setAddIn(true);
-						}}
-						tempModal={() => setTempModal(true)}
-					/>
-				</div>
-				<div className="building:hidden w-full h-full mt-5 ">
-					<h1 className="text-4xl font-bold">RMAN</h1>
-					<div className="border-black border-t-2">
+
+				{doors ? (
+					<>
 						<Lot
-							spots={doors}
-							lot={TrailerLocation.RMAN}
+							spots={doors.LotSpots}
+							lot={TrailerLocation.SECONDARY}
 							trailers={trailers}
+							spotClicked={(spot) => setSpotClicked(spot)}
 							trailerClicked={(trailer: trailer) => {
 								setSelectedTrailer(trailer);
 							}}
-							spotClicked={(spot) => setSpotClicked(spot)}
 							addOpen={() => {
 								setTrailerLocation(TrailerLocation.SECONDARY);
 								setAddOpen(true);
 							}}
 							tempModal={() => setTempModal(true)}
 						/>
-					</div>
-				</div>
+						<div className="hidden building:block">
+							<Building
+								dock={TrailerLocation.RMAN}
+								doors={doors.DockDoors}
+								trailers={trailers}
+								spotClicked={(door) => setSpotClicked(door)}
+								trailerClicked={(trailer: trailer) => {
+									setSelectedTrailer(trailer);
+								}}
+								addOpen={() => {
+									setTrailerLocation(TrailerLocation.RMAN);
+									setAddIn(true);
+								}}
+								tempModal={() => setTempModal(true)}
+							/>
+						</div>
+						<div className="building:hidden w-full h-full mt-5 ">
+							<h1 className="text-4xl font-bold">RMAN</h1>
+							<div className="border-black border-t-2">
+								<Lot
+									spots={doors.DockDoors}
+									lot={TrailerLocation.RMAN}
+									trailers={trailers}
+									trailerClicked={(trailer: trailer) => {
+										setSelectedTrailer(trailer);
+									}}
+									spotClicked={(spot) => setSpotClicked(spot)}
+									addOpen={() => {
+										setTrailerLocation(TrailerLocation.SECONDARY);
+										setAddOpen(true);
+									}}
+									tempModal={() => setTempModal(true)}
+								/>
+							</div>
+						</div>
+					</>
+				) : null}
 			</div>
 		</Container>
 	);

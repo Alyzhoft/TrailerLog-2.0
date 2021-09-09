@@ -34,8 +34,6 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 	}, [trailers, request.inCarrier]);
 
 	useEffect(() => {
-		console.log('CALLED');
-
 		const trailer = trailers.find(
 			(t) => t.trailerNumber === trailerNumber && t.carrier === request.inCarrier,
 		);
@@ -43,8 +41,6 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 			setTrailerId(trailer.id);
 		}
 	}, [trailerNumber, trailers, request.inCarrier]);
-
-	console.log({ trailerNumber, trailerId });
 
 	return (
 		<>
@@ -103,10 +99,6 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 										if (trailerNumber) {
 											temp.inTrailerNumber = trailerNumber;
 										}
-
-										console.log({
-											temp,
-										});
 
 										socket.emit('complete', temp);
 

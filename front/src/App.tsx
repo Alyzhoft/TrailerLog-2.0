@@ -104,38 +104,28 @@ function App() {
 
 	useEffect(() => {
 		io.on('returnAddCarrier', (newCarrier) => {
-			console.log(newCarrier);
-
 			setData((oldState) => ({ ...oldState, carriers: newCarrier.carriers }));
 		});
 	}, [io]);
 	useEffect(() => {
 		io.on('returnDeleteCarrier', (newCarrier) => {
-			console.log(newCarrier);
-
 			setData((oldState) => ({ ...oldState, carriers: newCarrier.carriers }));
 		});
 	}, [io]);
 
 	useEffect(() => {
 		io.on('returnAddCategory', (newCategory) => {
-			console.log(newCategory);
-
 			setData((oldState) => ({ ...oldState, categories: newCategory.categories }));
 		});
 	}, [io]);
 	useEffect(() => {
 		io.on('returnDeleteCategory', (newCategory) => {
-			console.log(newCategory);
-
 			setData((oldState) => ({ ...oldState, categories: newCategory.categories }));
 		});
 	}, [io]);
 
 	useEffect(() => {
 		io.on('returnEditCategory', (newCategory) => {
-			console.log(newCategory);
-
 			setData((oldState) => ({ ...oldState, categories: newCategory.categories }));
 		});
 	}, [io]);

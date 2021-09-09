@@ -25,6 +25,8 @@ export default function Requests({ path, trailers }: Props) {
 	const socket = useContext(SocketContext);
 
 	function handleDone(request: Request) {
+		console.log(request);
+
 		if (request.requestType === 'OUT') {
 			setSelectedRequest(request);
 			setOutModal(true);

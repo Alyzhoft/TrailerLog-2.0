@@ -76,7 +76,6 @@ export default function EditModal({ open, close, categoryprop }: Props) {
 											categoryID,
 											color,
 										});
-										console.log({ category, categoryID, color });
 										close();
 									}}
 								>

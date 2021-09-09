@@ -63,9 +63,6 @@ export default function AddCategoriesModal({ open, close }: Props) {
 									className={clsx(colorOpen ? 'h-96' : null)}
 									onSubmit={(e) => {
 										e.preventDefault();
-										console.log({
-											categoryName,
-										});
 
 										socket.emit('addCategory', {
 											categoryName,

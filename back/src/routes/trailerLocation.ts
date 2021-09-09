@@ -6,13 +6,14 @@ import {
   deleteTrailerLocation,
   updateTrailerLocation,
   getAvalibleTrailerLocations,
+  getViews,
 } from "../controller/trailerLocation";
 
 const router = express.Router();
 
 router.get("/", async (_req: Request, res: Response) => {
-  const trailerLocations = await getTrailerLocations();
-  res.json(trailerLocations);
+  const views = await getViews();
+  res.json(views);
 });
 
 router.get("/avalibleLocations", async (_req: Request, res: Response) => {

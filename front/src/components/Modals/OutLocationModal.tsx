@@ -26,12 +26,12 @@ export default function OutLocation({
 }: // spotNumber,
 // trailerLocation,
 Props) {
-	const [trailerLocations, setTrailerLocations] = useState<any[]>([]);
-	const [newTrailerLocation, setNewTrailerLocation] = useState<any>('RVAC');
+	const [trailerLocations, setTrailerLocations] = useState<any>();
+	const [newTrailerLocation, setNewTrailerLocation] = useState<any>('Secondary');
 	const [spot, setSpot] = useState('1');
 	const [trailerLocationsOptions, setTrailerLocationsOptions] = useState<any[]>([]);
 	const [newLocationOptions, setNewLocationOptions] = useState<any>({
-		RMAN: ['1'],
+		Secondary: ['1'],
 	});
 
 	useEffect(() => {
@@ -43,30 +43,23 @@ Props) {
 	}, []);
 
 	useEffect(() => {
-		//REWORK THE BELOW CODE BUT IT WILL WORK FOR NOW
+		// //REWORK THE BELOW CODE BUT IT WILL WORK FOR NOW
 		const temp: any = [];
-		for (let i = 0; i < trailerLocations.length; i++) {
-			const names = trailerLocations[i].Spots.map((t: any) =>
-				t.name !== 'RVAC' && t.name !== 'RMAN' ? t.name : null,
-			);
-			temp.push([trailerLocations[i].name, names.sort()]);
-
-			console.log(temp);
-
-			if (trailerLocations[i].lot === true) {
-				const names = trailerLocations[i].Spots.map((t: any) => t.name);
-				temp.push([
-					trailerLocations[i].lotName,
-					names.sort((a: any, b: any) => {
-						return a.id - b.id;
-					}),
-				]);
+		if (trailerLocations) {
+			for (let i = 0; i < trailerLocations.length; i++) {
+				const names = trailerLocations[i].Spots.map((s: any) => {
+					return s.name;
+				});
+				temp.push([trailerLocations[i].name, names]);
 			}
-		}
 
-		setTrailerLocationsOptions(temp.map((t: any) => t[0]));
-		setNewLocationOptions(Object.fromEntries(temp));
+			setTrailerLocationsOptions(temp.map((t: any) => t[0]));
+
+			setNewLocationOptions(Object.fromEntries(temp));
+		}
 	}, [trailerLocations]);
+
+	// console.log({ trailerLocationsOptions, newLocationOptions });
 
 	return (
 		<>
