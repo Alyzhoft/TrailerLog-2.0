@@ -13,7 +13,7 @@ type Props = RouteComponentProps & {
 };
 
 const screenHeight = {
-	height: 'calc(100vh - 8.75rem)',
+	height: 'calc(100vh - 5.75rem)',
 };
 const verticalSpots = Array.from({ length: 35 }, (_, index) => index + 1);
 const horizontalSpots = Array.from({ length: 48 }, (_, index) => index + 1);
