@@ -54,7 +54,6 @@ Props) {
 			}
 
 			setTrailerLocationsOptions(temp.map((t: any) => t[0]));
-
 			setNewLocationOptions(Object.fromEntries(temp));
 		}
 	}, [trailerLocations]);

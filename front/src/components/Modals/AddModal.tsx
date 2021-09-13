@@ -33,6 +33,8 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 	const carriers = useContext(CarrierContext);
 	const categories = useContext(CategoryContext);
 
+	console.log(spotNumber);
+
 	useEffect(() => {
 		const temp = carriers.map((carrier: any) => {
 			return carrier.carrierName;
@@ -87,7 +89,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+								<div className="inline-block max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
 									<Dialog.Title as="h3" className=" text-2xl font-large leading-6 text-gray-900">
 										Add Trailer
 									</Dialog.Title>

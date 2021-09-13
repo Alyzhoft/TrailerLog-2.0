@@ -92,13 +92,13 @@ export default function LotSpot({
 
 	return (
 		<div className="flex justify-center space-x-1 items-center">
-			<span>{spot}</span>
+			<span className="text-xs">{spot.name}</span>
 			<div className="flex w-14 h-4 bg-white rounded-md justify-center items-center shadow-md border-gray-600 border-2">
 				<button
 					className="text-black h-full w-full mb-1 text-xs focus:outline-none"
 					onClick={handleAddClick}
 				>
-					<span>12345</span>
+					<span></span>
 				</button>
 			</div>
 		</div>
@@ -107,6 +107,6 @@ export default function LotSpot({
 
 <div>
 	<div className="flex mb-1 w-14 h-4 bg-white rounded-md justify-center items-center shadow-md border-gray-600 border-2">
-		<button className="text-black h-full w-full mb-1 text-xs focus:outline-none">12345</button>
+		<button className="text-black h-full w-full mb-1 text-xs focus:outline-none"></button>
 	</div>
 </div>;
