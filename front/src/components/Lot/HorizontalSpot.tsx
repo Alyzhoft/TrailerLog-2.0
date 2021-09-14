@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
+import clsx from 'clsx';
 import { trailer, TrailerLocation } from '../../types';
 import { CategoryContext } from '../../utils/context';
 
@@ -94,7 +95,9 @@ export default function LotSpot({
 
 	return (
 		<div className="flex flex-col justify-center items-center">
-			{spotOrientation === 'Top' ? <div className="text-xs">{spot.name}</div> : null}
+			{spotOrientation === 'Top' ? (
+				<div className={clsx(' text-2xs font-bold')}>{spot.name}</div>
+			) : null}
 			<div className="flex w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 				<button
 					className="text-black h-full w-full flex justify-center items-center focus:outline-none text-xs"
@@ -103,7 +106,7 @@ export default function LotSpot({
 					<span style={{ textOrientation: 'upright', writingMode: 'vertical-rl' }}></span>
 				</button>
 			</div>
-			{spotOrientation === 'Bottom' ? <div className="text-xs">{spot.name}</div> : null}
+			{spotOrientation === 'Bottom' ? <div className="text-2xs font-bold">{spot.name}</div> : null}
 		</div>
 	);
 }

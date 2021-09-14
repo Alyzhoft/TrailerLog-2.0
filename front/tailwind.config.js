@@ -6,6 +6,14 @@ module.exports = {
 			screens: {
 				building: '1200px',
 			},
+			fontSize: {
+				'2xs': [
+					'0.5rem',
+					{
+						letterSpacing: '-0.01em',
+					},
+				],
+			},
 		},
 	},
 	variants: {

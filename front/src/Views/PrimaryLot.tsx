@@ -115,110 +115,28 @@ export default function PrimaryLot({ path, trailers }: Props) {
 					/>
 				) : null}
 				<div className=" w-1/12 h-full mt-10 space-y-1">
-					{spots
-						? spots.LotSpots.lv.map((i: any, k: any) => {
-								return (
-									<VerticalSpot
-										key={k}
-										spot={i}
-										trailers={trailers}
-										lot={TrailerLocation.PRIMARY}
-										spotClicked={(spot) => setSpotClicked(spot)}
-										trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
-										addOpen={() => setAddOpen(true)}
-										tempModal={() => setTempModal(true)}
-									/>
-								);
-						  })
-						: null}
+					{spots.LotSpots.lv.map((i: any, k: any) => {
+						return (
+							<VerticalSpot
+								key={k}
+								spot={i}
+								trailers={trailers}
+								lot={TrailerLocation.PRIMARY}
+								spotClicked={(spot) => setSpotClicked(spot)}
+								trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
+								addOpen={() => setAddOpen(true)}
+								tempModal={() => setTempModal(true)}
+							/>
+						);
+					})}
 				</div>
 
 				<div className="w-full h-screen mt-5">
 					<div className=" flex flex-col justify-between w-full h-1/2">
 						<div className=" w-full h-1/4 flex justify-center space-x-1">
-							{spots
-								? spots.LotSpots.th.map((i: any, k: any) => {
-										return (
-											<HorizontalSpot
-												key={k}
-												spot={i}
-												trailers={trailers}
-												lot={TrailerLocation.PRIMARY}
-												spotClicked={(spot) => setSpotClicked(spot)}
-												trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
-												addOpen={() => setAddOpen(true)}
-												tempModal={() => setTempModal(true)}
-											/>
-										);
-								  })
-								: null}
-						</div>
-						<div className=" w-full h-1/4 justify-center flex space-x-1">
-							{spots
-								? spots.LotSpots.tmh.map((i: any, k: any) => {
-										return (
-											<HorizontalSpot
-												key={k}
-												spot={i}
-												trailers={trailers}
-												lot={TrailerLocation.PRIMARY}
-												spotClicked={(spot) => setSpotClicked(spot)}
-												trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
-												addOpen={() => setAddOpen(true)}
-												tempModal={() => setTempModal(true)}
-											/>
-										);
-								  })
-								: null}
-						</div>
-					</div>
-					<div className=" flex flex-col justify-between w-full h-4/5">
-						<div className=" w-full h-1/4 flex justify-center space-x-1">
-							{spots
-								? spots.LotSpots.bmh.map((i: any, k: any) => {
-										return (
-											<HorizontalSpot
-												key={k}
-												spot={i}
-												spotOrientation="Bottom"
-												trailers={trailers}
-												lot={TrailerLocation.PRIMARY}
-												spotClicked={(spot) => setSpotClicked(spot)}
-												trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
-												addOpen={() => setAddOpen(true)}
-												tempModal={() => setTempModal(true)}
-											/>
-										);
-								  })
-								: null}
-						</div>
-
-						<div className=" w-full h-1/4 flex justify-end pr-10 space-x-1">
-							{spots
-								? spots.LotSpots.bh.map((i: any, k: any) => {
-										return (
-											<HorizontalSpot
-												key={k}
-												spot={i}
-												trailers={trailers}
-												lot={TrailerLocation.PRIMARY}
-												spotClicked={(spot) => setSpotClicked(spot)}
-												trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
-												addOpen={() => setAddOpen(true)}
-												tempModal={() => setTempModal(true)}
-											/>
-										);
-								  })
-								: null}
-						</div>
-					</div>
-				</div>
-
-				<div className="w-1/12 h-full space-y-1 ml-5 mt-10">
-					{spots
-						? spots.LotSpots.rv.map((i: any, k: any) => {
+							{spots.LotSpots.th.map((i: any, k: any) => {
 								return (
-									<VerticalSpot
+									<HorizontalSpot
 										key={k}
 										spot={i}
 										trailers={trailers}
@@ -229,12 +147,82 @@ export default function PrimaryLot({ path, trailers }: Props) {
 										tempModal={() => setTempModal(true)}
 									/>
 								);
-						  })
-						: null}
+							})}
+						</div>
+						<div className=" w-full h-1/2 justify-center flex space-x-1">
+							{spots.LotSpots.tmh.map((i: any, k: any) => {
+								return (
+									<HorizontalSpot
+										key={k}
+										spot={i}
+										trailers={trailers}
+										lot={TrailerLocation.PRIMARY}
+										spotClicked={(spot) => setSpotClicked(spot)}
+										trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
+										addOpen={() => setAddOpen(true)}
+										tempModal={() => setTempModal(true)}
+									/>
+								);
+							})}
+						</div>
+					</div>
+					<div className=" flex flex-col justify-between w-full h-4/5">
+						<div className=" w-full h-1/4 flex justify-center space-x-1">
+							{spots.LotSpots.bmh.map((i: any, k: any) => {
+								return (
+									<HorizontalSpot
+										key={k}
+										spot={i}
+										spotOrientation="Bottom"
+										trailers={trailers}
+										lot={TrailerLocation.PRIMARY}
+										spotClicked={(spot) => setSpotClicked(spot)}
+										trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
+										addOpen={() => setAddOpen(true)}
+										tempModal={() => setTempModal(true)}
+									/>
+								);
+							})}
+						</div>
+
+						<div className=" w-full h-1/4 flex justify-end pr-10 space-x-1">
+							{spots.LotSpots.bh.map((i: any, k: any) => {
+								return (
+									<HorizontalSpot
+										key={k}
+										spot={i}
+										trailers={trailers}
+										lot={TrailerLocation.PRIMARY}
+										spotClicked={(spot) => setSpotClicked(spot)}
+										trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
+										addOpen={() => setAddOpen(true)}
+										tempModal={() => setTempModal(true)}
+									/>
+								);
+							})}
+						</div>
+					</div>
+				</div>
+
+				<div className="w-1/12 h-full space-y-1 ml-5 mt-10">
+					{spots.LotSpots.rv.map((i: any, k: any) => {
+						return (
+							<VerticalSpot
+								key={k}
+								spot={i}
+								trailers={trailers}
+								lot={TrailerLocation.PRIMARY}
+								spotClicked={(spot) => setSpotClicked(spot)}
+								trailerClicked={(trailerClicked) => setSelectedTrailer(trailerClicked)}
+								addOpen={() => setAddOpen(true)}
+								tempModal={() => setTempModal(true)}
+							/>
+						);
+					})}
 				</div>
 			</div>
 		);
 	}
 
-	return <div>Data Not Found</div>;
+	return <div className="flex justify-center items-center font-bold">Loading...</div>;
 }
