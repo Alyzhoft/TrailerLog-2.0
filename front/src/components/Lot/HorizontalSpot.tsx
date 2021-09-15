@@ -72,7 +72,7 @@ export default function LotSpot({
 		if (trailer !== undefined) {
 			return (
 				<div className="flex flex-col justify-center items-center">
-					<div className="text-xs">{spot.name}</div>
+					<div className="text-2xs font-bold">{spot.name}</div>
 
 					<div className="flex space-x-1 w-4 h-20 bg-white rounded-md justify-center text-center shadow-md border-gray-600 border-2">
 						<button
