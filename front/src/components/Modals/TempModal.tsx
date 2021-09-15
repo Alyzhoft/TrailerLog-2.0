@@ -20,6 +20,7 @@ type Props = {
 	trailerLocation?: TrailerLocation;
 	trailer: trailer | null;
 	close: () => void;
+	outRequest?: boolean;
 };
 
 export default function TempModal({
@@ -31,6 +32,7 @@ export default function TempModal({
 	spotNumber = 1,
 	trailer,
 	trailerLocation = TrailerLocation.RVAC,
+	outRequest = true,
 }: Props) {
 	const socket = useContext(SocketContext);
 
@@ -98,9 +100,11 @@ export default function TempModal({
 										<Button onClick={editOpen} type="submit">
 											Edit
 										</Button>
-										<div className="ml-2">
-											<Button onClick={outModal}>Out</Button>
-										</div>
+										{outRequest ? (
+											<div className="ml-2">
+												<Button onClick={outModal}>Out</Button>
+											</div>
+										) : null}
 										<div className="ml-2">
 											<Button onClick={lotMove}>Move</Button>
 										</div>

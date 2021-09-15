@@ -139,10 +139,8 @@ function App() {
 	useEffect(() => {
 		io.on('error', (res) => {
 			console.log(res);
-
-			// console.error(error.error);
-			// setError(true);
-			// setErrorMessage(error.error.message);
+			setError(true);
+			setErrorMessage(res.error);
 		});
 	}, [io]);
 

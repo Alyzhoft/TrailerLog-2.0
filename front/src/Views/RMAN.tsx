@@ -98,6 +98,7 @@ export default function RMAN({ trailers }: Props) {
 						close={() => setTempModal(false)}
 						trailer={selctedTrailer}
 						trailerLocation={TrailerLocation.RMAN}
+						outRequest={false}
 						editOpen={() => {
 							setTempModal(false);
 							setTimeout(() => {
