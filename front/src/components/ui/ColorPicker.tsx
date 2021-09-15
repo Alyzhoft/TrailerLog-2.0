@@ -4,6 +4,7 @@ import { useState } from 'react';
 type Props = {
 	setColor?: (currentColor: string) => void;
 	open: (open: boolean) => void;
+	color?: string;
 };
 
 function classNames(...classes: any) {
@@ -13,7 +14,7 @@ function classNames(...classes: any) {
 const colors = ['gray', 'red', 'yellow', 'green', 'blue', 'indigo', 'purple', 'pink'];
 const variants = [100, 200, 300, 400, 500, 600, 700, 800, 900];
 
-export default function ColorPicker({ setColor, open }: Props) {
+export default function ColorPicker({ setColor, open, color }: Props) {
 	const [isOpen, setIsOpen] = useState(false);
 	const [currentColor, setCurrentColor] = useState('red-800');
 	const [iconColor, setIconColor] = useState('text-white');
@@ -26,6 +27,12 @@ export default function ColorPicker({ setColor, open }: Props) {
 			setIconColor('text-white');
 		}
 	}
+
+	useEffect(() => {
+		if (color) {
+			setCurrentColor(color);
+		}
+	}, [color]);
 
 	useEffect(() => {
 		if (setColor) {
@@ -78,7 +85,7 @@ export default function ColorPicker({ setColor, open }: Props) {
 								open(false);
 								setIsOpen(false);
 							}}
-							className="border bg-white border-gray-300 origin-top-right absolute left-0 top-full mt-2 rounded-md z-20 shadow-lg"
+							className="border bg-white border-gray-300 origin-top-right absolute left-0 top-full mt-2 rounded-md shadow-lg"
 						>
 							<div className="flex">
 								{colors.map((color: string) => {

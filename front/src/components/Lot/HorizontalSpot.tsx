@@ -84,7 +84,7 @@ export default function LotSpot({
 							)}
 							onClick={() => handleEditClick(trailer)}
 						>
-							<span className="upRight text-xs">{trailer?.trailerNumber}</span>
+							<span className="upRight text-2xs font-bold">{trailer?.trailerNumber}</span>
 						</button>
 					</div>
 					{trailer.comments !== '' ? <ReactTooltip place="top" type="dark" effect="solid" /> : null}
