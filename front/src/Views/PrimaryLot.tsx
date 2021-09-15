@@ -114,7 +114,8 @@ export default function PrimaryLot({ path, trailers }: Props) {
 						trailer={selctedTrailer}
 					/>
 				) : null}
-				<div className=" w-1/12 h-full mt-10 space-y-1">
+
+				<div className=" w-1/12 h-screen mt-10 space-y-1">
 					{spots.LotSpots.lv.map((i: any, k: any) => {
 						return (
 							<VerticalSpot
@@ -149,6 +150,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 								);
 							})}
 						</div>
+
 						<div className=" w-full h-1/2 justify-center flex space-x-1">
 							{spots.LotSpots.tmh.map((i: any, k: any) => {
 								return (
@@ -166,6 +168,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 							})}
 						</div>
 					</div>
+
 					<div className=" flex flex-col justify-between w-full h-4/5">
 						<div className=" w-full h-1/4 flex justify-center space-x-1">
 							{spots.LotSpots.bmh.map((i: any, k: any) => {
