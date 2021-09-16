@@ -177,7 +177,7 @@ export default function RMAN({ trailers }: Props) {
 						<div className="hidden building:block">
 							<Building
 								dock={TrailerLocation.RMAN}
-								doors={doors.DockDoors}
+								doors={doors.DockDoors.reverse()}
 								trailers={trailers}
 								spotClicked={(door) => setSpotClicked(door)}
 								trailerClicked={(trailer: trailer) => {

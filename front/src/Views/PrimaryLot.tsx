@@ -41,8 +41,8 @@ export default function PrimaryLot({ path, trailers }: Props) {
 				const bh = tempSpots.splice(0, 4);
 				const rv = tempSpots.splice(0, 35).reverse();
 				const th = tempSpots.splice(0, 50).reverse();
-				const tmh = tempSpots.splice(0, 31);
-				const bmh = tempSpots.splice(0, 31);
+				const tmh = tempSpots.splice(0, 35);
+				const bmh = tempSpots.splice(0, 35);
 				const lv = tempSpots.splice(0, 24);
 
 				setSpots({

@@ -10,6 +10,9 @@ export async function getRequests() {
       include: {
         trailer: true,
       },
+      orderBy: {
+        urgent: "desc",
+      },
     });
 
     return requests;
@@ -60,6 +63,7 @@ export async function addRequest(requests: OutIn) {
           special: requests.special,
           outCategory: requests.outCategory,
           requestType: RequestType.OUT,
+          urgent: requests.urgent,
         },
       });
     }
@@ -74,6 +78,7 @@ export async function addRequest(requests: OutIn) {
           inTrailerLocation: requests.inTrailerLocation,
           special: requests.special,
           requestType: RequestType.IN,
+          urgent: requests.urgent,
         },
       });
     }

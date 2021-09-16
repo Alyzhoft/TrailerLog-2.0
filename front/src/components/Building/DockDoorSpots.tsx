@@ -41,6 +41,18 @@ export default function DockDoorSpot({
 		return category !== undefined ? category.color : 'blue-100';
 	}
 
+	function getFontColor(trailer: trailer) {
+		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
+		// return category !== undefined ? category.color : 'blue-100';
+
+		if (category) {
+			const number = parseInt(category.color.split('-')[1]);
+			console.log(typeof number);
+
+			return number >= 500 ? 'white' : 'black';
+		}
+	}
+
 	function handleAddClick() {
 		spotClicked(door);
 		addOpen();
@@ -58,13 +70,11 @@ export default function DockDoorSpot({
 
 	if (
 		trailers.find(
-			(trailer) =>
-				parseInt(trailer.spotNumber) === parseInt(door.name) && trailer.trailerLocation === dock,
+			(trailer) => trailer.spotNumber === door.name && trailer.trailerLocation === dock,
 		) !== undefined
 	) {
 		const trailer = trailers.find(
-			(trailer) =>
-				parseInt(trailer.spotNumber) === parseInt(door.name) && trailer.trailerLocation === dock,
+			(trailer) => trailer.spotNumber === door.name && trailer.trailerLocation === dock,
 		);
 		if (trailer !== undefined) {
 			return (
@@ -73,8 +83,9 @@ export default function DockDoorSpot({
 						<button
 							data-tip={trailer.comments}
 							className={classNames(
-								'text-black focus:outline-none w-full text-xs',
+								'text-black focus:outline-none w-full text-2xs font-bold',
 								`bg-${getColor(trailer)} rounded h-full`,
+								`text-${getFontColor(trailer)}`,
 							)}
 							onClick={() => handleTempClick(trailer)}
 						>

@@ -105,7 +105,13 @@ Props) {
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
-											request.inTrailerLocation = newTrailerLocation;
+											let lot: any;
+											if (newTrailerLocation === 'Primary Lot') {
+												lot = TrailerLocation.PRIMARY;
+											} else {
+												lot = TrailerLocation.SECONDARY;
+											}
+											request.inTrailerLocation = lot;
 											request.inSpotNumber = spot;
 											console.log({
 												newTrailerLocation,

@@ -10,7 +10,13 @@ module.exports = {
 				'2xs': [
 					'0.5rem',
 					{
-						letterSpacing: '-0.01em',
+						letterSpacing: '-0.01rem',
+					},
+				],
+				xsSpace: [
+					'0.6rem',
+					{
+						letterSpacing: '-0.02rem',
 					},
 				],
 			},

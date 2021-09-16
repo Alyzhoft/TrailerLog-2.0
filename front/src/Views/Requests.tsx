@@ -72,6 +72,7 @@ export default function Requests({ path, trailers }: Props) {
 					}
 				>
 					{requests.map((r: Request) => {
+						console.log(r);
 						return (
 							<TableRow key={r.id}>
 								<TableDataCell>{r.createdAt}</TableDataCell>
