@@ -116,7 +116,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 					/>
 				) : null}
 
-				<div className=" flex flex-col justify-end items-end bg-green-500 w-1/12 h-full mt-10 space-y-1">
+				<div className=" flex flex-col justify-end items-end w-1/12 h-full mt-10 space-y-1">
 					{spots.LotSpots.lv.map((i: any, k: any) => {
 						return (
 							<VerticalSpot

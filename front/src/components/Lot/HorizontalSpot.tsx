@@ -44,6 +44,18 @@ export default function LotSpot({
 		return category !== undefined ? category.color : 'blue-100';
 	}
 
+	function getFontColor(trailer: trailer) {
+		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
+		// return category !== undefined ? category.color : 'blue-100';
+
+		if (category) {
+			const number = parseInt(category.color.split('-')[1]);
+			console.log(typeof number);
+
+			return number >= 500 ? 'white' : 'black';
+		}
+	}
+
 	function handleAddClick() {
 		spotClicked(spot);
 		addOpen();
@@ -79,8 +91,9 @@ export default function LotSpot({
 							data-tip={trailer.comments}
 							// style={{ textOrientation: "upright", writingMode: "vertical-rl" }}
 							className={classNames(
-								'text-black focus:outline-none w-full rounded flex justify-center items-center',
+								'focus:outline-none w-full rounded flex justify-center items-center',
 								`bg-${getColor(trailer)}`,
+								`text-${getFontColor(trailer)}`,
 							)}
 							onClick={() => handleEditClick(trailer)}
 						>

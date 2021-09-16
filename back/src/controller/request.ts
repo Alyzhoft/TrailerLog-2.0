@@ -120,6 +120,7 @@ export async function completed(request: Requests) {
         data: {
           trailerLocation: request?.inTrailerLocation,
           spotNumber: request?.inSpotNumber,
+          category: "In Process",
         },
       });
     }
