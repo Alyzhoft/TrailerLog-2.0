@@ -1,4 +1,4 @@
-import express from "express";
+import express, { request } from "express";
 import cors from "cors";
 import { Server } from "socket.io";
 import http from "http";
@@ -17,6 +17,7 @@ import {
   deleteRequest,
   getRequests,
   inRequest,
+  move,
 } from "./controller/request";
 import { addCarrier, getCarriers, deleteCarrier } from "./controller/carrier";
 import {
@@ -118,6 +119,15 @@ io.on("connection", (Socket) => {
     const requests = await getRequests();
 
     io.emit("returnDeleteRequest", { newRequest: res, requests });
+  });
+
+  Socket.on("move", async (data: any) => {
+    const res = await move(data);
+    const trailers = await getTrailers();
+
+    console.log(res);
+
+    io.emit("returnMove", { res, trailers });
   });
 
   Socket.on("complete", async (request: Requests) => {

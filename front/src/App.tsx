@@ -137,6 +137,12 @@ function App() {
 	});
 
 	useEffect(() => {
+		io.on('returnMove', (request) => {
+			setData((oldData) => ({ ...oldData, trailers: request.trailers }));
+		});
+	});
+
+	useEffect(() => {
 		io.on('error', (res) => {
 			console.log(res);
 			setError(true);

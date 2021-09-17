@@ -7,6 +7,9 @@ export async function getTrailers() {
       where: {
         departed: false,
       },
+      include: {
+        Spots: true,
+      },
     });
 
     return trailers;

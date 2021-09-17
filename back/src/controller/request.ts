@@ -1,5 +1,6 @@
 import { Requests, RequestType } from "@prisma/client";
 import { prisma } from "../utils/prisma";
+import { addTrailer } from "./trailer";
 
 export async function getRequests() {
   try {
@@ -155,6 +156,44 @@ export async function completed(request: any) {
     });
 
     return { res, trailer };
+  } catch (error) {
+    return { error };
+  }
+}
+
+export async function move(temp: any) {
+  try {
+    console.log(temp);
+
+    const res = await prisma.spots.update({
+      where: {
+        id: temp.trailer.Spots.id,
+      },
+      data: {
+        trailerId: null,
+      },
+    });
+
+    const spot = await prisma.spots.update({
+      where: {
+        id: parseInt(temp.newSpotId),
+      },
+      data: {
+        trailerId: temp.trailer.id,
+      },
+    });
+
+    const trailer = await prisma.trailer.update({
+      where: {
+        id: temp.trailer.id,
+      },
+      data: {
+        trailerLocation: temp.newLocation,
+        spotNumber: temp.newSpot,
+      },
+    });
+
+    return { trailer, spot };
   } catch (error) {
     return { error };
   }
