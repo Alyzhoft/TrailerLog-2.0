@@ -99,15 +99,24 @@ export async function deleteTrailer(trailerId: number) {
   }
 }
 
-export async function departed(trailerId: number) {
+export async function departed(trailer: any) {
   try {
     const res = await prisma.trailer.update({
       where: {
-        id: trailerId,
+        id: trailer.id,
       },
 
       data: {
         departed: true,
+      },
+    });
+
+    const spot = await prisma.spots.update({
+      where: {
+        id: trailer.Spots.id,
+      },
+      data: {
+        trailerId: null,
       },
     });
 
