@@ -111,7 +111,7 @@ export default function TempModal({
 										<div className="ml-2">
 											<Button
 												onClick={() => {
-													socket.emit('departed', trailer?.id);
+													socket.emit('departed', trailer);
 													close();
 												}}
 											>
