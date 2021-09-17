@@ -23,6 +23,7 @@ export interface trailer {
 
 export type Request = {
 	id: number;
+	spotId: number | null;
 	createdAt: Date;
 	updatedAt: Date;
 	inCarrier: string | null;
@@ -42,5 +43,15 @@ export type Request = {
 	trailerId: number;
 	trailer: trailer;
 };
+
+export interface Spots {
+	id: number;
+	createdAt: Date;
+	updatedAt: Date;
+	name: string;
+	trailerId: number | null;
+	dockId: number | null;
+	lotId: number | null;
+}
 
 export type HeroIcon = (props: React.ComponentProps<'svg'>) => JSX.Element;

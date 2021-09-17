@@ -63,7 +63,7 @@ export default function RVAC({ trailers }: Props) {
 
 	return (
 		<Container>
-			<div style={screenHeight} className="flex flex-col justify-between h-screen mt-5">
+			<div style={screenHeight} className="flex flex-col justify-end h-screen mt-5">
 				{addOpen ? (
 					<AddModal
 						open={addOpen}
@@ -87,7 +87,7 @@ export default function RVAC({ trailers }: Props) {
 						open={tempModal}
 						close={() => setTempModal(false)}
 						trailer={selctedTrailer}
-						trailerLocation={TrailerLocation.RMAN}
+						trailerLocation={TrailerLocation.RVAC}
 						editOpen={() => {
 							setTempModal(false);
 							setTimeout(() => {
@@ -150,11 +150,9 @@ export default function RVAC({ trailers }: Props) {
 						trailer={selctedTrailer}
 						spotNumber={spotClicked.name}
 						trailers={trailers}
-						trailerLocation={TrailerLocation.RMAN}
+						trailerLocation={TrailerLocation.RVAC}
 					/>
 				) : null}
-				{/* Do not remove the below div */}
-				<div></div>
 				{doors ? (
 					<div>
 						<div className="hidden building:block">
@@ -177,8 +175,8 @@ export default function RVAC({ trailers }: Props) {
 									trailers={trailers}
 									trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
 									spotClicked={(spot) => setSpotClicked(spot)}
-									addOpen={() => setAddOpen(true)}
-									tempModal={() => setAddIn(true)}
+									addOpen={() => setAddIn(true)}
+									tempModal={() => setTempModal(true)}
 								/>
 							</div>
 						</div>

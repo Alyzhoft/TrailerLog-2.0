@@ -3,7 +3,7 @@ import { Fragment, useContext, useEffect, useState } from 'react';
 import ComboBox from '../ui/ComboBox';
 import Button from '../ui/Button';
 import { getAvalibleTrailerLocations } from '../../utils/api';
-import { Request } from '../../types';
+import { Request, Spots } from '../../types';
 import { socket } from '../../utils/socket';
 
 enum TrailerLocation {
@@ -47,18 +47,14 @@ Props) {
 		const temp: any = [];
 		if (trailerLocations) {
 			for (let i = 0; i < trailerLocations.length; i++) {
-				const names = trailerLocations[i].Spots.map((s: any) => {
-					return s.name;
-				});
-				temp.push([trailerLocations[i].name, names]);
+				const spots: Spots = trailerLocations[i].Spots;
+				temp.push([trailerLocations[i].name, spots]);
 			}
 
 			setTrailerLocationsOptions(temp.map((t: any) => t[0]));
 			setNewLocationOptions(Object.fromEntries(temp));
 		}
 	}, [trailerLocations]);
-
-	// console.log({ trailerLocationsOptions, newLocationOptions });
 
 	return (
 		<>
@@ -112,7 +108,11 @@ Props) {
 												lot = TrailerLocation.SECONDARY;
 											}
 											request.inTrailerLocation = lot;
-											request.inSpotNumber = spot;
+											request.inSpotNumber = spot.split(',')[0];
+											request.spotId = parseInt(spot.split(',')[1]);
+
+											console.log(spot[1]);
+
 											console.log({
 												newTrailerLocation,
 												spot,
@@ -139,6 +139,7 @@ Props) {
 													labelName={'New Trailer Location'}
 													options={newLocationOptions[newTrailerLocation]}
 													value={spot}
+													spots={true}
 													valueChange={(value) => setSpot(value)}
 												/>
 											</div>

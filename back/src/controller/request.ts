@@ -8,7 +8,11 @@ export async function getRequests() {
         completed: false,
       },
       include: {
-        trailer: true,
+        trailer: {
+          include: {
+            Spots: true,
+          },
+        },
       },
       orderBy: {
         urgent: "desc",
@@ -103,7 +107,7 @@ export async function deleteRequest(id: number) {
   }
 }
 
-export async function completed(request: Requests) {
+export async function completed(request: any) {
   try {
     const res = await prisma.requests.update({
       where: {
@@ -113,6 +117,8 @@ export async function completed(request: Requests) {
         completed: true,
       },
     });
+
+    console.log(request);
 
     let trailer;
     if (
@@ -125,10 +131,28 @@ export async function completed(request: Requests) {
         data: {
           trailerLocation: request?.inTrailerLocation,
           spotNumber: request?.inSpotNumber,
-          category: "In Process",
+          // category: "In Process",
         },
       });
     }
+
+    const t = await prisma.spots.update({
+      where: {
+        id: request.trailer.Spots.id,
+      },
+      data: {
+        trailerId: null,
+      },
+    });
+
+    const spot = await prisma.spots.update({
+      where: {
+        id: request.spotId,
+      },
+      data: {
+        trailerId: request.trailerId,
+      },
+    });
 
     return { res, trailer };
   } catch (error) {
