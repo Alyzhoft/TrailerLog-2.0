@@ -5,12 +5,12 @@ import Input from '../ui/Input';
 import Button from '../ui/Button';
 import { SocketContext } from '../../utils/socket';
 import { TrailerLocationContext } from '../../utils/context';
-import { Spots, trailer, TrailerLocation } from '../../types';
+import { Spots, Trailer, TrailerLocation } from '../../types';
 import { getAvalibleTrailerLocations } from '../../utils/api';
 
 type Props = {
 	open: boolean;
-	trailer: trailer | null;
+	trailer: Trailer | null;
 	spotNumber: number;
 	// trailerLocation?: TrailerLocation | null;
 	close: () => void;

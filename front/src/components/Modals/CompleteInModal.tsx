@@ -1,15 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../utils/socket';
-import { trailer, Request } from '../../types';
+import { Trailer, Requests } from '../../types';
 import Button from '../ui/Button';
 import ComboBox from '../ui/ComboBox';
 
 type Props = {
 	open: boolean;
 	close: () => void;
-	trailers: trailer[];
-	request: Request;
+	trailers: Trailer[];
+	request: Requests;
 };
 
 const options = ['E-Track', 'Reinforced', 'Not Reinforced', 'TPOD'];

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { trailer } from '../../types';
+import { Trailer } from '../../types';
 import { CategoryContext } from '../../utils/context';
 
-type Trailer = {
+type Props = {
 	door: any;
 	dock: string;
-	trailers: trailer[];
+	trailers: Trailer[];
 	spotClicked: (door: any) => void;
-	trailerClicked: (trailer: trailer) => void;
+	trailerClicked: (trailer: Trailer) => void;
 	addOpen: () => void;
 	tempModal: () => void;
 };
@@ -21,7 +21,7 @@ export default function DockDoorSpot({
 	trailerClicked,
 	addOpen,
 	tempModal,
-}: Trailer) {
+}: Props) {
 	const [categoriesOptions, setCategoriesOptions] = useState<
 		{ categoryName: string; color: string }[]
 	>([]);
@@ -36,12 +36,12 @@ export default function DockDoorSpot({
 		setCategoriesOptions(temp.sort());
 	}, [categories]);
 
-	function getColor(trailer: trailer) {
+	function getColor(trailer: Trailer) {
 		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
 		return category !== undefined ? category.color : 'blue-100';
 	}
 
-	function getFontColor(trailer: trailer) {
+	function getFontColor(trailer: Trailer) {
 		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
 		// return category !== undefined ? category.color : 'blue-100';
 
@@ -58,7 +58,7 @@ export default function DockDoorSpot({
 		addOpen();
 	}
 
-	function handleTempClick(trailer: trailer) {
+	function handleTempClick(trailer: Trailer) {
 		trailerClicked(trailer);
 		spotClicked(door);
 		tempModal();

@@ -3,7 +3,7 @@ import { Fragment, useContext, useEffect, useState } from 'react';
 import ComboBox from '../ui/ComboBox';
 import Button from '../ui/Button';
 import { getAvalibleTrailerLocations } from '../../utils/api';
-import { Request, Spots } from '../../types';
+import { Requests, Spots } from '../../types';
 import { socket } from '../../utils/socket';
 
 enum TrailerLocation {
@@ -16,7 +16,7 @@ enum TrailerLocation {
 type Props = {
 	open: boolean;
 	close: () => void;
-	request: Request;
+	request: Requests;
 };
 
 export default function OutLocation({

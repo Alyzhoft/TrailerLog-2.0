@@ -5,7 +5,7 @@ import Input from '../ui/Input';
 import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
 import { SocketContext } from '../../utils/socket';
-import { trailer } from '../../types';
+import { Trailer } from '../../types';
 import { CarrierContext, CategoryContext } from '../../utils/context';
 
 enum TrailerLocation {
@@ -18,7 +18,7 @@ enum TrailerLocation {
 type Props = {
 	open: boolean;
 	trailerLocation?: TrailerLocation | null;
-	trailer: trailer | null;
+	trailer: Trailer | null;
 	close: () => void;
 };
 

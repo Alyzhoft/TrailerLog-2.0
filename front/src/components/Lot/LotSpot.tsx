@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { trailer, TrailerLocation } from '../../types';
+import { Trailer, TrailerLocation } from '../../types';
 import { CategoryContext } from '../../utils/context';
 
 type Props = {
 	spot: any;
 	lot: TrailerLocation;
-	trailers: trailer[];
+	trailers: Trailer[];
 	spotClicked: (spot: any) => void;
-	trailerClicked: (trailer: trailer) => void;
+	trailerClicked: (trailer: Trailer) => void;
 	addOpen: () => void;
 	tempModal: () => void;
 };
@@ -36,12 +36,12 @@ export default function LotSpot({
 		setCategoriesOptions(temp.sort());
 	}, [categories]);
 
-	function getColor(trailer: trailer) {
+	function getColor(trailer: Trailer) {
 		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
 		return category !== undefined ? category.color : 'blue-100';
 	}
 
-	function getFontColor(trailer: trailer) {
+	function getFontColor(trailer: Trailer) {
 		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
 		// return category !== undefined ? category.color : 'blue-100';
 
@@ -58,7 +58,7 @@ export default function LotSpot({
 		addOpen();
 	}
 
-	function handleEditClick(trailer: trailer) {
+	function handleEditClick(trailer: Trailer) {
 		tempModal();
 		trailerClicked(trailer);
 	}

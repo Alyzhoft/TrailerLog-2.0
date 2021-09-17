@@ -3,14 +3,14 @@ import { RouteComponentProps } from '@reach/router';
 import { TrailerLocationContext } from '../utils/context';
 import VerticalSpot from '../components/Lot/VerticalSpot';
 import HorizontalSpot from '../components/Lot/HorizontalSpot';
-import { trailer, TrailerLocation } from '../types';
+import { Trailer, TrailerLocation } from '../types';
 import AddModal from '../components/Modals/AddModal';
 import EditModal from '../components/Modals/EditModal';
 import TempModal from '../components/Modals/TempModal';
 import LotMoveModal from '../components/Modals/LotMoveModal';
 
 type Props = RouteComponentProps & {
-	trailers: trailer[];
+	trailers: Trailer[];
 };
 
 const screenHeight = {
@@ -26,7 +26,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 	const [addIn, setAddIn] = useState(false);
 	const [inModal, setInModal] = useState(false);
 	const [spotClicked, setSpotClicked] = useState<any>(0);
-	const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
+	const [selctedTrailer, setSelectedTrailer] = useState<Trailer | null>(null);
 	const [spots, setSpots] = useState<any>();
 
 	const trailerLocations = useContext(TrailerLocationContext);

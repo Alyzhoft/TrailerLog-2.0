@@ -1,16 +1,16 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import clsx from 'clsx';
-import { trailer, TrailerLocation } from '../../types';
+import { Trailer, TrailerLocation } from '../../types';
 import { CategoryContext } from '../../utils/context';
 
 type Props = {
 	spot: any;
 	spotOrientation?: 'Top' | 'Bottom';
 	lot: TrailerLocation;
-	trailers: trailer[];
+	trailers: Trailer[];
 	spotClicked: (spot: any) => void;
-	trailerClicked: (trailer: trailer) => void;
+	trailerClicked: (trailer: Trailer) => void;
 	addOpen: () => void;
 	tempModal: () => void;
 };
@@ -39,12 +39,12 @@ export default function LotSpot({
 		setCategoriesOptions(temp.sort());
 	}, [categories]);
 
-	function getColor(trailer: trailer) {
+	function getColor(trailer: Trailer) {
 		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
 		return category !== undefined ? category.color : 'blue-100';
 	}
 
-	function getFontColor(trailer: trailer) {
+	function getFontColor(trailer: Trailer) {
 		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
 		// return category !== undefined ? category.color : 'blue-100';
 
@@ -61,7 +61,7 @@ export default function LotSpot({
 		addOpen();
 	}
 
-	function handleEditClick(trailer: trailer) {
+	function handleEditClick(trailer: Trailer) {
 		tempModal();
 		trailerClicked(trailer);
 	}
@@ -73,12 +73,12 @@ export default function LotSpot({
 	if (
 		trailers.find(
 			(trailer) =>
-				parseInt(trailer.spotNumber) === parseInt(spot.name) && trailer.trailerLocation === lot,
+				parseInt(trailer.Spots.name) === parseInt(spot.name) && trailer.Spots.lotId === 2,
 		) !== undefined
 	) {
 		const trailer = trailers.find(
 			(trailer) =>
-				parseInt(trailer.spotNumber) === parseInt(spot.name) && trailer.trailerLocation === lot,
+				parseInt(trailer.Spots.name) === parseInt(spot.name) && trailer.Spots.lotId === 2,
 		);
 
 		if (trailer !== undefined) {

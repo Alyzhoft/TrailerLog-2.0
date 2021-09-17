@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import axios from 'axios';
 import { CarrierContext, CategoryContext } from '../utils/context';
-import { trailer } from '../types';
+import { Trailer } from '../types';
 import Table, { TableRow, TableHeader, TableDataCell } from '../components/ui/Table';
 import InputWithButton from '../components/ui/InputWithButton';
 import ComboBox from '../components/ui/ComboBox';
@@ -66,7 +66,7 @@ async function search(
 }
 
 export default function Search({ path }: Props) {
-	const [data, setData] = useState<trailer[]>([]);
+	const [data, setData] = useState<Trailer[]>([]);
 	const [page, setPage] = useState(1);
 	const [carrierOptions, setCarrierOptions] = useState<string[]>([]);
 	const [categoriesOptions, setCategoriesOptions] = useState<string[]>([]);

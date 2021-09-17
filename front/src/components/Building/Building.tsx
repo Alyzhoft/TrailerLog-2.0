@@ -1,14 +1,14 @@
 import React from 'react';
 import DockDoorNumber from './DockDoorNumber';
 import DockDoorSpots from './DockDoorSpots';
-import { trailer } from '../../types';
+import { Trailer } from '../../types';
 
 type BuildingProps = {
 	doors: number[];
-	trailers: trailer[];
+	trailers: Trailer[];
 	dock: string;
 	spotClicked: (door: any) => void;
-	trailerClicked: (trailer: trailer) => void;
+	trailerClicked: (trailer: Trailer) => void;
 	addOpen: () => void;
 	tempModal: () => void;
 };

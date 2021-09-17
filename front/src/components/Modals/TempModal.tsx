@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext } from 'react';
 import { SocketContext } from '../../utils/socket';
-import { trailer } from '../../types';
+import { Trailer } from '../../types';
 import Button from '../ui/Button';
 
 enum TrailerLocation {
@@ -18,7 +18,7 @@ type Props = {
 	outModal: () => void;
 	spotNumber?: number;
 	trailerLocation?: TrailerLocation;
-	trailer: trailer | null;
+	trailer: Trailer | null;
 	close: () => void;
 	outRequest?: boolean;
 };

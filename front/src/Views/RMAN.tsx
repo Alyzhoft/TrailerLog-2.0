@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import Lot from '../components/Lot/Lot';
 import Building from '../components/Building/Building';
-import { TrailerLocation, trailer } from '../types';
+import { TrailerLocation, Trailer } from '../types';
 import AddModal from '../components/Modals/AddModal';
 import TempModal from '../components/Modals/TempModal';
 import EditModal from '../components/Modals/EditModal';
@@ -18,7 +18,7 @@ const screenHeight = {
 };
 
 type Props = RouteComponentProps & {
-	trailers: trailer[];
+	trailers: Trailer[];
 };
 
 // const doors = Array.from({ length: 50 }, (_, index) => index + 1);
@@ -34,7 +34,7 @@ export default function RMAN({ trailers }: Props) {
 	const [inModal, setInModal] = useState(false);
 	const [outModal, setOutModal] = useState(false);
 	const [spotClicked, setSpotClicked] = useState<any>(0);
-	const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
+	const [selctedTrailer, setSelectedTrailer] = useState<Trailer | null>(null);
 	const [trailerLocation, setTrailerLocation] = useState<TrailerLocation | null>(null);
 	const [doors, setDoors] = useState<any>();
 
@@ -165,7 +165,7 @@ export default function RMAN({ trailers }: Props) {
 							lot={TrailerLocation.SECONDARY}
 							trailers={trailers}
 							spotClicked={(spot) => setSpotClicked(spot)}
-							trailerClicked={(trailer: trailer) => {
+							trailerClicked={(trailer: Trailer) => {
 								setSelectedTrailer(trailer);
 							}}
 							addOpen={() => {
@@ -180,7 +180,7 @@ export default function RMAN({ trailers }: Props) {
 								doors={doors.DockDoors.reverse()}
 								trailers={trailers}
 								spotClicked={(door) => setSpotClicked(door)}
-								trailerClicked={(trailer: trailer) => {
+								trailerClicked={(trailer: Trailer) => {
 									setSelectedTrailer(trailer);
 								}}
 								addOpen={() => {
@@ -197,7 +197,7 @@ export default function RMAN({ trailers }: Props) {
 									spots={doors.DockDoors}
 									lot={TrailerLocation.RMAN}
 									trailers={trailers}
-									trailerClicked={(trailer: trailer) => {
+									trailerClicked={(trailer: Trailer) => {
 										setSelectedTrailer(trailer);
 									}}
 									spotClicked={(spot) => setSpotClicked(spot)}

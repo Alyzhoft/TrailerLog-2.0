@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import Lot from '../components/Lot/Lot';
 import Building from '../components/Building/Building';
-import { trailer, TrailerLocation } from '../types';
+import { Trailer, TrailerLocation } from '../types';
 import AddModal from '../components/Modals/AddModal';
 import EditModal from '../components/Modals/EditModal';
 import TempModal from '../components/Modals/TempModal';
@@ -18,7 +18,7 @@ const screenHeight = {
 };
 
 type Props = RouteComponentProps & {
-	trailers: trailer[];
+	trailers: Trailer[];
 };
 
 // const doors = Array.from({ length: 50 }, (_, index) => index + 1);
@@ -33,7 +33,7 @@ export default function RVAC({ trailers }: Props) {
 	const [addIn, setAddIn] = useState(false);
 	const [inModal, setInModal] = useState(false);
 	const [spotClicked, setSpotClicked] = useState<any>(0);
-	const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
+	const [selctedTrailer, setSelectedTrailer] = useState<Trailer | null>(null);
 	const [doors, setDoors] = useState<any>();
 
 	const trailerLocations = useContext(TrailerLocationContext);
@@ -161,7 +161,7 @@ export default function RVAC({ trailers }: Props) {
 								doors={doors.DockDoors}
 								trailers={trailers}
 								spotClicked={(door) => setSpotClicked(door)}
-								trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
+								trailerClicked={(trailer: Trailer) => setSelectedTrailer(trailer)}
 								addOpen={() => setAddIn(true)}
 								tempModal={() => setTempModal(true)}
 							/>
@@ -173,7 +173,7 @@ export default function RVAC({ trailers }: Props) {
 									spots={doors.DockDoors}
 									lot={TrailerLocation.RVAC}
 									trailers={trailers}
-									trailerClicked={(trailer: trailer) => setSelectedTrailer(trailer)}
+									trailerClicked={(trailer: Trailer) => setSelectedTrailer(trailer)}
 									spotClicked={(spot) => setSpotClicked(spot)}
 									addOpen={() => setAddIn(true)}
 									tempModal={() => setTempModal(true)}
