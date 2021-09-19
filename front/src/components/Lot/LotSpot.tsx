@@ -80,8 +80,8 @@ export default function LotSpot({
 
 		if (trailer !== undefined) {
 			return (
-				<div>
-					<div className="ml-2 font-bold">{spot.name}</div>
+				<div className="flex flex-col justify-center items-center">
+					<div className="font-bold">{spot.name}</div>
 					<div className="flex mx-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
 							data-tip={trailer.comments}
@@ -93,7 +93,7 @@ export default function LotSpot({
 							)}
 							onClick={() => handleEditClick(trailer)}
 						>
-							<span className="upRight text-xs">{trailer?.trailerNumber}</span>
+							<span className="upRight text-2xs">{trailer?.trailerNumber}</span>
 						</button>
 					</div>
 					{trailer.comments !== '' ? <ReactTooltip place="top" type="dark" effect="solid" /> : null}

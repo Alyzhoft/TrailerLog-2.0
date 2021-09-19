@@ -49,7 +49,7 @@ Props) {
 				temp.push([trailerLocations[i].name, spots]);
 			}
 
-			setTrailerLocationsOptions(temp.map((t: any) => t[0]));
+			setTrailerLocationsOptions(temp.map((t: any) => t[0]).sort());
 			setNewLocationOptions(Object.fromEntries(temp));
 		}
 	}, [trailerLocations]);

@@ -32,6 +32,8 @@ export async function addTrailer(trailer: AddTrailer) {
       },
     });
 
+    console.log(trailer);
+
     if (!search.length) {
       const res = await prisma.trailer.create({
         data: {

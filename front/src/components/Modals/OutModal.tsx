@@ -2,17 +2,10 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../utils/socket';
 import { CarrierContext, CategoryContext } from '../../utils/context';
-import { Trailer } from '../../types';
+import { Trailer, TrailerLocation } from '../../types';
 import Button from '../ui/Button';
 import ComboBox from '../ui/ComboBox';
 import Toggle from '../ui/Toggle';
-
-enum TrailerLocation {
-	PRIMARY = 'PRIMARY',
-	SECONDARY = 'SECONDARY',
-	RVAC = 'RVAC',
-	RMAN = 'RMAN',
-}
 
 type Props = {
 	open: boolean;
@@ -47,7 +40,7 @@ export default function TempModal({
 	const [outTrailerNumber, setOutTrailerNumber] = useState<string>();
 	const [category, setCategory] = useState(categoriesOptions[0]);
 	const [categoryToggle, setCategoryToggle] = useState(false);
-	const [special, setSpecial] = useState(specialOptions[0]);
+	// const [special, setSpecial] = useState(specialOptions[0]);
 
 	const socket = useContext(SocketContext);
 	const carriers = useContext(CarrierContext);
@@ -105,7 +98,7 @@ export default function TempModal({
 
 	useEffect(() => {
 		setSpecialOptions(options);
-		setSpecial(options[0]);
+		// setSpecial(options[0]);
 	}, []);
 
 	return (
@@ -158,18 +151,6 @@ export default function TempModal({
 										onSubmit={(e) => {
 											e.preventDefault();
 
-											console.log({
-												outTrailerId,
-												inTrailerId,
-												outTrailerNumber,
-												inTrailerNumber,
-												carrier,
-												urgent,
-												special,
-												trailerLocation,
-												spotNumber,
-											});
-
 											inRequest
 												? socket.emit('addRequest', {
 														inTrailerId: inTrailerId,
@@ -178,7 +159,7 @@ export default function TempModal({
 														outTrailerNumber: outTrailerNumber,
 														inCarrier: carrier,
 														urgent,
-														special,
+														// special,
 														inTrailerLocation: trailerLocation,
 														inSpotNumber: spotNumber,
 														outCarrier: trailer?.carrier,
@@ -190,7 +171,7 @@ export default function TempModal({
 														outTrailerId: outTrailerId,
 														outTrailerNumber: outTrailerNumber,
 														urgent,
-														special,
+														// special,
 														outCarrier: trailer?.carrier,
 														outTrailerLocation: trailer?.trailerLocation,
 														outSpotNumber: trailer?.spotNumber,

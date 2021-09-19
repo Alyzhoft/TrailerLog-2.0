@@ -37,6 +37,7 @@ export default function RMAN({ trailers }: Props) {
 	const [selctedTrailer, setSelectedTrailer] = useState<Trailer | null>(null);
 	const [trailerLocation, setTrailerLocation] = useState<TrailerLocation | null>(null);
 	const [doors, setDoors] = useState<any>();
+	const [outRequest, setOutRequest] = useState<boolean>(true);
 
 	const trailerLocations = useContext(TrailerLocationContext);
 
@@ -98,7 +99,7 @@ export default function RMAN({ trailers }: Props) {
 						close={() => setTempModal(false)}
 						trailer={selctedTrailer}
 						trailerLocation={TrailerLocation.RMAN}
-						outRequest={false}
+						outRequest={outRequest}
 						editOpen={() => {
 							setTempModal(false);
 							setTimeout(() => {
@@ -126,6 +127,7 @@ export default function RMAN({ trailers }: Props) {
 						addOpen={() => {
 							setAddIn(false);
 							setTimeout(() => {
+								setTrailerLocation(TrailerLocation.RMAN);
 								setAddOpen(true);
 							}, 10);
 						}}
@@ -172,7 +174,10 @@ export default function RMAN({ trailers }: Props) {
 								setTrailerLocation(TrailerLocation.SECONDARY);
 								setAddOpen(true);
 							}}
-							tempModal={() => setTempModal(true)}
+							tempModal={() => {
+								setOutRequest(false);
+								setTempModal(true);
+							}}
 						/>
 						<div className="hidden building:block">
 							<Building
@@ -187,7 +192,10 @@ export default function RMAN({ trailers }: Props) {
 									setTrailerLocation(TrailerLocation.RMAN);
 									setAddIn(true);
 								}}
-								tempModal={() => setTempModal(true)}
+								tempModal={() => {
+									setOutRequest(true);
+									setTempModal(true);
+								}}
 							/>
 						</div>
 						<div className="building:hidden w-full h-full mt-5 ">
@@ -201,11 +209,11 @@ export default function RMAN({ trailers }: Props) {
 										setSelectedTrailer(trailer);
 									}}
 									spotClicked={(spot) => setSpotClicked(spot)}
-									addOpen={() => {
-										setTrailerLocation(TrailerLocation.SECONDARY);
-										setAddOpen(true);
+									addOpen={() => setAddIn(true)}
+									tempModal={() => {
+										setOutRequest(true);
+										setTempModal(true);
 									}}
-									tempModal={() => setTempModal(true)}
 								/>
 							</div>
 						</div>
