@@ -81,7 +81,8 @@ export default function DockDoorSpot({
 				<>
 					<div className="flex ml-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
-							data-tip={trailer.comments}
+							data-tip={trailer.id}
+							data-for={trailer.id.toString()}
 							className={classNames(
 								'text-black focus:outline-none w-full text-2xs font-bold',
 								`bg-${getColor(trailer)} rounded h-full`,
@@ -94,7 +95,12 @@ export default function DockDoorSpot({
 							</span>
 						</button>
 					</div>
-					<ReactTooltip place="top" type="dark" effect="solid" />
+					<ReactTooltip id={trailer.id.toString()} place="top" type="dark" effect="solid">
+						<div className="flex flex-col justify-center w-full">
+							<h1 className="border-b border-white w-full">{trailer.carrier}</h1>
+							<h1>{trailer.comments}</h1>
+						</div>
+					</ReactTooltip>
 				</>
 			);
 		}

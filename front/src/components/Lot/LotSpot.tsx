@@ -84,7 +84,8 @@ export default function LotSpot({
 					<div className="font-bold">{spot.name}</div>
 					<div className="flex mx-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
-							data-tip={trailer.comments}
+							data-tip={trailer.id}
+							data-for={trailer.id.toString()}
 							// style={{ textOrientation: "upright", writingMode: "vertical-rl" }}
 							className={classNames(
 								'focus:outline-none w-full rounded ',
@@ -96,7 +97,13 @@ export default function LotSpot({
 							<span className="upRight text-2xs">{trailer?.trailerNumber}</span>
 						</button>
 					</div>
-					{trailer.comments !== '' ? <ReactTooltip place="top" type="dark" effect="solid" /> : null}
+
+					<ReactTooltip id={trailer.id.toString()} place="top" type="dark" effect="solid">
+						<div className="flex flex-col justify-center w-full">
+							<h1 className="border-b border-white w-full">{trailer.carrier}</h1>
+							<h1>{trailer.comments}</h1>
+						</div>
+					</ReactTooltip>
 				</div>
 			);
 		}
