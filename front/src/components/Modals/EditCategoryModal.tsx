@@ -68,7 +68,7 @@ export default function EditModal({ open, close, categoryprop }: Props) {
 								</Dialog.Title>
 
 								<form
-									className={clsx(colorOpen ? 'h-full' : null)}
+									className={clsx(colorOpen ? 'h-96' : null)}
 									onSubmit={(e) => {
 										e.preventDefault();
 										socket.emit('editCategory', {
@@ -89,7 +89,7 @@ export default function EditModal({ open, close, categoryprop }: Props) {
 											/>
 										</div>
 									</div>
-									<div className="w-full h-full bg-green-200 relative z-50">
+									<div className="w-full h-full relative z-50">
 										<ColorPicker
 											setColor={(color) => setColor(color)}
 											color={categoryprop.color}

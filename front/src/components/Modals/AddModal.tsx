@@ -27,8 +27,6 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 	const carriers = useContext(CarrierContext);
 	const categories = useContext(CategoryContext);
 
-	console.log(spotNumber);
-
 	useEffect(() => {
 		const temp = carriers.map((carrier: any) => {
 			return carrier.carrierName;

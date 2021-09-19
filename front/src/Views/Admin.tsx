@@ -40,8 +40,6 @@ export default function Admin({ path }: Props) {
 		setData((oldState: any) => ({ ...oldState, carriers, categories }));
 	}, [carriers, categories, selected]);
 
-	console.log({ data: data.carriers, selected });
-
 	return (
 		<Container>
 			<div style={screenHeight} className="min-w-full rounded-md overflow-hidden flex flex-col">

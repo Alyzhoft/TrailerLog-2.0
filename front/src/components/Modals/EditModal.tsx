@@ -21,8 +21,6 @@ export default function EditModal({
 	trailerLocation = TrailerLocation.RVAC,
 	trailer,
 }: Props) {
-	console.log(trailer);
-
 	const [id, setId] = useState(trailer?.id);
 	const [trailerNumber, setTrailerNumber] = useState(trailer?.trailerNumber);
 	const [category, setCategory] = useState(trailer?.category);

@@ -38,8 +38,6 @@ export default function RVAC({ trailers }: Props) {
 
 	const trailerLocations = useContext(TrailerLocationContext);
 
-	console.log(trailerLocations);
-
 	useEffect(() => {
 		for (let i = 0; i < trailerLocations.length; i++) {
 			if (trailerLocations[i].name === 'RVAC') {

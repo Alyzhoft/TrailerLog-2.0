@@ -78,10 +78,8 @@ export default function TempModal({
 				? trailer?.trailerNumber
 				: undefined,
 		);
-		console.log(arr);
 
 		setTrailerOptions(arr);
-		console.log(arr.find((a) => a !== undefined));
 
 		setInTrailerNumber(inRequest ? arr.find((a) => a !== undefined) : undefined);
 	}, [inRequest, trailers, carrier]);

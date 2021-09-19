@@ -111,12 +111,6 @@ Props) {
 											request.spotId = parseInt(spot.split(',')[1]);
 										}
 
-										console.log({
-											newTrailerLocation,
-											spot,
-											request,
-										});
-
 										socket.emit('complete', request);
 										close();
 									}}

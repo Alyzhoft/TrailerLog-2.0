@@ -54,9 +54,6 @@ Props) {
 		}
 	}, [trailerLocations]);
 
-	console.log(newTrailerLocation);
-	// console.log(trailerLocationsOptions.length);
-
 	return (
 		<>
 			{newLocationOptions[newTrailerLocation] !== undefined && trailerLocationsOptions.length ? (
@@ -102,12 +99,6 @@ Props) {
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
-											console.log({
-												trailer,
-												newLocation: newTrailerLocation,
-												newSpot: spot.split(',')[0],
-												newSpotId: spot.split(',')[1],
-											});
 
 											let lot: any;
 											if (newTrailerLocation === 'Primary Lot') {

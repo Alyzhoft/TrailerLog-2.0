@@ -144,7 +144,6 @@ function App() {
 
 	useEffect(() => {
 		io.on('error', (res) => {
-			console.log(res);
 			setError(true);
 			setErrorMessage(res.error);
 		});

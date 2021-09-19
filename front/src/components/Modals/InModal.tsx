@@ -131,16 +131,6 @@ export default function TempModal({
 										onSubmit={(e) => {
 											e.preventDefault();
 
-											console.log({
-												trailerId,
-												trailerNumber,
-												carrier,
-												urgent,
-												special,
-												trailerLocation,
-												spotNumber,
-											});
-
 											socket.emit('inRequest', {
 												trailerId,
 												inTrailerNumber: trailerNumber,

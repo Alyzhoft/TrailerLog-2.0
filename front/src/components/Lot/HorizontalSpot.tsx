@@ -50,7 +50,6 @@ export default function LotSpot({
 
 		if (category) {
 			const number = parseInt(category.color.split('-')[1]);
-			console.log(typeof number);
 
 			return number >= 500 ? 'white' : 'black';
 		}

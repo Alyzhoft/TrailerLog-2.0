@@ -25,8 +25,6 @@ export default function Request({ path, trailers }: Props) {
 	const socket = useContext(SocketContext);
 
 	function handleDone(request: Requests) {
-		console.log(request);
-
 		if (request.requestType === 'OUT') {
 			setSelectedRequest(request);
 			setOutModal(true);
@@ -72,7 +70,6 @@ export default function Request({ path, trailers }: Props) {
 					}
 				>
 					{requests.map((r: Requests) => {
-						console.log(r);
 						return (
 							<TableRow key={r.id}>
 								<TableDataCell>{r.createdAt}</TableDataCell>

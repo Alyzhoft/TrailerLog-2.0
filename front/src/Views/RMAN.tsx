@@ -41,8 +41,6 @@ export default function RMAN({ trailers }: Props) {
 
 	const trailerLocations = useContext(TrailerLocationContext);
 
-	console.log(doors);
-
 	useEffect(() => {
 		for (let i = 0; i < trailerLocations.length; i++) {
 			if (trailerLocations[i].name === 'RMAN') {

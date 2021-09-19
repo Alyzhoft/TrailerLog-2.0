@@ -111,8 +111,6 @@ export default function Search({ path }: Props) {
 	const handleSubmit = async () => {
 		const res = await search(page, limit, trailerNumber, carrier, category, departed);
 
-		console.log(res);
-
 		setData(res);
 	};
 
@@ -121,8 +119,6 @@ export default function Search({ path }: Props) {
 		setData(results);
 	};
 
-	console.log(data);
-
 	return (
 		<Container>
 			<div style={screenHeight} className="h-screen">
@@ -130,7 +126,6 @@ export default function Search({ path }: Props) {
 					onSubmit={(e) => {
 						e.preventDefault();
 						handleSubmit();
-						console.log({ carrier, category, trailerNumber, departed });
 					}}
 				>
 					<div className="flex">
