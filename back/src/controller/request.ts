@@ -189,6 +189,8 @@ export async function completed(request: any) {
       },
     });
 
+    console.log(request);
+
     if (request.requestType === "IN") {
       const spot = await prisma.spots.update({
         where: {

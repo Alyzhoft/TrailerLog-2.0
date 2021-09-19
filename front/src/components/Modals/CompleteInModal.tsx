@@ -18,6 +18,7 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 	const [trailerId, setTrailerId] = useState<number>();
 	const [trailerOptions, setTrailerOptions] = useState<(string | undefined)[]>([]);
 	const [trailerNumber, setTrailerNumber] = useState(trailerOptions[0]);
+	const [trailer, setTrailer] = useState<Trailer | undefined>();
 
 	const socket = useContext(SocketContext);
 
@@ -38,6 +39,7 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 			(t) => t.trailerNumber === trailerNumber && t.carrier === request.inCarrier,
 		);
 		if (trailer !== undefined) {
+			setTrailer(trailer);
 			setTrailerId(trailer.id);
 		}
 	}, [trailerNumber, trailers, request.inCarrier]);
@@ -92,7 +94,8 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 
 										const temp = { ...request };
 
-										if (trailerId) {
+										if (trailerId && trailer) {
+											temp.trailer = trailer;
 											temp.trailerId = trailerId;
 										}
 

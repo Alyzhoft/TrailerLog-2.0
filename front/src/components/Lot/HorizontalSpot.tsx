@@ -84,7 +84,9 @@ export default function LotSpot({
 		if (trailer !== undefined) {
 			return (
 				<div className="flex flex-col justify-center items-center">
-					<div className="text-2xs font-bold">{spot.name}</div>
+					{spotOrientation === 'Top' ? (
+						<div className={clsx(' text-2xs font-bold')}>{spot.name}</div>
+					) : null}
 
 					<div className="flex space-x-1 w-4 h-20 bg-white rounded-md justify-center text-center shadow-md border-gray-600 border-2">
 						<button
@@ -100,6 +102,9 @@ export default function LotSpot({
 							<span className="upRight text-2xs font-bold">{trailer?.trailerNumber}</span>
 						</button>
 					</div>
+					{spotOrientation === 'Bottom' ? (
+						<div className="text-2xs font-bold">{spot.name}</div>
+					) : null}
 					{trailer.comments !== '' ? <ReactTooltip place="top" type="dark" effect="solid" /> : null}
 				</div>
 			);
