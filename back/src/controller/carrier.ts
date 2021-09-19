@@ -6,7 +6,7 @@ export async function getCarriers() {
 
     return carriers;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -20,7 +20,7 @@ export async function addCarrier(carrierName: string) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -38,7 +38,7 @@ export async function updateCarrier(id: number, carrierName: string) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -52,6 +52,6 @@ export async function deleteCarrier(id: number) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }

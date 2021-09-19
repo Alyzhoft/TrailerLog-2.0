@@ -27,12 +27,10 @@ export default function OutLocation({
 // trailerLocation,
 Props) {
 	const [trailerLocations, setTrailerLocations] = useState<any>();
-	const [newTrailerLocation, setNewTrailerLocation] = useState<any>('Secondary');
-	const [spot, setSpot] = useState('1');
+	const [newTrailerLocation, setNewTrailerLocation] = useState<any>();
+	const [spot, setSpot] = useState<string>();
 	const [trailerLocationsOptions, setTrailerLocationsOptions] = useState<any[]>([]);
-	const [newLocationOptions, setNewLocationOptions] = useState<any>({
-		Secondary: ['1'],
-	});
+	const [newLocationOptions, setNewLocationOptions] = useState<any>();
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -58,109 +56,114 @@ Props) {
 
 	return (
 		<>
-			{newLocationOptions[newTrailerLocation] !== undefined ? (
-				<Transition show={open} as={Fragment}>
-					<Dialog
-						as="div"
-						className="fixed z-10 inset-0 overflow-y-auto"
-						static
-						open={open}
-						onClose={close}
-					>
-						<div className="min-h-screen px-4 text-center">
-							<Transition.Child
-								as={Fragment}
-								enter="ease-out duration-300"
-								enterFrom="opacity-0"
-								enterTo="opacity-100"
-								leave="ease-in duration-200"
-								leaveFrom="opacity-100"
-								leaveTo="opacity-0"
-							>
-								<Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-							</Transition.Child>
+			<Transition show={open} as={Fragment}>
+				<Dialog
+					as="div"
+					className="fixed z-10 inset-0 overflow-y-auto"
+					static
+					open={open}
+					onClose={close}
+				>
+					<div className="min-h-screen px-4 text-center">
+						<Transition.Child
+							as={Fragment}
+							enter="ease-out duration-300"
+							enterFrom="opacity-0"
+							enterTo="opacity-100"
+							leave="ease-in duration-200"
+							leaveFrom="opacity-100"
+							leaveTo="opacity-0"
+						>
+							<Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+						</Transition.Child>
 
-							{/* This element is to trick the browser into centering the modal contents. */}
-							<span className="inline-block h-screen align-middle" aria-hidden="true">
-								&#8203;
-							</span>
-							<Transition.Child
-								as={Fragment}
-								enter="ease-out duration-300"
-								enterFrom="opacity-0 scale-95"
-								enterTo="opacity-100 scale-100"
-								leave="ease-in duration-200"
-								leaveFrom="opacity-100 scale-100"
-								leaveTo="opacity-0 scale-95"
-							>
-								<div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-									<Dialog.Title as="h3" className=" text-2xl font-large leading-6 text-gray-900">
-										Out Location
-									</Dialog.Title>
+						{/* This element is to trick the browser into centering the modal contents. */}
+						<span className="inline-block h-screen align-middle" aria-hidden="true">
+							&#8203;
+						</span>
+						<Transition.Child
+							as={Fragment}
+							enter="ease-out duration-300"
+							enterFrom="opacity-0 scale-95"
+							enterTo="opacity-100 scale-100"
+							leave="ease-in duration-200"
+							leaveFrom="opacity-100 scale-100"
+							leaveTo="opacity-0 scale-95"
+						>
+							<div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+								<Dialog.Title as="h3" className=" text-2xl font-large leading-6 text-gray-900">
+									Out Location
+								</Dialog.Title>
 
-									<form
-										onSubmit={(e) => {
-											e.preventDefault();
-											let lot: any;
-											if (newTrailerLocation === 'Primary Lot') {
-												lot = TrailerLocation.PRIMARY;
-											} else {
-												lot = TrailerLocation.SECONDARY;
-											}
-											request.inTrailerLocation = lot;
+								<form
+									onSubmit={(e) => {
+										e.preventDefault();
+										let lot: any;
+										if (newTrailerLocation === 'Primary Lot') {
+											lot = TrailerLocation.PRIMARY;
+										} else {
+											lot = TrailerLocation.SECONDARY;
+										}
+										request.inTrailerLocation = lot;
+
+										if (spot !== undefined) {
 											request.inSpotNumber = spot.split(',')[0];
 											request.spotId = parseInt(spot.split(',')[1]);
+										}
 
-											console.log(spot[1]);
+										console.log({
+											newTrailerLocation,
+											spot,
+											request,
+										});
 
-											console.log({
-												newTrailerLocation,
-												spot,
-												request,
-											});
-
-											socket.emit('complete', request);
-											close();
-										}}
-									>
-										<div className=" md:flex justify-between">
+										socket.emit('complete', request);
+										close();
+									}}
+								>
+									<div className=" md:flex justify-between">
+										{trailerLocationsOptions !== undefined ? (
 											<div className="w-full mx-1 mt-3">
 												<ComboBox
 													labelName={'New Trailer Location'}
 													options={trailerLocationsOptions}
 													value={newTrailerLocation}
+													defaultValue="Select a Location"
 													valueChange={(value) => {
 														setNewTrailerLocation(value);
 													}}
 												/>
 											</div>
+										) : null}
+
+										{newLocationOptions !== undefined &&
+										newLocationOptions[newTrailerLocation] !== undefined ? (
 											<div className="w-full mx-1 mt-3">
 												<ComboBox
 													labelName={'New Trailer Location'}
 													options={newLocationOptions[newTrailerLocation]}
 													value={spot}
 													spots={true}
+													defaultValue="Select a spot"
 													valueChange={(value) => setSpot(value)}
 												/>
 											</div>
+										) : null}
+									</div>
+									<div className="mt-4 flex">
+										<Button type="submit">Move</Button>
+										<div className="ml-2">
+											<Button variant="danger" close={close}>
+												Close
+											</Button>
 										</div>
-										<div className="mt-4 flex">
-											<Button type="submit">Move</Button>
-											<div className="ml-2">
-												<Button variant="danger" close={close}>
-													Close
-												</Button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</Transition.Child>
-						</div>
-					</Dialog>
-				</Transition>
-			) : (
-				<div></div>
-			)}
+									</div>
+								</form>
+							</div>
+						</Transition.Child>
+					</div>
+				</Dialog>
+			</Transition>
 		</>
 	);
 }

@@ -43,6 +43,7 @@ export default function TempModal({
 	const [urgent, setUrgent] = useState(false);
 	const [inRequest, setInRequest] = useState(false);
 	const [inTrailerNumber, setInTrailerNumber] = useState(trailerOptions[0]);
+	const [currentSpotId, setCurrentSpotId] = useState<number>();
 	const [outTrailerNumber, setOutTrailerNumber] = useState<string>();
 	const [category, setCategory] = useState(categoriesOptions[0]);
 	const [categoryToggle, setCategoryToggle] = useState(false);
@@ -57,7 +58,7 @@ export default function TempModal({
 			return carrier.carrierName;
 		});
 		setCarrierOptions(temp.sort());
-		setCarrier(temp.sort()[0]);
+		// setCarrier(temp.sort()[0]);
 	}, [carriers]);
 
 	useEffect(() => {
@@ -98,6 +99,7 @@ export default function TempModal({
 		);
 		if (trailer !== undefined) {
 			setInTrailerId(trailer.id);
+			setCurrentSpotId(trailer.Spots.id);
 		}
 	}, [inTrailerNumber, carrier, trailers]);
 
@@ -143,7 +145,7 @@ export default function TempModal({
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+								<div className="inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
 									<Dialog.Title
 										as="h3"
 										className=" text-5xl font-bold font-large leading-6 text-gray-900"
@@ -182,6 +184,7 @@ export default function TempModal({
 														outCarrier: trailer?.carrier,
 														outTrailerLocation: trailer?.trailerLocation,
 														outSpotNumber: trailer?.spotNumber,
+														spotId: currentSpotId,
 												  })
 												: socket.emit('addRequest', {
 														outTrailerId: outTrailerId,
@@ -199,29 +202,23 @@ export default function TempModal({
 										}}
 									>
 										{inRequest ? (
-											<div className="flex w-full mx-1 mt-3">
-												<div>
+											<div className="flex w-full mx-1 mt-3 space-x-1">
+												<div className="w-1/2">
 													<ComboBox
 														labelName={'Carrier'}
 														options={carrierOptions}
 														value={carrier}
+														defaultValue={'Select a Carrier'}
 														valueChange={(value) => setCarrier(value)}
 													/>
 												</div>
-												<div className="ml-1">
+												<div className="ml-1 w-1/2">
 													<ComboBox
 														labelName={'Trailer Number'}
 														options={trailerOptions}
+														defaultValue={'Select a Trailer Number'}
 														value={inTrailerNumber}
 														valueChange={(value) => setInTrailerNumber(value)}
-													/>
-												</div>
-												<div className="ml-1">
-													<ComboBox
-														labelName={'Special'}
-														options={specialOptions}
-														value={special}
-														valueChange={(value) => setSpecial(value)}
 													/>
 												</div>
 											</div>
@@ -245,7 +242,7 @@ export default function TempModal({
 													Close
 												</Button>
 											</div>
-											<div className="flex justify-center ml-2">
+											<div className="flex justify-center ml-2 space-x-1">
 												<Toggle
 													enabled={inRequest}
 													setEnabled={() => setInRequest(!inRequest)}

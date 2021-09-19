@@ -6,7 +6,7 @@ export async function getCategories() {
 
     return categories;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -21,7 +21,7 @@ export async function addCategory(categoryName: string, color: string) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -44,7 +44,7 @@ export async function updateCategory(
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -58,6 +58,6 @@ export async function deleteCategory(id: number) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }

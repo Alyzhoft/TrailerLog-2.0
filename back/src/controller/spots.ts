@@ -7,7 +7,7 @@ export async function getSpots() {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -21,7 +21,7 @@ export async function getAvalibleSpots() {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -36,7 +36,7 @@ export async function addSpot(spot: Spots) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -55,7 +55,7 @@ export async function updateSpot(spot: Spots) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -69,6 +69,6 @@ export async function deleteSpot(id: number) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }

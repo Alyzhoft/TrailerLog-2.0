@@ -26,7 +26,9 @@ export async function getViews() {
       },
     });
     return res;
-  } catch (error) {}
+  } catch (error) {
+    return { error: JSON.stringify(error) };
+  }
 }
 
 // export async function getTrailerLocations() {
@@ -43,7 +45,8 @@ export async function getViews() {
 
 //     return res;
 //   } catch (error) {
-//     return { error };
+// return { error: JSON.stringify(error) };
+//
 //   }
 // }
 
@@ -77,7 +80,7 @@ export async function getAvalibleTrailerLocations() {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -94,7 +97,8 @@ export async function getAvalibleTrailerLocations() {
 
 //     return res;
 //   } catch (error) {
-//     return { error };
+// return { error: JSON.stringify(error) };
+//
 //   }
 // }
 
@@ -115,7 +119,8 @@ export async function getAvalibleTrailerLocations() {
 
 //     return res;
 //   } catch (error) {
-//     return { error };
+// return { error: JSON.stringify(error) };
+//
 //   }
 // }
 
@@ -129,6 +134,7 @@ export async function getAvalibleTrailerLocations() {
 
 //     return res;
 //   } catch (error) {
-//     return { error };
+// return { error: JSON.stringify(error) };
+//
 //   }
 // }

@@ -6,18 +6,12 @@ import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
 import { SocketContext } from '../../utils/socket';
 import { CarrierContext, CategoryContext } from '../../utils/context';
-
-enum TrailerLocation {
-	PRIMARY = 'PRIMARY',
-	SECONDARY = 'Secondary',
-	RVAC = 'RVAC',
-	RMAN = 'RMAN',
-}
+import { TrailerLocation } from '../../types';
 
 type Props = {
 	open: boolean;
 	spotNumber: any;
-	trailerLocation?: TrailerLocation | null;
+	trailerLocation?: TrailerLocation | null | undefined;
 	close: () => void;
 };
 

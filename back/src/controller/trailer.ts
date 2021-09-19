@@ -14,7 +14,7 @@ export async function getTrailers() {
 
     return trailers;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -60,7 +60,7 @@ export async function addTrailer(trailer: AddTrailer) {
       };
     }
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -81,7 +81,7 @@ export async function updateTrailer(trailer: Trailer) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -95,7 +95,7 @@ export async function deleteTrailer(trailerId: number) {
 
     return trailer;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
