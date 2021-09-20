@@ -1,4 +1,4 @@
-import express, { request } from "express";
+import express from "express";
 import cors from "cors";
 import { Server } from "socket.io";
 import http from "http";
@@ -51,13 +51,15 @@ app.use("/api/trailerLocation", trailerLocationRoutes);
 app.use("/api/spot", spotRoutes);
 app.use("/api/search", search);
 
-server.listen(4000, () => {
+const port = process.env.PORT || 4000;
+
+server.listen(port, () => {
   console.log("Working");
 });
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });

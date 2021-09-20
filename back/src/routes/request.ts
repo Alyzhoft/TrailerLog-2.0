@@ -1,7 +1,7 @@
-import { Requests, Trailer } from "@prisma/client";
+// import { Requests } from "@prisma/client";
 import express, { Request, Response } from "express";
 // import { deleteData } from 'src/types';
-import { addRequest, deleteRequest, getRequests } from "../controller/request";
+import { deleteRequest, getRequests } from "../controller/request";
 
 const router = express.Router();
 
@@ -10,11 +10,11 @@ router.get("/", async (_req: Request, res: Response) => {
   res.json(requests);
 });
 
-router.post("/", async (req: Request, res: Response) => {
-  const data: Requests = req.body;
-  const request = await addRequest(data);
-  res.json(request);
-});
+// router.post("/", async (req: Request, res: Response) => {
+//   const data: Requests = req.body;
+//   const request = await addRequest(data);
+//   res.json(request);
+// });
 
 router.delete("/", async (req: Request, res: Response) => {
   const { id } = req.body;

@@ -1,4 +1,3 @@
-import { Spots } from "@prisma/client";
 import { prisma } from "../utils/prisma";
 
 export async function getSpots() {
@@ -25,39 +24,39 @@ export async function getAvalibleSpots() {
   }
 }
 
-export async function addSpot(spot: Spots) {
-  try {
-    const res = await prisma.spots.create({
-      data: {
-        name: spot.name,
-        trailerLocationId: spot.trailerLocationId,
-      },
-    });
+// export async function addSpot(spot: Spots) {
+//   try {
+//     const res = await prisma.spots.create({
+//       data: {
+//         name: spot.name,
+//         trailerLocationId: spot.trailerLocationId,
+//       },
+//     });
 
-    return res;
-  } catch (error) {
-    return { error: JSON.stringify(error) };
-  }
-}
+//     return res;
+//   } catch (error) {
+//     return { error: JSON.stringify(error) };
+//   }
+// }
 
-export async function updateSpot(spot: Spots) {
-  try {
-    const res = await prisma.spots.update({
-      where: {
-        id: spot.id,
-      },
+// export async function updateSpot(spot: Spots) {
+//   try {
+//     const res = await prisma.spots.update({
+//       where: {
+//         id: spot.id,
+//       },
 
-      data: {
-        name: spot.name,
-        trailerLocationId: spot.trailerLocationId,
-      },
-    });
+//       data: {
+//         name: spot.name,
+//         trailerLocationId: spot.trailerLocationId,
+//       },
+//     });
 
-    return res;
-  } catch (error) {
-    return { error: JSON.stringify(error) };
-  }
-}
+//     return res;
+//   } catch (error) {
+//     return { error: JSON.stringify(error) };
+//   }
+// }
 
 export async function deleteSpot(id: number) {
   try {

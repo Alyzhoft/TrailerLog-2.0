@@ -6,11 +6,12 @@
   "scripts": {
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
     "watch": "tsc -w",
+    "build": "tsc -p .",
     "deleteDB": "prisma migrate reset",
     "migrate": "prisma migrate dev",
     "studio": "prisma studio",
     "dev": "nodemon dist/src/index.js",
-    "start": "ts-node src/index.ts"
+    "start": "node dist/src/index.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",

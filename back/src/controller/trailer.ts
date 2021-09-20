@@ -1,4 +1,5 @@
-import { Spots, Trailer } from "@prisma/client";
+// @ts-nocheck
+import { Trailer } from "@prisma/client";
 import { prisma } from "../utils/prisma";
 
 export async function getTrailers() {
@@ -17,7 +18,7 @@ export async function getTrailers() {
     return { error: JSON.stringify(error) };
   }
 }
-
+// @ts-nocheck
 type AddTrailer = Trailer & {
   spotId: number;
 };
@@ -54,6 +55,8 @@ export async function addTrailer(trailer: AddTrailer) {
           trailerId: res.id,
         },
       });
+
+      console.log(updateSpotTrailerId);
 
       return res;
     } else {
@@ -121,6 +124,8 @@ export async function departed(trailer: any) {
         trailerId: null,
       },
     });
+
+    console.log(spot);
 
     return res;
   } catch (error) {

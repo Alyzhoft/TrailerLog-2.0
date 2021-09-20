@@ -1,3 +1,4 @@
+// @ts-nocheck
 import express, { Request, Response } from "express";
 // import { deleteData } from 'src/types';
 import { search } from "../controller/search";
