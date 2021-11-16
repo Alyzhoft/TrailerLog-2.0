@@ -2,25 +2,18 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../utils/socket';
 import { CarrierContext, CategoryContext } from '../../utils/context';
-import { trailer } from '../../types';
+import { Trailer, TrailerLocation } from '../../types';
 import Button from '../ui/Button';
 import ComboBox from '../ui/ComboBox';
 import Toggle from '../ui/Toggle';
-
-enum TrailerLocation {
-	PRIMARY = 'PRIMARY',
-	SECONDARY = 'SECONDARY',
-	RVAC = 'RVAC',
-	RMAN = 'RMAN',
-}
 
 type Props = {
 	open: boolean;
 	spotNumber?: any;
 	trailerLocation?: TrailerLocation;
-	trailer: trailer | null;
+	trailer: Trailer | null;
 	close: () => void;
-	trailers: trailer[];
+	trailers: Trailer[];
 };
 
 const options = ['E-Track', 'Reinforced', 'Not Reinforced', 'TPOD'];
@@ -43,10 +36,11 @@ export default function TempModal({
 	const [urgent, setUrgent] = useState(false);
 	const [inRequest, setInRequest] = useState(false);
 	const [inTrailerNumber, setInTrailerNumber] = useState(trailerOptions[0]);
+	const [currentSpotId, setCurrentSpotId] = useState<number>();
 	const [outTrailerNumber, setOutTrailerNumber] = useState<string>();
 	const [category, setCategory] = useState(categoriesOptions[0]);
 	const [categoryToggle, setCategoryToggle] = useState(false);
-	const [special, setSpecial] = useState(specialOptions[0]);
+	// const [special, setSpecial] = useState(specialOptions[0]);
 
 	const socket = useContext(SocketContext);
 	const carriers = useContext(CarrierContext);
@@ -57,7 +51,7 @@ export default function TempModal({
 			return carrier.carrierName;
 		});
 		setCarrierOptions(temp.sort());
-		setCarrier(temp.sort()[0]);
+		// setCarrier(temp.sort()[0]);
 	}, [carriers]);
 
 	useEffect(() => {
@@ -84,10 +78,8 @@ export default function TempModal({
 				? trailer?.trailerNumber
 				: undefined,
 		);
-		console.log(arr);
 
 		setTrailerOptions(arr);
-		console.log(arr.find((a) => a !== undefined));
 
 		setInTrailerNumber(inRequest ? arr.find((a) => a !== undefined) : undefined);
 	}, [inRequest, trailers, carrier]);
@@ -98,12 +90,13 @@ export default function TempModal({
 		);
 		if (trailer !== undefined) {
 			setInTrailerId(trailer.id);
+			setCurrentSpotId(trailer.Spots.id);
 		}
 	}, [inTrailerNumber, carrier, trailers]);
 
 	useEffect(() => {
 		setSpecialOptions(options);
-		setSpecial(options[0]);
+		// setSpecial(options[0]);
 	}, []);
 
 	return (
@@ -143,7 +136,7 @@ export default function TempModal({
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+								<div className="inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
 									<Dialog.Title
 										as="h3"
 										className=" text-5xl font-bold font-large leading-6 text-gray-900"
@@ -156,18 +149,6 @@ export default function TempModal({
 										onSubmit={(e) => {
 											e.preventDefault();
 
-											console.log({
-												outTrailerId,
-												inTrailerId,
-												outTrailerNumber,
-												inTrailerNumber,
-												carrier,
-												urgent,
-												special,
-												trailerLocation,
-												spotNumber,
-											});
-
 											inRequest
 												? socket.emit('addRequest', {
 														inTrailerId: inTrailerId,
@@ -176,18 +157,19 @@ export default function TempModal({
 														outTrailerNumber: outTrailerNumber,
 														inCarrier: carrier,
 														urgent,
-														special,
+														// special,
 														inTrailerLocation: trailerLocation,
 														inSpotNumber: spotNumber,
 														outCarrier: trailer?.carrier,
 														outTrailerLocation: trailer?.trailerLocation,
 														outSpotNumber: trailer?.spotNumber,
+														spotId: currentSpotId,
 												  })
 												: socket.emit('addRequest', {
 														outTrailerId: outTrailerId,
 														outTrailerNumber: outTrailerNumber,
 														urgent,
-														special,
+														// special,
 														outCarrier: trailer?.carrier,
 														outTrailerLocation: trailer?.trailerLocation,
 														outSpotNumber: trailer?.spotNumber,
@@ -199,29 +181,23 @@ export default function TempModal({
 										}}
 									>
 										{inRequest ? (
-											<div className="flex w-full mx-1 mt-3">
-												<div>
+											<div className="flex w-full mx-1 mt-3 space-x-1">
+												<div className="w-1/2">
 													<ComboBox
 														labelName={'Carrier'}
 														options={carrierOptions}
 														value={carrier}
+														defaultValue={'Select a Carrier'}
 														valueChange={(value) => setCarrier(value)}
 													/>
 												</div>
-												<div className="ml-1">
+												<div className="ml-1 w-1/2">
 													<ComboBox
 														labelName={'Trailer Number'}
 														options={trailerOptions}
+														defaultValue={'Select a Trailer Number'}
 														value={inTrailerNumber}
 														valueChange={(value) => setInTrailerNumber(value)}
-													/>
-												</div>
-												<div className="ml-1">
-													<ComboBox
-														labelName={'Special'}
-														options={specialOptions}
-														value={special}
-														valueChange={(value) => setSpecial(value)}
 													/>
 												</div>
 											</div>
@@ -245,7 +221,7 @@ export default function TempModal({
 													Close
 												</Button>
 											</div>
-											<div className="flex justify-center ml-2">
+											<div className="flex justify-center ml-2 space-x-1">
 												<Toggle
 													enabled={inRequest}
 													setEnabled={() => setInRequest(!inRequest)}

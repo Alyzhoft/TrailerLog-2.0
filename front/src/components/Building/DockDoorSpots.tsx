@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { trailer } from '../../types';
+import { Trailer } from '../../types';
 import { CategoryContext } from '../../utils/context';
 
-type Trailer = {
+type Props = {
 	door: any;
 	dock: string;
-	trailers: trailer[];
+	trailers: Trailer[];
 	spotClicked: (door: any) => void;
-	trailerClicked: (trailer: trailer) => void;
+	trailerClicked: (trailer: Trailer) => void;
 	addOpen: () => void;
 	tempModal: () => void;
 };
@@ -21,7 +21,7 @@ export default function DockDoorSpot({
 	trailerClicked,
 	addOpen,
 	tempModal,
-}: Trailer) {
+}: Props) {
 	const [categoriesOptions, setCategoriesOptions] = useState<
 		{ categoryName: string; color: string }[]
 	>([]);
@@ -36,9 +36,20 @@ export default function DockDoorSpot({
 		setCategoriesOptions(temp.sort());
 	}, [categories]);
 
-	function getColor(trailer: trailer) {
+	function getColor(trailer: Trailer) {
 		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
 		return category !== undefined ? category.color : 'blue-100';
+	}
+
+	function getFontColor(trailer: Trailer) {
+		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
+		// return category !== undefined ? category.color : 'blue-100';
+
+		if (category) {
+			const number = parseInt(category.color.split('-')[1]);
+
+			return number >= 500 ? 'white' : 'black';
+		}
 	}
 
 	function handleAddClick() {
@@ -46,7 +57,7 @@ export default function DockDoorSpot({
 		addOpen();
 	}
 
-	function handleTempClick(trailer: trailer) {
+	function handleTempClick(trailer: Trailer) {
 		trailerClicked(trailer);
 		spotClicked(door);
 		tempModal();
@@ -58,23 +69,23 @@ export default function DockDoorSpot({
 
 	if (
 		trailers.find(
-			(trailer) =>
-				parseInt(trailer.spotNumber) === parseInt(door.name) && trailer.trailerLocation === dock,
+			(trailer) => trailer.spotNumber === door.name && trailer.trailerLocation === dock,
 		) !== undefined
 	) {
 		const trailer = trailers.find(
-			(trailer) =>
-				parseInt(trailer.spotNumber) === parseInt(door.name) && trailer.trailerLocation === dock,
+			(trailer) => trailer.spotNumber === door.name && trailer.trailerLocation === dock,
 		);
 		if (trailer !== undefined) {
 			return (
 				<>
 					<div className="flex ml-1 w-6 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
 						<button
-							data-tip={trailer.comments}
+							data-tip={trailer.id}
+							data-for={trailer.id.toString()}
 							className={classNames(
-								'text-black focus:outline-none w-full text-xs',
+								'text-black focus:outline-none w-full text-2xs font-bold',
 								`bg-${getColor(trailer)} rounded h-full`,
+								`text-${getFontColor(trailer)}`,
 							)}
 							onClick={() => handleTempClick(trailer)}
 						>
@@ -83,7 +94,12 @@ export default function DockDoorSpot({
 							</span>
 						</button>
 					</div>
-					<ReactTooltip place="top" type="dark" effect="solid" />
+					<ReactTooltip id={trailer.id.toString()} place="top" type="dark" effect="solid">
+						<div className="flex flex-col justify-center w-full">
+							<h1 className="border-b border-white w-full">{trailer.carrier}</h1>
+							<h1>{trailer.comments}</h1>
+						</div>
+					</ReactTooltip>
 				</>
 			);
 		}

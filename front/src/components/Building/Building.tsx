@@ -1,14 +1,14 @@
 import React from 'react';
 import DockDoorNumber from './DockDoorNumber';
 import DockDoorSpots from './DockDoorSpots';
-import { trailer } from '../../types';
+import { Trailer } from '../../types';
 
 type BuildingProps = {
 	doors: number[];
-	trailers: trailer[];
+	trailers: Trailer[];
 	dock: string;
 	spotClicked: (door: any) => void;
-	trailerClicked: (trailer: trailer) => void;
+	trailerClicked: (trailer: Trailer) => void;
 	addOpen: () => void;
 	tempModal: () => void;
 };
@@ -23,9 +23,10 @@ export default function Building({
 	tempModal,
 	...props
 }: BuildingProps) {
+	//TODO: FIX NUMBER ISSUE LATER
 	return (
 		<div {...props}>
-			<div className="flex justify-between mx-4 h-20">
+			<div className="flex justify-between h-20">
 				{doors.map((door: any) => {
 					return (
 						<DockDoorSpots
@@ -41,7 +42,7 @@ export default function Building({
 					);
 				})}
 			</div>
-			<div className="flex justify-between mb-4 mx-4 h-10 border-black border-2 shadow-md">
+			<div className="flex justify-between h-10 border-black border-2 shadow-md">
 				{doors.map((door: any) => {
 					return <DockDoorNumber key={door.id} door={door.name} />;
 				})}

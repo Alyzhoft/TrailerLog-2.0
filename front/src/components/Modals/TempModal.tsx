@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext } from 'react';
 import { SocketContext } from '../../utils/socket';
-import { trailer } from '../../types';
+import { Trailer } from '../../types';
 import Button from '../ui/Button';
 
 enum TrailerLocation {
@@ -18,8 +18,9 @@ type Props = {
 	outModal: () => void;
 	spotNumber?: number;
 	trailerLocation?: TrailerLocation;
-	trailer: trailer | null;
+	trailer: Trailer | null;
 	close: () => void;
+	outRequest?: boolean;
 };
 
 export default function TempModal({
@@ -31,6 +32,7 @@ export default function TempModal({
 	spotNumber = 1,
 	trailer,
 	trailerLocation = TrailerLocation.RVAC,
+	outRequest = true,
 }: Props) {
 	const socket = useContext(SocketContext);
 
@@ -98,16 +100,18 @@ export default function TempModal({
 										<Button onClick={editOpen} type="submit">
 											Edit
 										</Button>
-										<div className="ml-2">
-											<Button onClick={outModal}>Out</Button>
-										</div>
+										{outRequest ? (
+											<div className="ml-2">
+												<Button onClick={outModal}>Out</Button>
+											</div>
+										) : null}
 										<div className="ml-2">
 											<Button onClick={lotMove}>Move</Button>
 										</div>
 										<div className="ml-2">
 											<Button
 												onClick={() => {
-													socket.emit('departed', trailer?.id);
+													socket.emit('departed', trailer);
 													close();
 												}}
 											>

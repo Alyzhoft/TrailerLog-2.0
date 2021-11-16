@@ -1,14 +1,14 @@
 import React from 'react';
 
-import { trailer, TrailerLocation } from '../../types';
+import { Trailer, TrailerLocation } from '../../types';
 import LotSpot from './LotSpot';
 
 type LotProps = {
 	spots: number[];
 	lot: TrailerLocation;
-	trailers: trailer[];
+	trailers: Trailer[];
 	spotClicked: (spot: any) => void;
-	trailerClicked: (trailer: trailer) => void;
+	trailerClicked: (trailer: Trailer) => void;
 	addOpen: () => void;
 	tempModal: () => void;
 };

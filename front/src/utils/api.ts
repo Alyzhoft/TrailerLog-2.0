@@ -1,8 +1,10 @@
 import axios from 'axios';
+import { env } from 'process';
+// import { env } from 'process';
 
 export async function getTrailers() {
 	try {
-		const res = await axios.get('http://localhost:4000/api/trailer');
+		const res = await axios.get(`${process.env.REACT_APP_API_URL}trailer`);
 		return res.data;
 	} catch (e) {
 		alert(e);
@@ -11,7 +13,7 @@ export async function getTrailers() {
 
 export async function getCarriers() {
 	try {
-		const res = await axios.get('http://localhost:4000/api/carrier');
+		const res = await axios.get(`${process.env.REACT_APP_API_URL}carrier`);
 		return res.data;
 	} catch (e) {
 		alert(e);
@@ -20,7 +22,7 @@ export async function getCarriers() {
 
 export async function getCategories() {
 	try {
-		const res = await axios.get('http://localhost:4000/api/category');
+		const res = await axios.get(`${process.env.REACT_APP_API_URL}category`);
 		return res.data;
 	} catch (e) {
 		alert(e);
@@ -29,7 +31,7 @@ export async function getCategories() {
 
 export async function getRequests() {
 	try {
-		const res = await axios.get('http://localhost:4000/api/request');
+		const res = await axios.get(`${process.env.REACT_APP_API_URL}request`);
 		return res.data;
 	} catch (e) {
 		alert(e);
@@ -38,7 +40,7 @@ export async function getRequests() {
 
 export async function getTrailerLocations() {
 	try {
-		const res = await axios.get('http://localhost:4000/api/trailerLocation');
+		const res = await axios.get(`${process.env.REACT_APP_API_URL}trailerLocation`);
 		return res.data;
 	} catch (e) {
 		alert(e);
@@ -47,7 +49,9 @@ export async function getTrailerLocations() {
 
 export async function getAvalibleTrailerLocations() {
 	try {
-		const res = await axios.get('http://localhost:4000/api/trailerLocation/avalibleLocations');
+		const res = await axios.get(
+			`${process.env.REACT_APP_API_URL}trailerLocation/avalibleLocations`,
+		);
 		return res.data;
 	} catch (e) {
 		alert(e);

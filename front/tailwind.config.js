@@ -1,10 +1,23 @@
 module.exports = {
-	purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
 	darkMode: false, // or 'media' or 'class'
 	theme: {
 		extend: {
 			screens: {
 				building: '1200px',
+			},
+			fontSize: {
+				'2xs': [
+					'0.5rem',
+					{
+						letterSpacing: '-0.01rem',
+					},
+				],
+				xsSpace: [
+					'0.6rem',
+					{
+						letterSpacing: '-0.02rem',
+					},
+				],
 			},
 		},
 	},

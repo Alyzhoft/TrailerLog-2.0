@@ -7,7 +7,8 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "windows"]
 }
 
 // enum TrailerLocation {
@@ -74,24 +75,65 @@ model Category {
   color        String
 }
 
-model TrailerLocation {
+model Plant {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String
-  lot       Boolean? @default(false)
-  lotName   String?
-  dock      Boolean? @default(false)
+  View      View[]
+}
+
+model View {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  Plant     Plant    @relation(fields: [plantId], references: [id])
+  plantId   Int
+  Dock      Dock?    @relation(fields: [dockId], references: [id])
+  dockId    Int?
+  Lot       Lot?     @relation(fields: [lotId], references: [id])
+  lotId     Int?
+}
+
+model Dock {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  View      View?
   Spots     Spots[]
 }
 
+model Lot {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  View      View?
+  Spots     Spots[]
+}
+
+// model TrailerLocation {
+//   id        Int      @id @default(autoincrement())
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   name      String
+//   lot       Boolean? @default(false)
+//   lotName   String?
+//   dock      Boolean? @default(false)
+//   Spots     Spots[]
+// }
+
 model Spots {
-  id                Int             @id @default(autoincrement())
-  createdAt         DateTime        @default(now())
-  updatedAt         DateTime        @updatedAt
-  name              String
-  trailer           Trailer?        @relation(fields: [trailerId], references: [id])
-  trailerLocation   TrailerLocation @relation(fields: [trailerLocationId], references: [id])
-  trailerLocationId Int
-  trailerId         Int?
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  trailer   Trailer? @relation(fields: [trailerId], references: [id])
+  trailerId Int?
+  Dock      Dock?    @relation(fields: [dockId], references: [id])
+  dockId    Int?
+  Lot       Lot?     @relation(fields: [lotId], references: [id])
+  lotId     Int?
 }

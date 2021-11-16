@@ -62,7 +62,7 @@ export default function EditModal({ open, close, categoryprop }: Props) {
 							leaveFrom="opacity-100 scale-100"
 							leaveTo="opacity-0 scale-95"
 						>
-							<div className="inline-block w-full max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+							<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl relative z-30 ">
 								<Dialog.Title as="h3" className=" text-2xl font-large leading-6 text-gray-900">
 									Edit Category
 								</Dialog.Title>
@@ -76,11 +76,10 @@ export default function EditModal({ open, close, categoryprop }: Props) {
 											categoryID,
 											color,
 										});
-										console.log({ category, categoryID, color });
 										close();
 									}}
 								>
-									<div className="md:flex justify-between ">
+									<div className="md:flex justify-between">
 										<div className="w-full mx-1 mt-3">
 											<Input
 												labelText="Trailer Number"
@@ -90,9 +89,10 @@ export default function EditModal({ open, close, categoryprop }: Props) {
 											/>
 										</div>
 									</div>
-									<div className="w-full h-full">
+									<div className="w-full h-full relative z-50">
 										<ColorPicker
 											setColor={(color) => setColor(color)}
+											color={categoryprop.color}
 											open={(open) => setColorOpen(open)}
 										/>
 									</div>

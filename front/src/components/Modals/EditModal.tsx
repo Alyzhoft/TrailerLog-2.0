@@ -5,20 +5,13 @@ import Input from '../ui/Input';
 import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
 import { SocketContext } from '../../utils/socket';
-import { trailer } from '../../types';
+import { Trailer, TrailerLocation } from '../../types';
 import { CarrierContext, CategoryContext } from '../../utils/context';
-
-enum TrailerLocation {
-	PRIMARY = 'PRIMARY',
-	SECONDARY = 'SECONDARY',
-	RVAC = 'RVAC',
-	RMAN = 'RMAN',
-}
 
 type Props = {
 	open: boolean;
-	trailerLocation?: TrailerLocation | null;
-	trailer: trailer | null;
+	trailerLocation?: TrailerLocation | null | undefined;
+	trailer: Trailer | null;
 	close: () => void;
 };
 
@@ -28,8 +21,6 @@ export default function EditModal({
 	trailerLocation = TrailerLocation.RVAC,
 	trailer,
 }: Props) {
-	console.log(trailer);
-
 	const [id, setId] = useState(trailer?.id);
 	const [trailerNumber, setTrailerNumber] = useState(trailer?.trailerNumber);
 	const [category, setCategory] = useState(trailer?.category);

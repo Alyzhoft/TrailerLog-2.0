@@ -1,4 +1,5 @@
-import { Spots, Trailer } from "@prisma/client";
+// @ts-nocheck
+import { Trailer } from "@prisma/client";
 import { prisma } from "../utils/prisma";
 
 export async function getTrailers() {
@@ -7,14 +8,17 @@ export async function getTrailers() {
       where: {
         departed: false,
       },
+      include: {
+        Spots: true,
+      },
     });
 
     return trailers;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
-
+// @ts-nocheck
 type AddTrailer = Trailer & {
   spotId: number;
 };
@@ -28,6 +32,8 @@ export async function addTrailer(trailer: AddTrailer) {
         departed: false,
       },
     });
+
+    console.log(trailer);
 
     if (!search.length) {
       const res = await prisma.trailer.create({
@@ -50,6 +56,8 @@ export async function addTrailer(trailer: AddTrailer) {
         },
       });
 
+      console.log(updateSpotTrailerId);
+
       return res;
     } else {
       return {
@@ -57,7 +65,7 @@ export async function addTrailer(trailer: AddTrailer) {
       };
     }
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -78,7 +86,7 @@ export async function updateTrailer(trailer: Trailer) {
 
     return res;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -92,21 +100,32 @@ export async function deleteTrailer(trailerId: number) {
 
     return trailer;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
-export async function departed(trailerId: number) {
+export async function departed(trailer: any) {
   try {
     const res = await prisma.trailer.update({
       where: {
-        id: trailerId,
+        id: trailer.id,
       },
 
       data: {
         departed: true,
       },
     });
+
+    const spot = await prisma.spots.update({
+      where: {
+        id: trailer.Spots.id,
+      },
+      data: {
+        trailerId: null,
+      },
+    });
+
+    console.log(spot);
 
     return res;
   } catch (error) {

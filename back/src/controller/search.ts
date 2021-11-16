@@ -30,6 +30,6 @@ export async function search({
 
     return trailers;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }

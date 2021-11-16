@@ -24,8 +24,6 @@ Props) {
 	const [color, setColor] = useState('');
 	const [colorOpen, setColorOpen] = useState(false);
 
-	console.log(color);
-
 	return (
 		<>
 			<Transition show={open} as={Fragment}>

@@ -42,9 +42,7 @@ export default function Example({ selected }: props) {
 					className="block w-full focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
 				>
 					{tabs.map((tab) => (
-						<option onClick={() => console.log('clicked')} key={tab.name}>
-							{tab.name}
-						</option>
+						<option key={tab.name}>{tab.name}</option>
 					))}
 				</select>
 			</div>

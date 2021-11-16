@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
-import { trailer, TrailerLocation } from '../../types';
+import { Trailer, TrailerLocation } from '../../types';
 import { CategoryContext } from '../../utils/context';
 
 type Props = {
 	spot: any;
 	lot: TrailerLocation;
-	trailers: trailer[];
+	trailers: Trailer[];
 	spotClicked: (spot: any) => void;
-	trailerClicked: (trailer: trailer) => void;
+	trailerClicked: (trailer: Trailer) => void;
 	addOpen: () => void;
 	tempModal: () => void;
 };
@@ -36,9 +36,20 @@ export default function LotSpot({
 		setCategoriesOptions(temp.sort());
 	}, [categories]);
 
-	function getColor(trailer: trailer) {
+	function getColor(trailer: Trailer) {
 		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
 		return category !== undefined ? category.color : 'blue-100';
+	}
+
+	function getFontColor(trailer: Trailer) {
+		const [category] = categoriesOptions.filter((c) => c.categoryName === trailer.category);
+		// return category !== undefined ? category.color : 'blue-100';
+
+		if (category) {
+			const number = parseInt(category.color.split('-')[1]);
+
+			return number >= 500 ? 'white' : 'black';
+		}
 	}
 
 	function handleAddClick() {
@@ -46,7 +57,7 @@ export default function LotSpot({
 		addOpen();
 	}
 
-	function handleEditClick(trailer: trailer) {
+	function handleEditClick(trailer: Trailer) {
 		tempModal();
 		trailerClicked(trailer);
 	}
@@ -68,20 +79,21 @@ export default function LotSpot({
 
 		if (trailer !== undefined) {
 			return (
-				<div>
-					{/* <div className="ml-1">{spot}</div> */}
+				<div className="flex justify-center space-x-1 items-center">
+					<span className="text-2xs font-bold">{spot.name}</span>
 
-					<div className="flex mr-1 w-4 h-20 bg-white rounded-md justify-center shadow-md border-gray-600 border-2">
+					<div className="flex w-14 h-4 bg-white rounded-md justify-center items-center shadow-md border-gray-600 border-2">
 						<button
 							data-tip={trailer.comments}
 							// style={{ textOrientation: "upright", writingMode: "vertical-rl" }}
 							className={classNames(
-								'text-black focus:outline-none w-full rounded ',
+								'h-full w-full rounded flex justify-center items-center text-xs focus:outline-none',
 								`bg-${getColor(trailer)}`,
+								`text-${getFontColor(trailer)}`,
 							)}
 							onClick={() => handleEditClick(trailer)}
 						>
-							<span className="upRight text-xs">{trailer?.trailerNumber}</span>
+							<span>{trailer?.trailerNumber}</span>
 						</button>
 					</div>
 					{trailer.comments !== '' ? <ReactTooltip place="top" type="dark" effect="solid" /> : null}
@@ -92,21 +104,15 @@ export default function LotSpot({
 
 	return (
 		<div className="flex justify-center space-x-1 items-center">
-			<span>{spot}</span>
+			<span className="text-2xs font-bold">{spot.name}</span>
 			<div className="flex w-14 h-4 bg-white rounded-md justify-center items-center shadow-md border-gray-600 border-2">
 				<button
 					className="text-black h-full w-full mb-1 text-xs focus:outline-none"
 					onClick={handleAddClick}
 				>
-					<span>12345</span>
+					<span></span>
 				</button>
 			</div>
 		</div>
 	);
 }
-
-<div>
-	<div className="flex mb-1 w-14 h-4 bg-white rounded-md justify-center items-center shadow-md border-gray-600 border-2">
-		<button className="text-black h-full w-full mb-1 text-xs focus:outline-none">12345</button>
-	</div>
-</div>;

@@ -6,18 +6,12 @@ import TextArea from '../ui/TextArea';
 import Button from '../ui/Button';
 import { SocketContext } from '../../utils/socket';
 import { CarrierContext, CategoryContext } from '../../utils/context';
-
-enum TrailerLocation {
-	PRIMARY = 'PRIMARY',
-	SECONDARY = 'SECONDARY',
-	RVAC = 'RVAC',
-	RMAN = 'RMAN',
-}
+import { TrailerLocation } from '../../types';
 
 type Props = {
 	open: boolean;
 	spotNumber: any;
-	trailerLocation?: TrailerLocation | null;
+	trailerLocation?: TrailerLocation | null | undefined;
 	close: () => void;
 };
 
@@ -32,8 +26,6 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 	const socket = useContext(SocketContext);
 	const carriers = useContext(CarrierContext);
 	const categories = useContext(CategoryContext);
-
-	console.log(spotNumber);
 
 	useEffect(() => {
 		const temp = carriers.map((carrier: any) => {
@@ -89,7 +81,7 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 								leaveFrom="opacity-100 scale-100"
 								leaveTo="opacity-0 scale-95"
 							>
-								<div className="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+								<div className="inline-block max-w-xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
 									<Dialog.Title as="h3" className=" text-2xl font-large leading-6 text-gray-900">
 										Add Trailer
 									</Dialog.Title>
@@ -97,14 +89,6 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
-											console.log({
-												carrier,
-												category,
-												trailerNumber,
-												comments,
-												spotName: spotNumber.name,
-												trailerLocation,
-											});
 
 											socket.emit('addTrailer', {
 												carrier,
@@ -146,7 +130,8 @@ export default function AddModal({ open, close, spotNumber, trailerLocation }: P
 													placeholder="Enter Trailer Number"
 													value={trailerNumber}
 													onChange={(e) => setTrailerNumber(e.currentTarget.value)}
-													maxLength={5}
+													maxLength={7}
+													required
 												/>
 											</div>
 											<div className="w-full mx-1 mt-3">

@@ -61,9 +61,6 @@ export default function AddCarriersModal({ open, close }: Props) {
 								<form
 									onSubmit={(e) => {
 										e.preventDefault();
-										console.log({
-											carrierName,
-										});
 
 										socket.emit('addCarrier', {
 											carrierName,
@@ -78,7 +75,6 @@ export default function AddCarriersModal({ open, close }: Props) {
 												placeholder="Carrier Name"
 												value={carrierName}
 												onChange={(e) => setCarrierName(e.currentTarget.value)}
-												maxLength={5}
 											/>
 										</div>
 									</div>

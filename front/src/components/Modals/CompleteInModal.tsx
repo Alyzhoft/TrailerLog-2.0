@@ -1,15 +1,15 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../utils/socket';
-import { trailer, Request } from '../../types';
+import { Trailer, Requests } from '../../types';
 import Button from '../ui/Button';
 import ComboBox from '../ui/ComboBox';
 
 type Props = {
 	open: boolean;
 	close: () => void;
-	trailers: trailer[];
-	request: Request;
+	trailers: Trailer[];
+	request: Requests;
 };
 
 const options = ['E-Track', 'Reinforced', 'Not Reinforced', 'TPOD'];
@@ -18,6 +18,7 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 	const [trailerId, setTrailerId] = useState<number>();
 	const [trailerOptions, setTrailerOptions] = useState<(string | undefined)[]>([]);
 	const [trailerNumber, setTrailerNumber] = useState(trailerOptions[0]);
+	const [trailer, setTrailer] = useState<Trailer | undefined>();
 
 	const socket = useContext(SocketContext);
 
@@ -34,17 +35,14 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 	}, [trailers, request.inCarrier]);
 
 	useEffect(() => {
-		console.log('CALLED');
-
 		const trailer = trailers.find(
 			(t) => t.trailerNumber === trailerNumber && t.carrier === request.inCarrier,
 		);
 		if (trailer !== undefined) {
+			setTrailer(trailer);
 			setTrailerId(trailer.id);
 		}
 	}, [trailerNumber, trailers, request.inCarrier]);
-
-	console.log({ trailerNumber, trailerId });
 
 	return (
 		<>
@@ -96,17 +94,14 @@ export default function TempModal({ open, close, request, trailers }: Props) {
 
 										const temp = { ...request };
 
-										if (trailerId) {
+										if (trailerId && trailer) {
+											temp.trailer = trailer;
 											temp.trailerId = trailerId;
 										}
 
 										if (trailerNumber) {
 											temp.inTrailerNumber = trailerNumber;
 										}
-
-										console.log({
-											temp,
-										});
 
 										socket.emit('complete', temp);
 

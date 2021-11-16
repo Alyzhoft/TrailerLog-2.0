@@ -3,7 +3,7 @@ import { RouteComponentProps } from '@reach/router';
 import { RequestContext } from '../utils/context';
 import Table, { TableRow, TableHeader, TableDataCell } from '../components/ui/Table';
 import Button from '../components/ui/Button';
-import { Request, RequestType, trailer } from '../types';
+import { Requests, RequestType, Trailer } from '../types';
 import { SocketContext } from '../utils/socket';
 import OutLocationModal from '../components/Modals/OutLocationModal';
 import CompleteInModal from '../components/Modals/CompleteInModal';
@@ -14,17 +14,17 @@ const screenHeight = {
 };
 
 type Props = RouteComponentProps & {
-	trailers: trailer[];
+	trailers: Trailer[];
 };
 
-export default function Requests({ path, trailers }: Props) {
+export default function Request({ path, trailers }: Props) {
 	const [selectedRequest, setSelectedRequest] = useState<any>();
 	const [outModal, setOutModal] = useState(false);
 	const [completeIn, setCompleteIn] = useState(false);
 	const requests = useContext(RequestContext);
 	const socket = useContext(SocketContext);
 
-	function handleDone(request: Request) {
+	function handleDone(request: Requests) {
 		if (request.requestType === 'OUT') {
 			setSelectedRequest(request);
 			setOutModal(true);
@@ -69,7 +69,7 @@ export default function Requests({ path, trailers }: Props) {
 						</>
 					}
 				>
-					{requests.map((r: Request) => {
+					{requests.map((r: Requests) => {
 						return (
 							<TableRow key={r.id}>
 								<TableDataCell>{r.createdAt}</TableDataCell>

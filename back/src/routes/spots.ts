@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { Spots } from "@prisma/client";
 import express, { Request, Response } from "express";
 import {

@@ -8,34 +8,56 @@ export async function getRequests() {
         completed: false,
       },
       include: {
-        trailer: true,
+        trailer: {
+          include: {
+            Spots: true,
+          },
+        },
+      },
+      orderBy: {
+        urgent: "desc",
       },
     });
 
     return requests;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
 export async function inRequest(request: Requests) {
   try {
-    const inRequest = await prisma.requests.create({
-      data: {
-        trailerId: request.trailerId,
-        inCarrier: request.inCarrier,
-        inTrailerNumber: request.inTrailerNumber,
+    const res = await prisma.requests.findMany({
+      where: {
         inSpotNumber: request.inSpotNumber,
         inTrailerLocation: request.inTrailerLocation,
-        special: request.special,
-        requestType: RequestType.IN,
-        urgent: request.urgent,
+        completed: false,
       },
     });
 
-    return inRequest;
+    console.log({ request, res });
+
+    if (res.length === 0) {
+      const inRequest = await prisma.requests.create({
+        data: {
+          trailerId: request.trailerId,
+          inCarrier: request.inCarrier,
+          inTrailerNumber: request.inTrailerNumber,
+          inSpotNumber: request.inSpotNumber,
+          inTrailerLocation: request.inTrailerLocation,
+          special: request.special,
+          requestType: RequestType.IN,
+          urgent: request.urgent,
+        },
+      });
+      return inRequest;
+    } else {
+      return {
+        error: `Request has already been submitted for ${request.inTrailerLocation} - ${request.inSpotNumber}`,
+      };
+    }
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -50,37 +72,67 @@ export async function addRequest(requests: OutIn) {
     let inRequest;
 
     if ("outTrailerNumber" in requests) {
-      outRequest = await prisma.requests.create({
-        data: {
-          trailerId: requests.outTrailerId,
+      const res = await prisma.requests.findMany({
+        where: {
           outSpotNumber: requests.outSpotNumber,
           outTrailerLocation: requests.outTrailerLocation,
-          outTrailerNumber: requests.outTrailerNumber,
-          outCarrier: requests.outCarrier,
-          special: requests.special,
-          outCategory: requests.outCategory,
-          requestType: RequestType.OUT,
+          completed: false,
         },
       });
+
+      if (res.length === 0) {
+        outRequest = await prisma.requests.create({
+          data: {
+            trailerId: requests.outTrailerId,
+            outSpotNumber: requests.outSpotNumber,
+            outTrailerLocation: requests.outTrailerLocation,
+            outTrailerNumber: requests.outTrailerNumber,
+            outCarrier: requests.outCarrier,
+            // special: requests.special,
+            outCategory: requests.outCategory,
+            requestType: RequestType.OUT,
+            urgent: requests.urgent,
+          },
+        });
+      } else {
+        return {
+          error: `Request has already been submitted for ${requests.outTrailerLocation} - ${requests.outSpotNumber}`,
+        };
+      }
     }
 
     if ("inTrailerNumber" in requests) {
-      inRequest = await prisma.requests.create({
-        data: {
-          trailerId: requests.inTrailerId,
-          inCarrier: requests.inCarrier,
-          inTrailerNumber: requests.inTrailerNumber,
+      const res = await prisma.requests.findMany({
+        where: {
           inSpotNumber: requests.inSpotNumber,
           inTrailerLocation: requests.inTrailerLocation,
-          special: requests.special,
-          requestType: RequestType.IN,
+          completed: false,
         },
       });
+
+      if (res.length === 0) {
+        inRequest = await prisma.requests.create({
+          data: {
+            trailerId: requests.inTrailerId,
+            inCarrier: requests.inCarrier,
+            inTrailerNumber: requests.inTrailerNumber,
+            inSpotNumber: requests.inSpotNumber,
+            inTrailerLocation: requests.inTrailerLocation,
+            // special: requests.special,
+            requestType: RequestType.IN,
+            urgent: requests.urgent,
+          },
+        });
+      } else {
+        return {
+          error: `Request has already been submitted for ${requests.inTrailerLocation} - ${requests.inSpotNumber}`,
+        };
+      }
     }
 
     return { outRequest, inRequest };
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
@@ -94,11 +146,11 @@ export async function deleteRequest(id: number) {
 
     return trailer;
   } catch (error) {
-    return { error };
+    return { error: JSON.stringify(error) };
   }
 }
 
-export async function completed(request: Requests) {
+export async function completed(request: any) {
   try {
     const res = await prisma.requests.update({
       where: {
@@ -108,6 +160,8 @@ export async function completed(request: Requests) {
         completed: true,
       },
     });
+
+    console.log(request);
 
     let trailer;
     if (
@@ -120,12 +174,88 @@ export async function completed(request: Requests) {
         data: {
           trailerLocation: request?.inTrailerLocation,
           spotNumber: request?.inSpotNumber,
+          // category: "In Process",
         },
       });
     }
 
+    const t = await prisma.spots.update({
+      where: {
+        id: parseInt(request.trailer.Spots.id),
+      },
+      data: {
+        trailerId: null,
+      },
+    });
+
+    console.log({ request, t });
+
+    if (request.requestType === "IN") {
+      const spot = await prisma.spots.update({
+        where: {
+          id: parseInt(request.trailer.Spots.id),
+        },
+        data: {
+          trailerId: request.trailerId,
+        },
+      });
+      console.log(spot);
+    } else {
+      const spot = await prisma.spots.update({
+        where: {
+          id: parseInt(request.spotId),
+        },
+        data: {
+          trailerId: request.trailerId,
+        },
+      });
+      console.log(spot);
+    }
+
     return { res, trailer };
   } catch (error) {
-    return { error };
+    console.log(error);
+
+    return { error: JSON.stringify(error) };
+  }
+}
+
+export async function move(temp: any) {
+  try {
+    console.log(temp);
+
+    const res = await prisma.spots.update({
+      where: {
+        id: temp.trailer.Spots.id,
+      },
+      data: {
+        trailerId: null,
+      },
+    });
+
+    console.log(res);
+
+    const spot = await prisma.spots.update({
+      where: {
+        id: parseInt(temp.newSpotId),
+      },
+      data: {
+        trailerId: temp.trailer.id,
+      },
+    });
+
+    const trailer = await prisma.trailer.update({
+      where: {
+        id: temp.trailer.id,
+      },
+      data: {
+        trailerLocation: temp.newLocation,
+        spotNumber: temp.newSpot,
+      },
+    });
+
+    return { trailer, spot };
+  } catch (error) {
+    return { error: JSON.stringify(error) };
   }
 }

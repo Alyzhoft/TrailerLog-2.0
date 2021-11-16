@@ -2,7 +2,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Fragment, useContext, useEffect, useState } from 'react';
 import { SocketContext } from '../../utils/socket';
 import { CarrierContext, CategoryContext } from '../../utils/context';
-import { trailer } from '../../types';
+import { Trailer } from '../../types';
 import Button from '../ui/Button';
 import ComboBox from '../ui/ComboBox';
 import Toggle from '../ui/Toggle';
@@ -18,9 +18,9 @@ type Props = {
 	open: boolean;
 	spotNumber?: any;
 	trailerLocation?: TrailerLocation;
-	trailer: trailer | null;
+	trailer: Trailer | null;
 	close: () => void;
-	trailers: trailer[];
+	trailers: Trailer[];
 };
 
 const options = ['E-Track', 'Reinforced', 'Not Reinforced', 'TPOD'];
@@ -130,16 +130,6 @@ export default function TempModal({
 									<form
 										onSubmit={(e) => {
 											e.preventDefault();
-
-											console.log({
-												trailerId,
-												trailerNumber,
-												carrier,
-												urgent,
-												special,
-												trailerLocation,
-												spotNumber,
-											});
 
 											socket.emit('inRequest', {
 												trailerId,

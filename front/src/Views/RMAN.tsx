@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { RouteComponentProps } from '@reach/router';
 import Lot from '../components/Lot/Lot';
 import Building from '../components/Building/Building';
-import { TrailerLocation, trailer } from '../types';
+import { TrailerLocation, Trailer } from '../types';
 import AddModal from '../components/Modals/AddModal';
 import TempModal from '../components/Modals/TempModal';
 import EditModal from '../components/Modals/EditModal';
@@ -18,7 +18,7 @@ const screenHeight = {
 };
 
 type Props = RouteComponentProps & {
-	trailers: trailer[];
+	trailers: Trailer[];
 };
 
 // const doors = Array.from({ length: 50 }, (_, index) => index + 1);
@@ -34,18 +34,30 @@ export default function RMAN({ trailers }: Props) {
 	const [inModal, setInModal] = useState(false);
 	const [outModal, setOutModal] = useState(false);
 	const [spotClicked, setSpotClicked] = useState<any>(0);
-	const [selctedTrailer, setSelectedTrailer] = useState<trailer | null>(null);
+	const [selctedTrailer, setSelectedTrailer] = useState<Trailer | null>(null);
 	const [trailerLocation, setTrailerLocation] = useState<TrailerLocation | null>(null);
-	const [doors, setDoors] = useState([]);
+	const [doors, setDoors] = useState<any>();
+	const [outRequest, setOutRequest] = useState<boolean>(true);
 
 	const trailerLocations = useContext(TrailerLocationContext);
 
 	useEffect(() => {
 		for (let i = 0; i < trailerLocations.length; i++) {
 			if (trailerLocations[i].name === 'RMAN') {
-				console.log(trailerLocations[i].Spots.sort());
-
-				setDoors(trailerLocations[i].Spots.sort());
+				if (trailerLocations[i].Lot !== null && trailerLocations[i].Dock !== null) {
+					setDoors({
+						DockDoors: trailerLocations[i].Dock.Spots,
+						LotSpots: trailerLocations[i].Lot.Spots,
+					});
+				} else if (trailerLocations[i].Lot === null && trailerLocations[i].Dock !== null) {
+					setDoors({
+						DockDoors: trailerLocations[i].Dock.Spots,
+					});
+				} else {
+					setDoors({
+						LotSpots: trailerLocations[i].Lot.Spots,
+					});
+				}
 			}
 		}
 	}, [trailerLocations]);
@@ -85,6 +97,7 @@ export default function RMAN({ trailers }: Props) {
 						close={() => setTempModal(false)}
 						trailer={selctedTrailer}
 						trailerLocation={TrailerLocation.RMAN}
+						outRequest={outRequest}
 						editOpen={() => {
 							setTempModal(false);
 							setTimeout(() => {
@@ -112,6 +125,7 @@ export default function RMAN({ trailers }: Props) {
 						addOpen={() => {
 							setAddIn(false);
 							setTimeout(() => {
+								setTrailerLocation(TrailerLocation.RMAN);
 								setAddOpen(true);
 							}, 10);
 						}}
@@ -143,55 +157,66 @@ export default function RMAN({ trailers }: Props) {
 						trailerLocation={TrailerLocation.RMAN}
 					/>
 				) : null}
-				<Lot
-					spots={doors}
-					lot={TrailerLocation.SECONDARY}
-					trailers={trailers}
-					spotClicked={(spot) => setSpotClicked(spot)}
-					trailerClicked={(trailer: trailer) => {
-						setSelectedTrailer(trailer);
-					}}
-					addOpen={() => {
-						setTrailerLocation(TrailerLocation.SECONDARY);
-						setAddOpen(true);
-					}}
-					tempModal={() => setTempModal(true)}
-				/>
-				<div className="hidden building:block">
-					<Building
-						dock={TrailerLocation.RMAN}
-						doors={doors}
-						trailers={trailers}
-						spotClicked={(door) => setSpotClicked(door)}
-						trailerClicked={(trailer: trailer) => {
-							setSelectedTrailer(trailer);
-						}}
-						addOpen={() => {
-							setTrailerLocation(TrailerLocation.RMAN);
-							setAddIn(true);
-						}}
-						tempModal={() => setTempModal(true)}
-					/>
-				</div>
-				<div className="building:hidden w-full h-full mt-5 ">
-					<h1 className="text-4xl font-bold">RMAN</h1>
-					<div className="border-black border-t-2">
+
+				{doors ? (
+					<>
 						<Lot
-							spots={doors}
-							lot={TrailerLocation.RMAN}
+							spots={doors.LotSpots}
+							lot={TrailerLocation.SECONDARY}
 							trailers={trailers}
-							trailerClicked={(trailer: trailer) => {
+							spotClicked={(spot) => setSpotClicked(spot)}
+							trailerClicked={(trailer: Trailer) => {
 								setSelectedTrailer(trailer);
 							}}
-							spotClicked={(spot) => setSpotClicked(spot)}
 							addOpen={() => {
 								setTrailerLocation(TrailerLocation.SECONDARY);
 								setAddOpen(true);
 							}}
-							tempModal={() => setTempModal(true)}
+							tempModal={() => {
+								setOutRequest(false);
+								setTempModal(true);
+							}}
 						/>
-					</div>
-				</div>
+						<div className="hidden building:block">
+							<Building
+								dock={TrailerLocation.RMAN}
+								doors={doors.DockDoors.reverse()}
+								trailers={trailers}
+								spotClicked={(door) => setSpotClicked(door)}
+								trailerClicked={(trailer: Trailer) => {
+									setSelectedTrailer(trailer);
+								}}
+								addOpen={() => {
+									setTrailerLocation(TrailerLocation.RMAN);
+									setAddIn(true);
+								}}
+								tempModal={() => {
+									setOutRequest(true);
+									setTempModal(true);
+								}}
+							/>
+						</div>
+						<div className="building:hidden w-full h-full mt-5 ">
+							<h1 className="text-4xl font-bold">RMAN</h1>
+							<div className="border-black border-t-2">
+								<Lot
+									spots={doors.DockDoors}
+									lot={TrailerLocation.RMAN}
+									trailers={trailers}
+									trailerClicked={(trailer: Trailer) => {
+										setSelectedTrailer(trailer);
+									}}
+									spotClicked={(spot) => setSpotClicked(spot)}
+									addOpen={() => setAddIn(true)}
+									tempModal={() => {
+										setOutRequest(true);
+										setTempModal(true);
+									}}
+								/>
+							</div>
+						</div>
+					</>
+				) : null}
 			</div>
 		</Container>
 	);
