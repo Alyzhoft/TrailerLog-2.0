@@ -10,8 +10,8 @@
     "deleteDB": "prisma migrate reset",
     "migrate": "prisma migrate dev",
     "studio": "prisma studio",
-    "dev": "nodemon dist/src/index.js",
-    "start": "node dist/src/index.js"
+    "dev": "nodemon dist/index.js",
+    "start": "node dist/index.js"
   },
   "devDependencies": {
     "@types/cors": "^2.8.10",

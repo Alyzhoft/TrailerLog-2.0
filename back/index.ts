@@ -9,7 +9,7 @@ import {
   deleteTrailer,
   updateTrailer,
   departed,
-} from "./controller/trailer";
+} from "./src/controller/trailer";
 import { Requests, Trailer } from "@prisma/client";
 import {
   addRequest,
@@ -18,26 +18,30 @@ import {
   getRequests,
   inRequest,
   move,
-} from "./controller/request";
-import { addCarrier, getCarriers, deleteCarrier } from "./controller/carrier";
+} from "./src/controller/request";
+import {
+  addCarrier,
+  getCarriers,
+  deleteCarrier,
+} from "./src/controller/carrier";
 import {
   addCategory,
   getCategories,
   deleteCategory,
   updateCategory,
-} from "./controller/category";
+} from "./src/controller/category";
 
 const app = express();
 const server = http.createServer(app);
 
 // const userRoutes = require('./routes/user');
-const trailerRoutes = require("./routes/trailer");
-const carrierRoutes = require("./routes/carrier");
-const categoryRoutes = require("./routes/category");
-const requestRoutes = require("./routes/request");
-const trailerLocationRoutes = require("./routes/trailerLocation");
-const spotRoutes = require("./routes/spots");
-const search = require("./routes/search");
+const trailerRoutes = require("./src/routes/trailer");
+const carrierRoutes = require("./src/routes/carrier");
+const categoryRoutes = require("./src/routes/category");
+const requestRoutes = require("./src/routes/request");
+const trailerLocationRoutes = require("./src/routes/trailerLocation");
+const spotRoutes = require("./src/routes/spots");
+const search = require("./src/routes/search");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

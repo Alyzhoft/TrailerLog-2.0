@@ -8,6 +8,7 @@ import AddModal from '../components/Modals/AddModal';
 import EditModal from '../components/Modals/EditModal';
 import TempModal from '../components/Modals/TempModal';
 import LotMoveModal from '../components/Modals/LotMoveModal';
+import Lot from '../components/Lot/Lot';
 
 type Props = RouteComponentProps & {
 	trailers: Trailer[];
@@ -38,6 +39,8 @@ export default function PrimaryLot({ path, trailers }: Props) {
 
 				const tempSpots: any[] = [...trailerLocations[i].Lot.Spots];
 
+				const full = [...tempSpots];
+
 				const bh = tempSpots.splice(0, 4);
 				const rv = tempSpots.splice(0, 35).reverse();
 				const th = tempSpots.splice(0, 50).reverse();
@@ -47,6 +50,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 
 				setSpots({
 					LotSpots: {
+						full,
 						bh,
 						rv,
 						th,
@@ -116,7 +120,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 					/>
 				) : null}
 
-				<div className=" flex flex-col justify-end items-end w-1/12 h-full mt-10 space-y-1">
+				<div className=" hidden building:block flex-col justify-end items-end w-1/12 h-full mt-10 space-y-1">
 					{spots.LotSpots.lv.map((i: any, k: any) => {
 						return (
 							<VerticalSpot
@@ -133,7 +137,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 					})}
 				</div>
 
-				<div className="w-full h-screen mt-5">
+				<div className="hidden building:block w-full h-screen mt-5">
 					<div className=" flex flex-col justify-between w-full h-1/2">
 						<div className=" w-full h-1/4 flex justify-center space-x-1">
 							{spots.LotSpots.th.map((i: any, k: any) => {
@@ -208,7 +212,7 @@ export default function PrimaryLot({ path, trailers }: Props) {
 					</div>
 				</div>
 
-				<div className="w-1/12 h-full space-y-1 ml-5 mt-10">
+				<div className="hidden building:block w-1/12 h-full space-y-1 ml-5 mt-10">
 					{spots.LotSpots.rv.map((i: any, k: any) => {
 						return (
 							<VerticalSpot
@@ -223,6 +227,29 @@ export default function PrimaryLot({ path, trailers }: Props) {
 							/>
 						);
 					})}
+				</div>
+
+				<div className="building:hidden w-full h-full mt-5 ">
+					<h1 className="text-4xl font-bold">Primary Lot</h1>
+					<div className="border-black border-t-2">
+						<Lot
+							spots={spots.LotSpots.full}
+							lot={TrailerLocation.PRIMARY}
+							trailers={trailers}
+							spotClicked={(spot) => setSpotClicked(spot)}
+							trailerClicked={(trailer: Trailer) => {
+								setSelectedTrailer(trailer);
+							}}
+							addOpen={() => {
+								// setTrailerLocation(TrailerLocation.SECONDARY);
+								setAddOpen(true);
+							}}
+							tempModal={() => {
+								// setOutRequest(false);
+								setTempModal(true);
+							}}
+						/>
+					</div>
 				</div>
 			</div>
 		);

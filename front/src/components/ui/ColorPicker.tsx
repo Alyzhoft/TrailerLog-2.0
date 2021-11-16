@@ -28,6 +28,10 @@ export default function ColorPicker({ setColor, open, color }: Props) {
 		}
 	}
 
+	function genColor(color: string, variant: number) {
+		return `bg-${color}-${variant}`;
+	}
+
 	useEffect(() => {
 		if (color) {
 			setCurrentColor(color);
@@ -97,10 +101,8 @@ export default function ColorPicker({ setColor, open, color }: Props) {
 														<div>
 															<div
 																onClick={() => selectColor(color, variant)}
-																className={classNames(
-																	'cursor-pointer w-6 h-6 rounded-full mx-1 my-1',
-																	`bg-${color}-${variant}`,
-																)}
+																className={`cursor-pointer w-6 h-6 rounded-full mx-1 my-1
+																	${genColor(color, variant)}`}
 															></div>
 														</div>
 													);

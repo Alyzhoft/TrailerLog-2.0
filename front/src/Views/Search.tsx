@@ -19,7 +19,9 @@ const screenHeight = {
 
 async function getAll() {
 	try {
-		const res = await axios.get(`http://localhost:4000/api/search?page=1&limit=25`);
+		const res = await axios.get(
+			`https://trailermanagementbe-stage.azurewebsites.net/api/search?page=1&limit=25`,
+		);
 		return res.data;
 	} catch (e) {
 		alert(e);
@@ -56,7 +58,7 @@ async function search(
 			query.append('category', category);
 		}
 
-		var url = 'http://localhost:4000/api/search?' + query.toString();
+		var url = 'https://trailermanagementbe-stage.azurewebsites.net/api/search?' + query.toString();
 
 		const res = await axios.get(url);
 		return res.data;
