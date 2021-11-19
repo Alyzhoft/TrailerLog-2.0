@@ -1,5 +1,5 @@
 import React from 'react';
-import socketio from 'socket.io-client';
+import { io } from 'socket.io-client';
 
-export const socket = socketio('https://trailermanagementbe-stage.azurewebsites.net');
+export const socket = io(`${process.env.REACT_APP_SOCKET_URL}`);
 export const SocketContext = React.createContext(socket);
