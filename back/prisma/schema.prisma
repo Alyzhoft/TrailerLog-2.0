@@ -11,6 +11,11 @@ generator client {
   binaryTargets = ["native", "windows"]
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output   = "../ERD.pdf"
+}
+
 // enum TrailerLocation {
 //   PRIMARY
 //   SECONDARY
@@ -91,9 +96,9 @@ model View {
   Plant     Plant    @relation(fields: [plantId], references: [id])
   plantId   Int
   Dock      Dock?    @relation(fields: [dockId], references: [id])
-  dockId    Int?
+  dockId    Int?     @unique
   Lot       Lot?     @relation(fields: [lotId], references: [id])
-  lotId     Int?
+  lotId     Int?     @unique
 }
 
 model Dock {
@@ -131,7 +136,7 @@ model Spots {
   updatedAt DateTime @updatedAt
   name      String
   trailer   Trailer? @relation(fields: [trailerId], references: [id])
-  trailerId Int?
+  trailerId Int?     @unique
   Dock      Dock?    @relation(fields: [dockId], references: [id])
   dockId    Int?
   Lot       Lot?     @relation(fields: [lotId], references: [id])
